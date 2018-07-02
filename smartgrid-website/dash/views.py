@@ -4,6 +4,7 @@ from django.template import loader
 
 
 from .models import Readings
+from .models import Neighborhood
 
 # Create your views here.
 def index(request):
@@ -27,4 +28,12 @@ def statistics(request):
     return render(request, 'dash/statistics.html', context)
 
 def comparisons(request):
-    return HttpResponse("You're looking at data comparisons.")
+    readings_list = Readings.objects.all()
+    num_readings = len(readings_list)
+    neighborhoods_greater_25 = Neighborhood.objects.filter(neighborhood_consumption__gt=25)
+    neighborhoods_less_25 = Neighborhood.objects.filter(neighborhood_consumption__lte=25)
+    num_neighborhoods_greater_25 = len(neighborhoods_greater_25)
+    num_neighborhoods_less_25 = len(neighborhoods_less_25)
+    template = loader.get_template('dash/comparisons.html')
+    context = {'num_readings': num_readings, 'num_neighborhoods_less_25': num_neighborhoods_less_25, 'num_neighborhoods_greater_25': num_neighborhoods_greater_25,}
+    return render(request, 'dash/comparisons.html', context)
