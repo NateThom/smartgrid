@@ -17,7 +17,14 @@ def visualization(request):
     return render(request, 'dash/visualization.html')
 
 def statistics(request):
-    return HttpResponse("You're looking at data statistics.")
+    readings_list = Readings.objects.all()
+    sum_readings = 0
+    for reading in readings_list:
+        sum_readings = reading.kWh + sum_readings
+    mean_readings = sum_readings/len(readings_list)
+    template = loader.get_template('dash/statistics.html')
+    context = {'mean_readings': mean_readings, 'sum_readings': sum_readings,}
+    return render(request, 'dash/statistics.html', context)
 
 def comparisons(request):
     return HttpResponse("You're looking at data comparisons.")

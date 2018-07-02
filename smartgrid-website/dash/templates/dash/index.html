@@ -1,11 +1,7 @@
-<h1>Five highest kWh readings</h1>
+<h1>Smartgrid Dashboard</h1>
 
-{% if largest_readings_list %}
-    <ul>
-    {% for reading in largest_readings_list %}
-        <li>{{reading.house_id}}: {{reading.kWh}}</li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No readings are available.</p>
-{% endif %}
+<ul>
+  <li><a href="statistics/">Statistics</a></li>
+  <li><a href="comparisons/">Comparisons</a></li>
+  <li><a href="visualization/">Visualizations</a></li>
+</ul>
