@@ -1,6 +1,6 @@
-from django.shortcuts import HttpResponse
 from django.shortcuts import render
 from django.template import loader
+from django.db.models import Count, Q
 
 
 from .models import Readings
@@ -14,8 +14,13 @@ def index(request):
     return render(request, 'dash/index.html', context)
 
 def visualization(request):
-    template = loader.get_template('dash/visualization.html')
-    return render(request, 'dash/visualization.html')
+    dataset = Readings.objects \
+        .values('date_time', 'kWh') \
+        .annotate(positive_usage_count=Count('kWh', filter=Q(kWh__gt=0)),
+            no_usage_count=Count('kWh', filter=Q(kWh__lte=0))) \
+        .order_by('date_time')
+    context = {'dataset': dataset,}
+    return render(request, 'dash/visualization.html', context)
 
 def statistics(request):
     readings_list = Readings.objects.all()

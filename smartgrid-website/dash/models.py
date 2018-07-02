@@ -83,6 +83,7 @@ class Appliance(models.Model):
         return str(self.region_id_id)+"/"+str(self.aggregator_id_id)+"//"+str(self.neighborhood_id_id)+"///"+str(self.house_id_id)+"////"+str(self.appliance_id)
 
 class Readings(models.Model):
+    reading_id = models.AutoField(primary_key=True)
     date_time = models.CharField(max_length=19)
     house_id = models.ForeignKey('House', on_delete=models.CASCADE,)
     neighborhood_id = models.ForeignKey('Neighborhood', on_delete=models.CASCADE,)
@@ -94,6 +95,7 @@ class Readings(models.Model):
     class Meta:
         unique_together = ((
         "date_time",
+        "reading_id",
         "house_id",
         "neighborhood_id",
         "aggregator_id",
@@ -102,4 +104,4 @@ class Readings(models.Model):
         "outdoor_temp"
         ),)
     def __str__(self):
-        return str(self.region_id_id)+"/"+str(self.aggregator_id_id)+"//"+str(self.neighborhood_id_id)+"///"+str(self.house_id_id)+"////"+str(self.date_time)
+        return str(self.region_id_id)+"/"+str(self.aggregator_id_id)+"//"+str(self.neighborhood_id_id)+"///"+str(self.house_id_id)+"////"+str(self.reading_id)
