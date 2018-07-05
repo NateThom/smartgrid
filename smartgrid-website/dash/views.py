@@ -29,8 +29,11 @@ def statistics(request):
         sum_readings = reading.kWh + sum_readings
     mean_readings = sum_readings/len(readings_list)
     template = loader.get_template('dash/statistics.html')
-    context = {'mean_readings': mean_readings, 'sum_readings': sum_readings,}
+    context = {'readings_list': readings_list, 'mean_readings': mean_readings, 'sum_readings': sum_readings,}
     return render(request, 'dash/statistics.html', context)
+
+def mean_statistic(request):
+    return render(request, 'dash/mean_statistic.html')
 
 def comparisons(request):
     readings_list = Readings.objects.all()

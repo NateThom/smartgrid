@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path
 
 from . import views
 
@@ -12,6 +12,8 @@ urlpatterns = [
 
     # ex: /dash/statistics/
     path('statistics/', views.statistics, name='statistics'),
+    # ex: /dash/statistics/?metric=consumption&data=neighborhood
+    re_path(r'^mean_statistic/$', views.mean_statistic),
 
     # ex: /dash/comparisons/
     path('comparisons/', views.comparisons, name='comparisons'),
