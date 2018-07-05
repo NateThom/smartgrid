@@ -1,10 +1,3 @@
-<h1>Smart Grid Statistics</h1>
-<ul>
-  <li>Total kWh in grid: {{sum_readings}}</li>
-  <li>Mean kWh per house per hour: {{mean_readings}}</li>
-</ul>
-
-
 <h1>Mean Selector</h1>
 <form action = "/dash/mean_statistic/" method = "get" target="_self">
    Metric:
@@ -14,13 +7,22 @@
       <br>
 
   Data:
-  <input type = "radio" name="data" value = "region"> Region/>
-  <input type = "radio" name="data" value = "aggregator"> Aggregator/>
-  <input type = "radio" name="data" value = "neighborhood"> Neighborhood/>
-  <input type = "radio" name="data" value = "house"> House/>
-  <input type = "radio" name="data" value = "appliance"> Appliance/>
-  <input type = "radio" name="data" value = "reading"> Reading/>
+  <input type = "radio" name="data" value = "Region"> Region/>
+  <input type = "radio" name="data" value = "Aggregator"> Aggregator/>
+  <input type = "radio" name="data" value = "Neighborhood"> Neighborhood/>
+  <input type = "radio" name="data" value = "House"> House/>
+  <input type = "radio" name="data" value = "Appliance"> Appliance/>
+  <input type = "radio" name="data" value = "Readings"> Reading/>
   <br>
 
   <input type = "submit" value = "Submit" />
+</form>
+
+<p>{{mean_items}}</p>
+{% if mean_items %}
+<p>Mean {{metric}} per {{data}} = {{mean_items}}</p>
+{% endif %}
+
+<form action="/dash/statistics/">
+  <input type="submit" value="Reset" />
 </form>

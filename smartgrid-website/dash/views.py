@@ -3,8 +3,7 @@ from django.template import loader
 from django.db.models import Count, Q
 
 
-from .models import Readings
-from .models import Neighborhood
+from .models import Region, Aggregator, Neighborhood, House, Readings, Appliance, Appliance_Type
 
 # Create your views here.
 def index(request):
@@ -23,17 +22,26 @@ def visualization(request):
     return render(request, 'dash/visualization.html', context)
 
 def statistics(request):
-    readings_list = Readings.objects.all()
-    sum_readings = 0
-    for reading in readings_list:
-        sum_readings = reading.kWh + sum_readings
-    mean_readings = sum_readings/len(readings_list)
+    mean_items = 0
     template = loader.get_template('dash/statistics.html')
-    context = {'readings_list': readings_list, 'mean_readings': mean_readings, 'sum_readings': sum_readings,}
+    context = {'mean_items': mean_items,}
     return render(request, 'dash/statistics.html', context)
 
 def mean_statistic(request):
-    return render(request, 'dash/mean_statistic.html')
+    metric = request.GET['metric']
+    data = request.GET['data']
+    if(metric == "consumption"):
+        metric = data.lower()+"_"+metric
+
+    list = eval(data).objects.all()
+    sum_items = 0
+    for item in list:
+        temp = eval("item"+"."+metric)
+        sum_items = temp + sum_items
+    mean_items = sum_items/len(list)
+    template = loader.get_template('dash/statistics.html')
+    context = {'list': list, 'mean_items': mean_items, 'sum_items': sum_items, 'metric': metric, 'data': data,}
+    return render(request, 'dash/statistics.html', context)
 
 def comparisons(request):
     readings_list = Readings.objects.all()
