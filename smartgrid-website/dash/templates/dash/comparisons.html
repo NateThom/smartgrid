@@ -4,3 +4,27 @@
   <li>Number of neighborhoods with consumption greater than 25: {{num_neighborhoods_greater_25}}</li>
   <li>Number of neighborhoods with consumption less than or equal to 25: {{num_neighborhoods_less_25}}</li>
 </ul>
+
+<h1>Number of ...</h1>
+<form action = "/dash/number_of_comparison/" method = "get" target="_self">
+  Data:
+  <input type = "radio" name="data" value = "Region"> Region</input>
+  <input type = "radio" name="data" value = "Aggregator"> Aggregator</input>
+  <input type = "radio" name="data" value = "Neighborhood"> Neighborhood</input>
+  <input type = "radio" name="data" value = "House"> House</input>
+  <input type = "radio" name="data" value = "Appliance"> Appliance</input>
+  <input type = "radio" name="data" value = "Readings"> Reading</input>
+  <br>
+
+  <input type = "submit" value = "Submit"></input>
+</form>
+
+{% if number_of %}
+  <p>Number of {{data}}s = {{number_of}}</p>
+{% else %}
+  <p>Something went wrong. Please try again.</p>
+{% endif %}
+
+<form action="/dash/statistics/">
+  <input type="submit" value="Reset" />
+</form>

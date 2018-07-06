@@ -30,6 +30,16 @@ def statistics(request):
 def mean_statistic(request):
     metric = request.GET['metric']
     data = request.GET['data']
+    if((metric == "consumption" and data == "Readings")):
+        template = loader.get_template('dash/statistics.html')
+        context = {'mean_items': -1, "metric": metric, "data": data,}
+        return render(request, 'dash/statistics.html', context)
+
+    if((metric == "kWh" and data != "Readings") or (metric == "outdoor_temp" and data != "Readings")):
+        template = loader.get_template('dash/statistics.html')
+        context = {'mean_items': -1, "metric": metric, "data": data,}
+        return render(request, 'dash/statistics.html', context)
+
     if(metric == "consumption"):
         metric = data.lower()+"_"+metric
 
@@ -52,4 +62,12 @@ def comparisons(request):
     num_neighborhoods_less_25 = len(neighborhoods_less_25)
     template = loader.get_template('dash/comparisons.html')
     context = {'num_readings': num_readings, 'num_neighborhoods_less_25': num_neighborhoods_less_25, 'num_neighborhoods_greater_25': num_neighborhoods_greater_25,}
+    return render(request, 'dash/comparisons.html', context)
+
+def number_of_comparison(request):
+    data = request.GET['data']
+    list = eval(data).objects.all()
+    number_of = len(list)
+    template = loader.get_template('dash/comparisons.html')
+    context = {'number_of': number_of, 'data': data,}
     return render(request, 'dash/comparisons.html', context)

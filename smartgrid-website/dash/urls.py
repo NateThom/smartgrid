@@ -17,4 +17,6 @@ urlpatterns = [
 
     # ex: /dash/comparisons/
     path('comparisons/', views.comparisons, name='comparisons'),
+    # ex: /dash/comparisons/?data=neighborhood
+    re_path(r'^number_of_comparison/$', views.number_of_comparison),
 ]
