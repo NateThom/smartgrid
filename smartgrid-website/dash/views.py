@@ -13,12 +13,16 @@ def index(request):
     return render(request, 'dash/index.html', context)
 
 def visualization(request):
-    dataset = Readings.objects \
-        .values('date_time', 'kWh') \
-        .annotate(positive_usage_count=Count('kWh', filter=Q(kWh__gt=0)),
-            no_usage_count=Count('kWh', filter=Q(kWh__lte=0))) \
-        .order_by('date_time')
-    context = {'dataset': dataset,}
+    house_dataset = House.objects \
+        .values('house_consumption', 'house_id') \
+        .order_by('house_id')
+    region_dataset = Region.objects \
+        .values('region_consumption', 'region_id') \
+        .order_by('region_id')
+    len_house_dataset = []
+    for house in range(1, len(house_dataset)):
+        len_house_dataset.append(house)
+    context = {'house_dataset': house_dataset, 'region_dataset': region_dataset, 'len_house_dataset': len_house_dataset,}
     return render(request, 'dash/visualization.html', context)
 
 def statistics(request):
