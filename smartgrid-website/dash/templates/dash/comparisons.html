@@ -1,11 +1,6 @@
 <h1>Smartgrid Comparisons</h1>
-<ul>
-  <li>Number of readings: {{num_readings}}</li>
-  <li>Number of neighborhoods with consumption greater than 25: {{num_neighborhoods_greater_25}}</li>
-  <li>Number of neighborhoods with consumption less than or equal to 25: {{num_neighborhoods_less_25}}</li>
-</ul>
 
-<h1>Number of ...</h1>
+<h2>Number of ...</h2>
 <form action = "/dash/number_of_comparison/" method = "get" target="_self">
   Data:
   <input type = "radio" name="data" value = "Region"> Region</input>
@@ -20,11 +15,11 @@
 </form>
 
 {% if number_of %}
-  <p>Number of {{data}}s = {{number_of}}</p>
+  <p>Number of {{data}} = {{number_of}}</p>
 {% else %}
-  <p>Something went wrong. Please try again.</p>
+  <p>Number of {{data}} = {{number_of}}</p>
 {% endif %}
 
-<form action="/dash/statistics/">
+<form action="/dash/comparisons/">
   <input type="submit" value="Reset" />
 </form>

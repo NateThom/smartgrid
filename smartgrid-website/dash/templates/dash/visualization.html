@@ -1,6 +1,41 @@
 <h1>Smart Grid Visualizations</h1>
 
-<div id="container"></div>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/heatmap.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+
+<div id="container" style="height: 400px; min-width: 310px; max-width: 800px; margin: 0 auto"></div>
+<script>
+  Highcharts.chart('container', {
+      chart: {
+          type: 'heatmap'
+      },
+      title: {
+          text: 'Readings By Positive Usage Or No Usage'
+      },
+      xAxis: {
+          categories: [
+            {% for entry in dataset %}'{{ entry.date_time }} Class'{% if not forloop.last %}, {% endif %}{% endfor %}
+          ]
+      },
+      series: [{
+          name: 'Positive Usage',
+          data: [
+            {% for entry in dataset %}{{ entry.positive_usage_count }}{% if not forloop.last %}, {% endif %}{% endfor %}
+          ],
+          color: 'green'
+      }, {
+          name: 'No Usage',
+          data: [
+            {% for entry in dataset %}{{ entry.no_usage_count }}{% if not forloop.last %}, {% endif %}{% endfor %}
+          ],
+          color: 'red'
+      }]
+  });
+</script>
+
+<!-- <div id="container"></div>
 <script src="https://code.highcharts.com/highcharts.src.js"></script>
 <script>
   Highcharts.chart('container', {
@@ -29,4 +64,4 @@
           color: 'red'
       }]
   });
-</script>
+</script> -->
