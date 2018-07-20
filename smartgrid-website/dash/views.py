@@ -2,28 +2,16 @@ from django.shortcuts import render
 from django.template import loader
 from django.db.models import Count, Q
 
-
 from .models import Region, Aggregator, Neighborhood, House, Readings, Appliance, Appliance_Type
 
 # Create your views here.
-def index(request):
-    largest_readings_list = Readings.objects.order_by('-kWh')[:5]
-    template = loader.get_template('dash/index.html')
-    context = {'largest_readings_list': largest_readings_list,}
-    return render(request, 'dash/index.html', context)
+def dash(request):
+    context = {}
+    return render(request, 'dash/dash.html', context)
 
-def visualization(request):
-    house_dataset = House.objects \
-        .values('house_consumption', 'house_id') \
-        .order_by('house_id')
-    region_dataset = Region.objects \
-        .values('region_consumption', 'region_id') \
-        .order_by('region_id')
-    len_house_dataset = []
-    for house in range(1, len(house_dataset)):
-        len_house_dataset.append(house)
-    context = {'house_dataset': house_dataset, 'region_dataset': region_dataset, 'len_house_dataset': len_house_dataset,}
-    return render(request, 'dash/visualization.html', context)
+def dash_statistics_mean(request):
+    context = {}
+    return render(request, 'dash/dash_statistics_mean.html', context)
 
 def statistics(request):
     mean_items = 0
@@ -56,6 +44,19 @@ def mean_statistic(request):
     template = loader.get_template('dash/statistics.html')
     context = {'list': list, 'mean_items': mean_items, 'sum_items': sum_items, 'metric': metric, 'data': data,}
     return render(request, 'dash/statistics.html', context)
+
+def visualization(request):
+    house_dataset = House.objects \
+        .values('house_consumption', 'house_id') \
+        .order_by('house_id')
+    region_dataset = Region.objects \
+        .values('region_consumption', 'region_id') \
+        .order_by('region_id')
+    len_house_dataset = []
+    for house in range(1, len(house_dataset)):
+        len_house_dataset.append(house)
+    context = {'house_dataset': house_dataset, 'region_dataset': region_dataset, 'len_house_dataset': len_house_dataset,}
+    return render(request, 'dash/visualization.html', context)
 
 def comparisons(request):
     readings_list = Readings.objects.all()
