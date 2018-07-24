@@ -1,3 +1,6 @@
+import json
+
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import loader
 from django.db.models import Count, Q
@@ -13,19 +16,12 @@ def dash_statistics_mean(request):
     context = {}
     return render(request, 'dash/dash_statistics_mean.html', context)
 
-def statistics(request):
-    mean_items = 0
-    template = loader.get_template('dash/statistics.html')
-    context = {'mean_items': mean_items,}
-    return render(request, 'dash/statistics.html', context)
-
 def mean_statistic(request):
     metric = request.GET['metric']
     data = request.GET['data']
     if((metric == "consumption" and data == "Readings")):
-        template = loader.get_template('dash/statistics.html')
-        context = {'mean_items': -1, "metric": metric, "data": data,}
-        return render(request, 'dash/statistics.html', context)
+        data = json.dumps({'mean_items': -1, 'metric': metric, 'data': data,})
+        return HttpResponse(data, content_type='application/json')
 
     if((metric == "kWh" and data != "Readings") or (metric == "outdoor_temp" and data != "Readings")):
         template = loader.get_template('dash/statistics.html')
@@ -43,6 +39,12 @@ def mean_statistic(request):
     mean_items = sum_items/len(list)
     template = loader.get_template('dash/statistics.html')
     context = {'list': list, 'mean_items': mean_items, 'sum_items': sum_items, 'metric': metric, 'data': data,}
+    return render(request, 'dash/statistics.html', context)
+
+def statistics(request):
+    mean_items = 0
+    template = loader.get_template('dash/statistics.html')
+    context = {'mean_items': mean_items,}
     return render(request, 'dash/statistics.html', context)
 
 def visualization(request):

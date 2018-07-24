@@ -1,5 +1,8 @@
 {% extends "dash/dash.html" %}
 
+<!-- library block imports jquery library which makes some of the scripts below work -->
+{% block library %} <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> {% endblock library %}
+
 {% block statistic %}
   <h3>Mean</h3>
   <form id="mean_statistic" action = "/dash/mean_statistic/" method = "get">
@@ -18,7 +21,7 @@
     <input type = "radio" name="data" value = "Readings"> Reading</input>
     <br>
 
-    <input type = "submit" value = "Submit"  target="_self"/>
+    <input type = "submit" value = "Find Mean"/>
   </form>
 
   {% if mean_items >= 1 %}
@@ -28,18 +31,25 @@
   <p>{{data}} does not have a {{metric}} field. Please try again.</p>
   {% endif %}
 
-  <form action="/dash/statistics/">
+  <form id="reset" action="/dash/dash_statistics_mean/">
     <input type="submit" value="Reset" />
   </form>
 {% endblock statistic %}
 
 {% block statistic_javascript %}
-  <script type = 'text/javascript'>
-    $("mean_statistic").submit(function(event){
-      event.preventDefault();
+<script>
+//Stop the submit button for normal function and call AJAX function
+  // calculate mean on submit of mean_statistic form
+  $('#mean_statistic').on('submit', function(event){
+    event.preventDefault();
+    console.log("form submitted!")  // sanity check
+    mean_statistic();
+  });
 
-      var $form = $( this ),
-        url = $form.attr( 'action' )
-    })
-  </script>
+  //AJAX function for finding mean statistic. Allows for data to change without page reloading
+  function mean_statistic(){
+    console.log("mean_statistic is working!") //sanity check
+    console.log($('#House-house_id').val())
+  }
+</script>
 {% endblock statistic_javascript %}

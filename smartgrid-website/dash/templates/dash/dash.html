@@ -3,21 +3,17 @@
   <head>
     <meta charset="utf-8">
     <title>{% block title %}Smartgrid Dash{% endblock title %}</title>
+    {% block library %}{% endblock library %}
   </head>
   <body>
-    <main>
-      <h1>Smartgrid Dash</h1>
-      <h2>Smartgrid Statistics</h2>
-      <form action = "/dash/dash_statistics_mean/" method = "get">
-        <input type = "submit" value = "Mean"  target="_self"/>
-      </form>
-      {% block statistic %}
-      {% endblock statistic %}
-      {% block statistic_javascript %}
-      {% endblock statistic_javascript %}
-    </main>
+    <h1>Smartgrid Dash</h1>
+    <h2>Smartgrid Statistics</h2>
+    <form action = "/dash/dash_statistics_mean/" method = "get">
+      <input type = "submit" value = "Mean"  target="_self"/>
+    </form>
+    {% block statistic %}
+    {% endblock statistic %}
+    {% block statistic_javascript %}
+    {% endblock statistic_javascript %}
   </body>
-
-
-
 </html>

@@ -7,7 +7,11 @@ urlpatterns = [
     # ex: /dash/
     path('', views.dash, name='dash'),
 
+    # ex: /dash/dash_statistics_mean/
     path('dash_statistics_mean/', views.dash_statistics_mean, name='dash_statistics_mean'),
+
+    # ex: still need to discover
+    re_path(r'^mean_statistic/$', views.mean_statistic, name='mean_statistic'),
 
     # ex: /dash/visualization/
     path('visualization/', views.visualization, name='visualization'),
@@ -15,7 +19,6 @@ urlpatterns = [
     # ex: /dash/statistics/
     path('statistics/', views.statistics, name='statistics'),
     # ex: /dash/statistics/?metric=consumption&data=neighborhood
-    re_path(r'^mean_statistic/$', views.mean_statistic),
 
     # ex: /dash/comparisons/
     path('comparisons/', views.comparisons, name='comparisons'),
