@@ -1,11 +1,19 @@
 import json
 
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.template import loader
 from django.db.models import Count, Q
 
 from .models import Region, Aggregator, Neighborhood, House, Readings, Appliance, Appliance_Type
+from .forms import MeanStatistic
+
+#test
+def mean_stat(request):
+    if request.method == 'GET':
+        form = MeanStatistic(request.GET)
+        if form.is_valid():
+            return HttpResponseRedirect('/dash/')
 
 # Create your views here.
 def dash(request):

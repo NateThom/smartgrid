@@ -7,6 +7,8 @@ urlpatterns = [
     # ex: /dash/
     path('', views.dash, name='dash'),
 
+    path('dash/statistics/', views.mean_stat, name='mean'),
+
     # ex: /dash/dash_statistics_mean/
     path('dash_statistics_mean/', views.dash_statistics_mean, name='dash_statistics_mean'),
 

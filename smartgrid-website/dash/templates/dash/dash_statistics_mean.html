@@ -5,7 +5,7 @@
 
 {% block statistic %}
   <h3>Mean</h3>
-  <form id="mean_statistic" action = "/dash/mean_statistic/" method = "get">
+  <form id="mean-statistic" action = "/dash/mean_statistic/" method = "get">
      Metric:
         <input type = "radio" name="metric" value = "consumption"> Consumption</input>
         <input type = "radio" name="metric" value = "kWh"> kWh</input>
@@ -40,7 +40,7 @@
 <script>
 //Stop the submit button for normal function and call AJAX function
   // calculate mean on submit of mean_statistic form
-  $('#mean_statistic').on('submit', function(event){
+  $('#mean-statistic').on('submit', function(event){
     event.preventDefault();
     console.log("form submitted!")  // sanity check
     mean_statistic();
@@ -49,7 +49,7 @@
   //AJAX function for finding mean statistic. Allows for data to change without page reloading
   function mean_statistic(){
     console.log("mean_statistic is working!") //sanity check
-    console.log($('#House-house_id').val())
+    console.log($('#post-text').val())
   }
 </script>
 {% endblock statistic_javascript %}
