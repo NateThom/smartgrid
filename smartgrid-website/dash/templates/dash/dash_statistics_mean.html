@@ -5,20 +5,28 @@
 
 {% block statistic %}
   <h3>Mean</h3>
-  <form id="mean-statistic" action = "/dash/mean_statistic/" method = "get">
-     Metric:
-        <input type = "radio" name="metric" value = "consumption"> Consumption</input>
-        <input type = "radio" name="metric" value = "kWh"> kWh</input>
-        <input type = "radio" name="metric" value = "outdoor_temp"> Outdoor Temperature</input>
-        <br>
+  <form id="mean_statistic_form" action = "/dash/mean_statistic/" method = "get">
+    <strong>Time Frame:</strong>
+      <input type = "radio" name="time" value = "Year"> Region</input>
+      <input type = "radio" name="time" value = "Month"> Aggregator</input>
+      <input type = "radio" name="time" value = "Week"> Neighborhood</input>
+      <input type = "radio" name="time" value = "Day"> House</input>
+      <input type = "radio" name="time" value = "Hour"> Appliance</input>
+    <br>
 
-    Data:
-    <input type = "radio" name="data" value = "Region"> Region</input>
-    <input type = "radio" name="data" value = "Aggregator"> Aggregator</input>
-    <input type = "radio" name="data" value = "Neighborhood"> Neighborhood</input>
-    <input type = "radio" name="data" value = "House"> House</input>
-    <input type = "radio" name="data" value = "Appliance"> Appliance</input>
-    <input type = "radio" name="data" value = "Readings"> Reading</input>
+    <strong>Metric:</strong>
+      <input type = "radio" name="metric" value = "consumption"> Consumption</input>
+      <input type = "radio" name="metric" value = "outdoor_temp"> Outdoor Temperature</input>
+      <input type = "radio" name="metric" value = "type_id"> Appliance_Type</input>
+    <br>
+
+    <strong>Data:</strong>
+      <input type = "radio" name="data" value = "Region"> Region</input>
+      <input type = "radio" name="data" value = "Aggregator"> Aggregator</input>
+      <input type = "radio" name="data" value = "Neighborhood"> Neighborhood</input>
+      <input type = "radio" name="data" value = "House"> House</input>
+      <input type = "radio" name="data" value = "Appliance"> Appliance</input>
+      <input type = "radio" name="data" value = "Readings"> Reading</input>
     <br>
 
     <input type = "submit" value = "Find Mean"/>
@@ -40,16 +48,30 @@
 <script>
 //Stop the submit button for normal function and call AJAX function
   // calculate mean on submit of mean_statistic form
-  $('#mean-statistic').on('submit', function(event){
+  $('#mean_statistic_form').on('submit', function(event){
     event.preventDefault();
     console.log("form submitted!")  // sanity check
-    mean_statistic();
+    mean_statistic_function();
   });
 
   //AJAX function for finding mean statistic. Allows for data to change without page reloading
-  function mean_statistic(){
-    console.log("mean_statistic is working!") //sanity check
-    console.log($('#post-text').val())
-  }
+  function mean_statistic_function(){
+    console.log("mean_statistic_function is working!") //sanity check
+    $.ajax({
+        url: "dash/mean_statistic/",
+        type: "GET",
+        data: { metric: $('input[name=metric]:checked', '#mean_statistic_form').val(), data: $('input[name=data]:checked', '#mean_statistic_form').val()},
+
+        success: function(json){
+          console.log(json);
+          console.log("success");
+        },
+
+        error: function(xhr,errmsg,err){
+          console.log(xhr.status + ": " + xhr.responseText);
+        }
+      }
+    });
+  };
 </script>
 {% endblock statistic_javascript %}
