@@ -19,30 +19,47 @@ def dash_statistics_mean(request):
     return render(request, 'dash/dash_statistics_mean.html', context)
 
 def mean_statistic(request):
-    metric = request.GET['metric']
-    data = request.GET['data']
-    if((metric == "consumption" and data == "Readings")):
-        #template = loader.get_template('dash/dash_statistics_mean.html')
-        context = {'mean_items': -1, "metric": metric, "data": data,}
+    if("time" in request.GET):
+        time = request.GET['time']
+    else:
+        time = "no_input"
+    if("metric" in request.GET):
+        metric = request.GET['metric']
+    else:
+        metric = "no_input"
+    if("data" in request.GET):
+        data = request.GET['data']
+    else:
+        data = "no_input"
+
+    if(time == "no_input" and metric == "no_input" and data == "no_input"):
+        context = {'message': "No user input submitted.", 'time': time, 'metric': metric, 'data': data,}
         return render(request, 'dash/dash_statistics_mean.html', context)
+    #elif(time != "no_input" and metric != "no_input" and data != "no_input"):
 
-    if((metric == "kWh" and data != "Readings") or (metric == "outdoor_temp" and data != "Readings")):
-        #template = loader.get_template('dash/dash_statistics_mean.html')
-        context = {'mean_items': -1, "metric": metric, "data": data,}
-        return render(request, 'dash/dash_statistics_mean.html', context)
 
-    if(metric == "consumption"):
-        metric = data.lower()+"_"+metric
-
-    list = eval(data).objects.all()
-    sum_items = 0
-    for item in list:
-        temp = eval("item"+"."+metric)
-        sum_items = temp + sum_items
-    mean_items = sum_items/len(list)
-    #template = loader.get_template('dash/dash_statistics_mean.html')
-    context = {'list': list, 'mean_items': mean_items, 'sum_items': sum_items, 'metric': metric, 'data': data,}
-    return render(request, 'dash/dash_statistics_mean.html', context)
+    # if((metric == "consumption" and data == "Readings")):
+    #     #template = loader.get_template('dash/dash_statistics_mean.html')
+    #     context = {'mean_items': -1, "metric": metric, "data": data,}
+    #     return render(request, 'dash/dash_statistics_mean.html', context)
+    #
+    # if((metric == "kWh" and data != "Readings") or (metric == "outdoor_temp" and data != "Readings")):
+    #     #template = loader.get_template('dash/dash_statistics_mean.html')
+    #     context = {'mean_items': -1, "metric": metric, "data": data,}
+    #     return render(request, 'dash/dash_statistics_mean.html', context)
+    #
+    # if(metric == "consumption"):
+    #     metric = data.lower()+"_"+metric
+    #
+    # list = eval(data).objects.all()
+    # sum_items = 0
+    # for item in list:
+    #     temp = eval("item"+"."+metric)
+    #     sum_items = temp + sum_items
+    # mean_items = sum_items/len(list)
+    # #template = loader.get_template('dash/dash_statistics_mean.html')
+    # context = {'list': list, 'mean_items': mean_items, 'sum_items': sum_items, 'time': time, 'metric': metric, 'data': data,}
+    # return render(request, 'dash/dash_statistics_mean.html', context)
 
 def visualization(request):
     house_dataset = House.objects \

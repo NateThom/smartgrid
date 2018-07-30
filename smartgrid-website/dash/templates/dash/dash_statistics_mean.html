@@ -7,11 +7,11 @@
   <h3>Mean</h3>
   <form id="mean_statistic_form" action = "/dash/mean_statistic/" method = "get">
     <strong>Time Frame:</strong>
-      <input type = "radio" name="time" value = "Year"> Region</input>
-      <input type = "radio" name="time" value = "Month"> Aggregator</input>
-      <input type = "radio" name="time" value = "Week"> Neighborhood</input>
-      <input type = "radio" name="time" value = "Day"> House</input>
-      <input type = "radio" name="time" value = "Hour"> Appliance</input>
+      <input type = "radio" name="time" value = "Year"> Year</input>
+      <input type = "radio" name="time" value = "Month"> Month</input>
+      <input type = "radio" name="time" value = "Week"> Week</input>
+      <input type = "radio" name="time" value = "Day"> Day</input>
+      <input type = "radio" name="time" value = "Hour"> Hour</input>
     <br>
 
     <strong>Metric:</strong>
@@ -31,6 +31,9 @@
 
     <input type = "submit" value = "Find Mean"/>
   </form>
+
+  <p>{{time}} {{metric}} {{data}}</p>
+  <p><strong>Message: </strong> {{message}}</p>
 
   {% if mean_items >= 1 %}
     <p>Mean {{metric}} per {{data}} = {{mean_items}}</p>
