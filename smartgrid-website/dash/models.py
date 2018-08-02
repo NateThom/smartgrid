@@ -48,7 +48,10 @@ from django.db import models
 class Reading(models.Model):
     reading_id = models.AutoField(primary_key=True)
 
-    date = models.DateTimeField()
+    year = models.ForeignKey('Year', null=True, on_delete=models.DO_NOTHING)
+    month = models.ForeignKey('Month', null=True, on_delete=models.DO_NOTHING)
+    day = models.ForeignKey('Day', null=True, on_delete=models.DO_NOTHING)
+    hour = models.ForeignKey('Hour', null=True, on_delete=models.DO_NOTHING)
 
     house_id = models.ForeignKey('House', on_delete=models.CASCADE,)
     neighborhood_id = models.ForeignKey('Neighborhood', on_delete=models.CASCADE,)
@@ -67,7 +70,10 @@ class Reading(models.Model):
     class Meta:
         unique_together = ((
         "reading_id",
-        "date",
+        "year",
+        "month",
+        "day",
+        "hour",
         "house_id",
         "neighborhood_id",
         "aggregator_id",
@@ -83,6 +89,29 @@ class Reading(models.Model):
     def __str__(self):
         return str(self.region_id_id)+"/"+str(self.aggregator_id_id)+"//"+str(self.neighborhood_id_id)+"///"+str(self.house_id_id)+"////"+str(self.reading_id)
 
+class Year(models.Model):
+    year = models.CharField(primary_key=True, max_length=4)
+
+    def __str__(self):
+        return str(self.year)
+
+class Month(models.Model):
+    month = models.CharField(primary_key=True, max_length=2)
+
+    def __str__(self):
+        return str(self.month)
+
+class Day(models.Model):
+    day = models.CharField(primary_key=True, max_length=2)
+
+    def __str__(self):
+        return str(self.day)
+
+class Hour(models.Model):
+    hour = models.CharField(primary_key=True, max_length=2)
+
+    def __str__(self):
+        return str(self.hour)
 #Region represents the region from which some reading was taken. Region is the
 ## outermost object in a heirarchy of objects. The objects within a region are:
 ## Aggregator, Neighborhood, and House

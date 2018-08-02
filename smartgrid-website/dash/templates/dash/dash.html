@@ -8,7 +8,10 @@
   <body>
     <h1>Smartgrid Dash</h1>
     <h2>Smartgrid Statistics</h2>
-    <form action = "/dash/dash_statistics_mean/" method = "get">
+    <form method="get">
+      {{form}}
+    </form>
+    <form action = "/dash/dash_statistics_mean_1/" method = "get">
       <input type = "submit" value = "Mean"  target="_self"/>
     </form>
     <form action = "/dash/dash_statistics_stdev/" method = "get">

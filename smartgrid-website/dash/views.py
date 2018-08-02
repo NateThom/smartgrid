@@ -1,17 +1,22 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from django import forms
 
-from .models import Reading, Region, Aggregator, Neighborhood, House
+from .forms import YearModelForm
+from .models import Reading, Region, Aggregator, Neighborhood, House, Year, Month, Day, Hour
 
+#Index View is currently unused
 def index(request):
     context = {}
     return render(request, 'dash/index.html', context)
 
 def dash(request):
-    context = {}
+    form = YearModelForm()
+    context = {'form':form}
     return render(request, 'dash/dash.html', context)
 
-def dash_statistics_mean(request):
+def dash_statistics_mean_1(request):
+    form = YearModelForm()
     mean_items = 0
     context = {'mean_items': mean_items}
     return render(request, 'dash/dash_statistics_mean.html', context)
