@@ -4,7 +4,21 @@
 {% block library %} <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> {% endblock library %}
 
 {% block statistic %}
-  <h3>Mean</h3>
+  <h3>Mean: Form 1</h3>
+
+  {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <p class="{{ message.tags }}"><strong>Message: </strong>{{ message }}</p>
+    {% endfor %}
+</ul>
+{% endif %}
+
+  <form id="mean_statistic_form_1" action = "dash_statistics_mean_2/" method="get">
+    {{mean_statistic_form_1|linebreaks}}
+    <input type = "submit" value = "Submit"  target="_self"/>
+  </form>
+
   <form id="mean_statistic_form" action = "/dash/mean_statistic/" method = "get">
     <strong>Time Frame:</strong>
       <input type = "radio" name="time" value = "Year"> Year</input>
@@ -33,7 +47,7 @@
   </form>
 
   <p>{{time}} {{metric}} {{data}}</p>
-  <p><strong>Message: </strong> {{message}}</p>
+
 
   {% if mean_items >= 1 %}
     <p>Mean {{metric}} per {{data}} = {{mean_items}}</p>
@@ -42,7 +56,7 @@
   <p>{{data}} does not have a {{metric}} field. Please try again.</p>
   {% endif %}
 
-  <form id="reset" action="/dash/dash_statistics_mean/">
+  <form id="reset" action="/dash/dash_statistics_mean_1/">
     <input type="submit" value="Reset" />
   </form>
 {% endblock statistic %}

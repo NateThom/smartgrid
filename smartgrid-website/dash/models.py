@@ -61,7 +61,7 @@ class Reading(models.Model):
     consumption = models.BigIntegerField()
 
     temperature = models.IntegerField(blank=True, null=True)
-    humidity = models.DecimalField(blank=True, null=True, max_digits=3, decimal_places=2)
+    humidity = models.DecimalField(max_digits=3, decimal_places=2, blank=True, null=True)
     wind_speed = models.IntegerField(blank=True, null=True)
     wind_direction = models.CharField(max_length=2, blank=True, null=True)
 
