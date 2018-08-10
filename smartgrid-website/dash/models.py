@@ -60,12 +60,12 @@ class Reading(models.Model):
 
     consumption = models.BigIntegerField()
 
-    temperature = models.IntegerField(blank=True, null=True)
-    humidity = models.DecimalField(max_digits=3, decimal_places=2, blank=True, null=True)
-    wind_speed = models.IntegerField(blank=True, null=True)
-    wind_direction = models.CharField(max_length=2, blank=True, null=True)
+    temperature = models.IntegerField(null=True)
+    humidity = models.DecimalField(max_digits=3, decimal_places=2, null=True)
+    wind_speed = models.IntegerField(null=True)
+    wind_direction = models.CharField(max_length=2, null=True)
 
-    cost = models.BigIntegerField(null=True, blank=True,)
+    cost = models.BigIntegerField(null=True)
 
     class Meta:
         unique_together = ((
@@ -122,10 +122,15 @@ class Hour(models.Model):
 #__str__(self) gives the model a name in the django api. The name is a string
 ## made up of the fields in the return statement
 class Region(models.Model):
-    region_id = models.AutoField(primary_key=True)
+    region_id = models.CharField(max_length=25)
+    full_name = models.CharField(max_length=25, primary_key=True, default="full_name")
 
     def __str__(self):
-        return str(self.region_id)
+        return self.region_id
+
+    def save(self):
+        self.full_name = self.region_id
+        super(Region, self).save()
 
 #Aggregator represents the aggregator from which some reading was taken. Aggregator
 ## is the second outermost object in a heirarchy of objects. The objects within a
@@ -140,14 +145,19 @@ class Region(models.Model):
 #__str__(self) gives the model a name in the django api. The name is a string
 ## made up of the fields in the return statement
 class Aggregator(models.Model):
-    aggregator_id = models.AutoField(primary_key=True)
+    aggregator_id = models.CharField(max_length=25)
     region_id = models.ForeignKey('Region', on_delete=models.CASCADE,)
+    full_name = models.CharField(max_length=51, primary_key=True, default="full_name")
 
     class Meta:
         unique_together = (("aggregator_id", 'region_id'),)
 
     def __str__(self):
-        return str(self.region_id_id)+"/"+str(self.aggregator_id)
+        return self.region_id_id+"/"+self.aggregator_id
+
+    def save(self):
+        self.full_name = self.region_id_id+"/"+self.aggregator_id
+        super(Aggregator, self).save()
 
 #Neighborhood represents the neighborhood from which some reading was taken.
 ## Aggregator is the third outermost object in a heirarchy of objects. The
@@ -165,9 +175,10 @@ class Aggregator(models.Model):
 #__str__(self) gives the model a name in the django api. The name is a string
 ## made up of the fields in the return statement
 class Neighborhood(models.Model):
-    neighborhood_id = models.AutoField(primary_key=True)
+    neighborhood_id = models.CharField(max_length = 25)
     aggregator_id = models.ForeignKey('Aggregator', on_delete=models.CASCADE,)
     region_id = models.ForeignKey('Region', on_delete=models.CASCADE,)
+    full_name = models.CharField(max_length = 78, primary_key=True, default="full_name")
 
     class Meta:
         unique_together = ((
@@ -175,8 +186,13 @@ class Neighborhood(models.Model):
         "aggregator_id",
         "region_id"
         ),)
+
     def __str__(self):
-        return str(self.region_id_id)+"/"+str(self.aggregator_id_id)+"//"+str(self.neighborhood_id)
+        return self.aggregator_id_id+"//"+self.neighborhood_id
+
+    def save(self):
+        self.full_name = self.aggregator_id_id+"//"+self.neighborhood_id
+        super(Neighborhood, self).save()
 
 #House represents the house from which some reading was taken.
 ## House is the innermost object in a heirarchy of objects.
@@ -196,10 +212,11 @@ class Neighborhood(models.Model):
 #__str__(self) gives the model a name in the django api. The name is a string
 ## made up of the fields in the return statement
 class House(models.Model):
-    house_id = models.AutoField(primary_key=True)
+    house_id = models.CharField(max_length = 25)
     neighborhood_id = models.ForeignKey('Neighborhood', on_delete=models.CASCADE,)
     aggregator_id = models.ForeignKey('Aggregator', on_delete=models.CASCADE,)
     region_id = models.ForeignKey('Region', on_delete=models.CASCADE,)
+    full_name = models.CharField(max_length = 106, primary_key=True, default="full_name")
 
     class Meta:
         unique_together = ((
@@ -208,8 +225,13 @@ class House(models.Model):
         "aggregator_id",
         "region_id"
         ),)
+
     def __str__(self):
-        return str(self.region_id_id)+"/"+str(self.aggregator_id_id)+"//"+str(self.neighborhood_id_id)+"///"+str(self.house_id)
+        return self.neighborhood_id_id+"///"+self.house_id
+
+    def save(self):
+        self.full_name = self.neighborhood_id_id+"///"+self.house_id
+        super(House, self).save()
 
 # class Appliance(models.Model):
 #     appliance_id = models.AutoField(primary_key=True)

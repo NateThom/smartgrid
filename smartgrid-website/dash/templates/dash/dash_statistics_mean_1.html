@@ -11,50 +11,13 @@
     {% for message in messages %}
       <p class="{{ message.tags }}"><strong>Message: </strong>{{ message }}</p>
     {% endfor %}
-</ul>
-{% endif %}
+  </ul>
+  {% endif %}
 
   <form id="mean_statistic_form_1" action = "dash_statistics_mean_2/" method="get">
     {{mean_statistic_form_1|linebreaks}}
     <input type = "submit" value = "Submit"  target="_self"/>
   </form>
-
-  <form id="mean_statistic_form" action = "/dash/mean_statistic/" method = "get">
-    <strong>Time Frame:</strong>
-      <input type = "radio" name="time" value = "Year"> Year</input>
-      <input type = "radio" name="time" value = "Month"> Month</input>
-      <input type = "radio" name="time" value = "Week"> Week</input>
-      <input type = "radio" name="time" value = "Day"> Day</input>
-      <input type = "radio" name="time" value = "Hour"> Hour</input>
-    <br>
-
-    <strong>Metric:</strong>
-      <input type = "radio" name="metric" value = "consumption"> Consumption</input>
-      <input type = "radio" name="metric" value = "outdoor_temp"> Outdoor Temperature</input>
-      <input type = "radio" name="metric" value = "type_id"> Appliance_Type</input>
-    <br>
-
-    <strong>Data:</strong>
-      <input type = "radio" name="data" value = "Region"> Region</input>
-      <input type = "radio" name="data" value = "Aggregator"> Aggregator</input>
-      <input type = "radio" name="data" value = "Neighborhood"> Neighborhood</input>
-      <input type = "radio" name="data" value = "House"> House</input>
-      <input type = "radio" name="data" value = "Appliance"> Appliance</input>
-      <input type = "radio" name="data" value = "Readings"> Reading</input>
-    <br>
-
-    <input type = "submit" value = "Find Mean"/>
-  </form>
-
-  <p>{{time}} {{metric}} {{data}}</p>
-
-
-  {% if mean_items >= 1 %}
-    <p>Mean {{metric}} per {{data}} = {{mean_items}}</p>
-  {% endif %}
-  {% if mean_items == -1 %}
-  <p>{{data}} does not have a {{metric}} field. Please try again.</p>
-  {% endif %}
 
   <form id="reset" action="/dash/dash_statistics_mean_1/">
     <input type="submit" value="Reset" />
