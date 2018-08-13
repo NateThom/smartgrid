@@ -65,11 +65,8 @@ def dash_statistics_mean_solution(request):
         for item in reading_search_list:
             mean += item.consumption
         mean = mean/len(reading_search_list)
-    messages.success(request, f"The mean {form_1_measurement_selection} in {form_1_position_selection} {form_2_position_selection} during {form_1_time_period_selection} {form_2_time_period_selection} is {mean}")
+    messages.success(request, f"The mean {form_1_measurement_selection} in {form_2_position_selection} during {form_2_time_period_selection} is {mean}")
     return redirect('/dash/dash_statistics_mean_1/')
-
-    # reading_list = Reading.objects.filter()
-    # return HttpResponse("YAY")
 
 def mean_statistic(request):
     if("time" in request.GET):
