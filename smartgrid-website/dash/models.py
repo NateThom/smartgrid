@@ -7,8 +7,10 @@ from django.db import models
 #reading_id is simply the primary key for Reading. It autoincrements
 ## and is represented by an integer
 
-#date is a python datetime.datetime object that represents the date
-## that the reading was measured
+#the time that each reading was recorded is represented by a corresponding year,
+## month, day, and hour field. In the future I would like to change these fields
+## so that they inherit from one another much like the postion (Region, Aggregator, etc)
+## fields do now. All of the dates are foreign keys from individual tables
 
 #house_id is a foreign key from the House object that tells us which
 ## house the reading is from
@@ -89,29 +91,58 @@ class Reading(models.Model):
     def __str__(self):
         return str(self.region_id_id)+"/"+str(self.aggregator_id_id)+"//"+str(self.neighborhood_id_id)+"///"+str(self.house_id_id)+"////"+str(self.reading_id)
 
+#Year represents the year that a reading was recorded in.
+## The primary key for the field is a char field of length 4. Years are expected
+## to be in the following format: 2018
+## The field uses char fields rather than ints because they are easier to work with.
+
+#__str__(self) gives the model a name in the django api. The name is a string
+## made up of the fields in the return statement
 class Year(models.Model):
     year = models.CharField(primary_key=True, max_length=4)
 
     def __str__(self):
         return str(self.year)
 
+#Month represents the month that a reading was recorded in.
+## The primary key for the field is a char field of length 2. Months are expected
+## to be in the following format: 01 or 12
+## The field uses char fields rather than ints because they are easier to work with.
+
+#__str__(self) gives the model a name in the django api. The name is a string
+## made up of the fields in the return statement
 class Month(models.Model):
     month = models.CharField(primary_key=True, max_length=2)
 
     def __str__(self):
         return str(self.month)
 
+#Day represents the day that a reading was recorded in.
+## The primary key for the field is a char field of length 2. Years are expected
+## to be in the following format: 01 or 30
+## The field uses char fields rather than ints because they are easier to work with.
+
+#__str__(self) gives the model a name in the django api. The name is a string
+## made up of the fields in the return statement
 class Day(models.Model):
     day = models.CharField(primary_key=True, max_length=2)
 
     def __str__(self):
         return str(self.day)
 
+#Hour represents the hour that a reading was recorded in.
+## The primary key for the field is a char field of length 2. Years are expected
+## to be in the following format: 01 or 19
+## The field uses char fields rather than ints because they are easier to work with.
+
+#__str__(self) gives the model a name in the django api. The name is a string
+## made up of the fields in the return statement
 class Hour(models.Model):
     hour = models.CharField(primary_key=True, max_length=2)
 
     def __str__(self):
         return str(self.hour)
+
 #Region represents the region from which some reading was taken. Region is the
 ## outermost object in a heirarchy of objects. The objects within a region are:
 ## Aggregator, Neighborhood, and House
