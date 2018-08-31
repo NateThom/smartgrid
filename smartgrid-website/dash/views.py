@@ -47,7 +47,7 @@ def dash_statistics_mean_2(request):
     modifier_selection = request.GET['modifier_field']
     time_period_selection = request.GET['time_period_field']
 
-    #If there are no readings from teh specified selection then post a message
+    #If there are no readings from the specified selection then post a message
     # and redirect to the first page
     if(len(eval(position_selection).objects.all()) == 0):
         messages.warning(request, f'There are no {position_selection} in the database.')
@@ -103,11 +103,19 @@ def dash_statistics_mean_solution(request):
             mean += item.consumption
         mean = mean/len(reading_search_list)
 
-    #Send a message to Django's messages framework. For more information on how that
-    ## works checkout the documentation or take a look at this tutorial:
-    ## https://simpleisbetterthancomplex.com/tips/2016/09/06/django-tip-14-messages-framework.html
-    messages.success(request, f"The mean {form_1_measurement_selection} in {form_2_position_selection} during {form_2_time_period_selection} is {mean}")
+        #Send a message to Django's messages framework. For more information on how that
+        ## works checkout the documentation or take a look at this tutorial:
+        ## https://simpleisbetterthancomplex.com/tips/2016/09/06/django-tip-14-messages-framework.html
+        messages.success(request, f"The mean {form_1_measurement_selection} in {form_2_position_selection} during {form_2_time_period_selection} is {mean}")
+    #else, the user selects one or more modifiers
+    else:
+        modifier_parameter = form_2_modifier_selection
+
+        #Send a message to Django's messages framework. For more information on how that
+        ## works checkout the documentation or take a look at this tutorial:
+        ## https://simpleisbetterthancomplex.com/tips/2016/09/06/django-tip-14-messages-framework.html
+        messages.success(request, f"The modifier selection is {form_2_modifier_selection}")
 
     #Return the user to the first page of the form. The message will be posted
-    ## there and the user will be able to make as many other queries as they wish. 
+    ## there and the user will be able to make as many other queries as they wish.
     return redirect('/dash/dash_statistics_mean_1/')

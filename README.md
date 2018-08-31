@@ -2,7 +2,7 @@
 
 This repository contains all of the code for the work-in-progress research assignement called "Smart Grid". The smartgrid-website directory contains a django website, the serverTest.py contains mysql code that was written asY a test for learning database management, and the SmartGrid.png/SmartGrid.xml are documentation (ERF diagrams) of the database. To create the diagrams I used draw.io (https://www.draw.io/).
 
-Before looking into using or changing this code I strongly recommend that you have some django experience. Django is not necessarily difficult, there is just a lot to know. If you have never worked with django then I strongly recommend looking into the tutorial that the creators of django have put together. This is farily comprehensive and will allow you to understand the structure of the project as well as the code that makes it work.
+Before looking into using or changing this code I recommend that you have some django experience. Django is not necessarily difficult, there is just a lot to know. If you have never worked with django then looking into the tutorial that the creators of django have put together will be a big help to you. This is tutorial is farily comprehensive and will allow you to understand the structure of the project as well as the code that makes it work.
 
 Here is the django "start" page:
 https://www.djangoproject.com/start/
@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/2.0/intro/tutorial01/
 
 **Note that this project uses django 2.0
 
-I also strongly advise that you set up a virtual environment for this project. I really enjoy anaconda environments for python, but most anything will work. Your environment should have the following packages installed:
+I also advise that you set up a virtual environment for this project. I really enjoy anaconda environments for python, but most anything will work. Your environment should have the following packages installed:
 
 if you're using conda the following will install when you use the command: conda install django
 
@@ -44,8 +44,8 @@ if you're using conda the following will install when you use the command: conda
 finally:
 pip install django-autofixture
 
-Django and the supporting packages are needed just for running the straight django code. mysqlclient is used for because I used a MySQL database. mysqlclient allows for manipulation of MySQL databases with python code. Forutnately django takes care of the databasing, but we still need to have the appriopriate packages installed. Finally, django-autofixture is a library that I used for filling the database with random data for testing purposes. This tool was a huge help! Checkout the documentation for auto fixture here:
+Django and the supporting packages are needed just for running the straight django code. mysqlclient allows for manipulation of MySQL databases with python code. Forutnately django takes care of the databasing, but we still need to have the appriopriate packages installed for it to do its work. Finally, django-autofixture is a library that I used for filling the database with random data for testing purposes. This tool was a huge help! Checkout the documentation for auto fixture here:
 
 https://pypi.org/project/django-autofixture/
 
-Thanks! I hope that you find this code useful for big things! Please feel free to contact me if you have any questions. You can reach me at nathan_thom@nevada.unr.edu
+Thanks! I hope that you find this code useful for big things! Please feel free to contact me if you have any questions. You can reach me at nathanthom@nevada.unr.edu
