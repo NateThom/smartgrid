@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Reading, Region, Aggregator, Neighborhood, House, Year, Month, Day, Hour
+from .models import Reading, Region, Aggregator, Neighborhood, House
 
 #This form is the first part of searching the database for mean values. In this form
 ## the user will select the data that they want information on, in a broad sense.
@@ -16,10 +16,10 @@ class MeanStatisticForm1(forms.Form):
     ## the "choices" variable requires. One of the values is the value that will
     ## be displayed for the user and the other is the value that will be submitted
     ## with the form. See the docs for more information.
-    time_frame_choices = [('Year','Year'), ('Month','Month'), ('Day','Day'), ('Hour','Hour')]
+    time_frame_choices = [('year','Year'), ('month','Month'), ('day','Day'), ('hour','Hour'), ('minute','Minute'), ('second','Second')]
     position_choices = [('Region','Region'), ('Aggregator','Aggregator'), ('Neighborhood','Neighborhood'), ('House','House')]
-    measurement_choices = [('Consumption','Consumption'), ('Temperature','Temperature'), ('Humidity','Humidity'), ('Wind Direction','Wind Direction'), ('Wind Speed','Wind Speed')]
-    modifier_choices = [('Exact Consumption', 'Exact Consumption'), ('Exact Temperature','Exact Temperature'), ('Exact Humidity','Exact Humidity'), ('Exact Wind Direction','Exact Wind Direction'), ('Exact Wind Speed','Exact Wind Speed'), ('None','None')]
+    measurement_choices = [('Consumption','Consumption'), ('Temperature','Temperature')]
+    modifier_choices = [('Exact Consumption', 'Exact Consumption'), ('Exact Temperature','Exact Temperature'), ('None','None')]
 
     #The django library makes it super easy to render these fields with built-in functions.
     ## There are many different "widget" options available and they could be cusotmized too.
@@ -86,7 +86,7 @@ class MeanStatisticForm2(forms.Form):
             return CHOICES
 
         def get_time_period_choices(selection):
-            TUPLE_LIST = list(eval(selection).objects.values_list())
+            TUPLE_LIST = list(Reading.objects.values_list(str(selection)).distinct())
             CHOICES = []
             for entry in TUPLE_LIST:
                 CHOICES.append(entry+entry)
@@ -97,12 +97,6 @@ class MeanStatisticForm2(forms.Form):
                 if(selection[6:] == "Consumption"):
                     return 16
                 elif(selection[6:] == "Temperature"):
-                    return 3
-                elif(selection[6:] == "Humidity"):
-                    return 3
-                elif(selection[6:] == "Wind Direction"):
-                    return 2
-                elif(selection[6:] == "Wind Speed"):
                     return 3
             else:
                 return 0

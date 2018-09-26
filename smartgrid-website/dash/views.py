@@ -74,7 +74,7 @@ def dash_statistics_mean_solution(request):
 
     #if there are not any readings with the broad category time_period selection
     ## then return a message explaining this and return the user to the first form.
-    if(len(Reading.objects.filter(**{form_1_time_period_selection.lower():form_2_time_period_selection})) == 0):
+    if(len(Reading.objects.filter(**{form_1_time_period_selection:form_2_time_period_selection})) == 0):
         messages.warning(request, f'There are no Readings with {form_1_time_period_selection} {form_2_time_period_selection} in the database.')
         return redirect('/dash/dash_statistics_mean_1/')
 
@@ -86,7 +86,7 @@ def dash_statistics_mean_solution(request):
         position_parameter = form_1_position_selection.lower()+"_id"
         #Create a sring that matches a parameter that can be filtered. An example
         ## is "year"
-        time_period_parameter = form_1_time_period_selection.lower()
+        time_period_parameter = form_1_time_period_selection
         # We will use kwargs to pass the parameter variables into django's ORM.
         ## For more information on this topic see Django's documentation on making queries
         kwargs = {position_parameter:form_2_position_selection, time_period_parameter:form_2_time_period_selection}
@@ -98,7 +98,7 @@ def dash_statistics_mean_solution(request):
         ## to what the user requested.
         reading_search_list = Reading.objects.filter(**kwargs)
         if(len(reading_search_list) == 0):
-            messages.warning(request, "There are no objects that match your search criteria. Please try again.")
+            messages.warning(request, f"There are no objects that match your search criteria. Please change the search paremeters and try again.")
             return redirect('/dash/dash_statistics_mean_1/')
 
         #This for loop calculates the mean of all of the readings that matched
@@ -110,7 +110,9 @@ def dash_statistics_mean_solution(request):
         #Send a message to Django's messages framework. For more information on how that
         ## works checkout the documentation or take a look at this tutorial:
         ## https://simpleisbetterthancomplex.com/tips/2016/09/06/django-tip-14-messages-framework.html
-        messages.success(request, f"The mean {form_1_measurement_selection} in {form_2_position_selection} during {form_2_time_period_selection} is {mean}")
+        if form_1_measurement_selection == 'Consumption':
+            measurement_unit = Reading.objects.filter(**kwargs)[0].consumption_units
+        messages.success(request, f"The mean {form_1_measurement_selection} in {form_2_position_selection} during {form_2_time_period_selection} is {mean} {measurement_unit}")
     #else, the user selects one or more modifiers
     else:
         modifier_parameter = form_2_modifier_selection

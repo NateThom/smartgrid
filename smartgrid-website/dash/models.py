@@ -50,28 +50,26 @@ from django.db import models
 class Reading(models.Model):
     reading_id = models.AutoField(primary_key=True)
 
-    year = models.ForeignKey('Year', null=True, on_delete=models.DO_NOTHING)
-    month = models.ForeignKey('Month', null=True, on_delete=models.DO_NOTHING)
-    day = models.ForeignKey('Day', null=True, on_delete=models.DO_NOTHING)
-    hour = models.ForeignKey('Hour', null=True, on_delete=models.DO_NOTHING)
-
     house_id = models.ForeignKey('House', on_delete=models.CASCADE,)
     neighborhood_id = models.ForeignKey('Neighborhood', on_delete=models.CASCADE,)
     aggregator_id = models.ForeignKey('Aggregator', on_delete=models.CASCADE,)
     region_id = models.ForeignKey('Region', on_delete=models.CASCADE,)
 
+    year = models.CharField(max_length=4, default="2018", null=True)
+    month = models.CharField(max_length=2, default="01", null=True)
+    day = models.CharField(max_length=2, default="01", null=True)
+    hour = models.CharField(max_length=2, default="00", null=True)
+    minute = models.CharField(max_length=2, default="00", null=True)
+    second = models.CharField(max_length=2, default="00", null=True)
+
     consumption = models.BigIntegerField()
     consumption_units = models.CharField(max_length=3, default='kWh')
 
     temperature = models.IntegerField(null=True)
-    temperature_units = models.CharField(max_length=1, default='F')
-
-
-    humidity = models.DecimalField(max_digits=3, decimal_places=2, null=True)
-    wind_speed = models.IntegerField(null=True)
-    wind_direction = models.CharField(max_length=2, null=True)
+    temperature_units = models.CharField(max_length=1, default='F', null=True)
 
     cost = models.BigIntegerField(null=True)
+    currency = models.CharField(max_length=3, default="USD", null=True)
 
     class Meta:
         unique_together = ((
@@ -80,17 +78,22 @@ class Reading(models.Model):
         "month",
         "day",
         "hour",
+        "minute",
+        "second",
         "house_id",
         "neighborhood_id",
         "aggregator_id",
         "region_id",
         "consumption",
         "temperature",
-        "humidity",
-        "wind_speed",
-        "wind_direction",
         "cost"
-        ),)
+        ),(
+        "year",
+        "month",
+        "day",
+        "hour",
+        "minute",
+        "second"),)
 
     def __str__(self):
         return str(self.region_id_id)+"/"+str(self.aggregator_id_id)+"//"+str(self.neighborhood_id_id)+"///"+str(self.house_id_id)+"////"+str(self.reading_id)
@@ -146,6 +149,18 @@ class Hour(models.Model):
 
     def __str__(self):
         return str(self.hour)
+#
+# class Minute(models.Model):
+#     Minute = models.CharField(primary_key=True, max_length=2)
+#
+#     def __str__(self):
+#         return str(self.minute)
+#
+# class Second(models.Model):
+#     second = models.CharField(primary_key=True, max_length=2)
+#
+#     def __str__(self):
+#         return str(self.second)
 
 #Region represents the region from which some reading was taken. Region is the
 ## outermost object in a heirarchy of objects. The objects within a region are:
