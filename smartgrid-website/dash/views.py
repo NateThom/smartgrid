@@ -62,6 +62,7 @@ def dash_statistics_mean_2(request):
     return render(request, 'dash/dash_statistics_mean_2.html', context)
 
 def dash_statistics_mean_solution(request):
+    #These variables store the data that is found in the url/request from the first and second forms
     form_1_measurement_selection = request.GET['form_1_measurement']
     form_1_position_selection = request.GET['form_1_position']
     form_1_time_period_selection = request.GET['form_1_time_period']
@@ -96,6 +97,9 @@ def dash_statistics_mean_solution(request):
         ## in the database that have the matching position and time_period fields
         ## to what the user requested.
         reading_search_list = Reading.objects.filter(**kwargs)
+        if(len(reading_search_list) == 0):
+            messages.warning(request, "There are no objects that match your search criteria. Please try again.")
+            return redirect('/dash/dash_statistics_mean_1/')
 
         #This for loop calculates the mean of all of the readings that matched
         ## the search criteria.

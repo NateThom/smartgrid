@@ -61,8 +61,12 @@ class Reading(models.Model):
     region_id = models.ForeignKey('Region', on_delete=models.CASCADE,)
 
     consumption = models.BigIntegerField()
+    consumption_units = models.CharField(max_length=3, default='kWh')
 
     temperature = models.IntegerField(null=True)
+    temperature_units = models.CharField(max_length=1, default='F')
+
+
     humidity = models.DecimalField(max_digits=3, decimal_places=2, null=True)
     wind_speed = models.IntegerField(null=True)
     wind_direction = models.CharField(max_length=2, null=True)

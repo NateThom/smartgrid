@@ -106,6 +106,7 @@ class MeanStatisticForm2(forms.Form):
                     return 3
             else:
                 return 0
+
         if position_selection:
             if(position_selection == "Region"):
                 self.fields['position_field'].choices=get_region_choices(position_selection)
