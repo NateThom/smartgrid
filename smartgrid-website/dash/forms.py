@@ -46,6 +46,7 @@ class MeanStatisticForm2(forms.Form):
         fields['modifier_field'].initial = "None"
         fields['modifier_field'].disabled = True
     time_period_field = forms.ChoiceField()
+    measurement_unit_field = forms.ChoiceField()
 
     #__init__ is a fucntion that runs before anything else in the class. In C
     ## this is like a contructor. Checkout the python docs.
@@ -55,6 +56,7 @@ class MeanStatisticForm2(forms.Form):
         position_selection = kwargs.pop('position_selection', None)
         modifier_selection = kwargs.pop('modifier_selection', None)
         time_period_selection = kwargs.pop('time_period_selection', None)
+        measurement_selection = kwargs.pop('measurement_selection', None)
         super().__init__(*args, **kwargs)
 
         def get_region_choices(selection):
@@ -101,6 +103,15 @@ class MeanStatisticForm2(forms.Form):
             else:
                 return 0
 
+        def get_measurement_unit_choices(selection):
+            if selection == "Consumption":
+                CHOICES = [('kWh','kWh')]
+            else:
+                CHOICES = [('F','Fahrenheit'), ('C','Celsius')]
+
+            return CHOICES
+
+
         if position_selection:
             if(position_selection == "Region"):
                 self.fields['position_field'].choices=get_region_choices(position_selection)
@@ -114,3 +125,5 @@ class MeanStatisticForm2(forms.Form):
             self.fields['modifier_field'].max_length=get_modifier_length(modifier_selection)
         if time_period_selection:
             self.fields['time_period_field'].choices=get_time_period_choices(time_period_selection)
+        if measurement_selection:
+            self.fields['measurement_unit_field'].choices=get_measurement_unit_choices(measurement_selection)
