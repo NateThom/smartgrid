@@ -82,6 +82,7 @@ def dash_statistics_mean_solution(request):
     form_2_position_selection = request.GET['position_field']
     form_2_modifier_selection = request.GET['modifier_field']
     form_2_time_period_selection = request.GET['time_period_field']
+    form_2_measurement_unit_selection = request.GET['measurement_unit_field']
 
     #if there are not any readings with the broad category time_period selection
     ## then return a message explaining this and return the user to the first form.
@@ -98,6 +99,7 @@ def dash_statistics_mean_solution(request):
         #Create a sring that matches a parameter that can be filtered. An example
         ## is "year"
         time_period_parameter = form_1_time_period_selection
+
         # We will use kwargs to pass the parameter variables into django's ORM.
         ## For more information on this topic see Django's documentation on making queries
         kwargs = {position_parameter:form_2_position_selection, time_period_parameter:form_2_time_period_selection}
@@ -115,15 +117,37 @@ def dash_statistics_mean_solution(request):
         #This for loop calculates the mean of all of the readings that matched
         ## the search criteria.
         for item in reading_search_list:
-            mean += item.consumption
+            #Get current reading's measurement. i.e. Reading.consumption or
+            ##Reading.temperature
+            current_reading_measurement = eval(f'item.{form_1_measurement_selection.lower()}')
+
+            #If the units of the reading are different than the units that the
+            ##user selects in form 2 then convert the units. For example,
+            ##reading units are F and user selects C
+            some_var_1 = eval(f'item.{form_1_measurement_selection.lower()}_units')
+            some_var_2 = form_2_measurement_unit_selection
+
+            if form_2_measurement_unit_selection != eval(f'item.{form_1_measurement_selection.lower()}_units'):
+                #Measurement selection is consumption
+                if form_1_measurement_selection == 'Consumption':
+                    #Do nothing because only units are kWh
+                    current_reading_measurement = current_reading_measurement*1
+                #Measurement selection is temperature
+                else:
+                    #If the reading's units are in Farenheit then convert to C
+                    if eval(f'item.{form_1_measurement_selection.lower()}_units') == 'F':
+                        current_reading_measurement = (current_reading_measurement - 32)/1.8
+                    #If the reading's units are in Celcius then convert to F
+                    else:
+                        current_reading_measurement = (current_reading_measurement*1.8)+32
+
+            mean += current_reading_measurement
         mean = mean/len(reading_search_list)
 
         #Send a message to Django's messages framework. For more information on how that
         ## works checkout the documentation or take a look at this tutorial:
         ## https://simpleisbetterthancomplex.com/tips/2016/09/06/django-tip-14-messages-framework.html
-        if form_1_measurement_selection == 'Consumption':
-            measurement_unit = Reading.objects.filter(**kwargs)[0].consumption_units
-        messages.success(request, f"The mean {form_1_measurement_selection} in {form_2_position_selection} during {form_2_time_period_selection} is {mean} {measurement_unit}")
+        messages.success(request, f"The mean {form_1_measurement_selection} in {form_2_position_selection} during the {form_1_time_period_selection}: {form_2_time_period_selection} was {mean} {form_2_measurement_unit_selection}")
     #else, the user selects one or more modifiers
     else:
         modifier_parameter = form_2_modifier_selection
