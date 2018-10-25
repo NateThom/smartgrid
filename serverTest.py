@@ -4,9 +4,6 @@ import sys
 import random
 import time
 
-start_time = time.time()
-
-
 # Define functions
 
 # connect_database connects the program to a database and creates a cursor
@@ -30,8 +27,8 @@ def create_appliance_type_table(cursor):
     try:
         cursor.execute(
             """CREATE TABLE IF NOT EXISTS ApplianceType(
-            TYPE_ID CHAR(6), 
-            DESCRIPTION TINYTEXT, 
+            TYPE_ID CHAR(6),
+            DESCRIPTION TINYTEXT,
             PRIMARY KEY(TYPE_ID))""")
     except:
         print("############################################################")
@@ -44,17 +41,17 @@ def create_appliance_table(cursor):
     try:
         cursor.execute(
             """CREATE TABLE IF NOT EXISTS Appliance(
-            APPLIANCE_ID CHAR(4), 
-            HOUSE_ID CHAR(4), 
-            NEIGHBORHOOD_ID CHAR(4), 
-            AGG_ID CHAR(4), 
-            REG_ID CHAR(4), 
-            TYPE_ID CHAR(6), 
-            APP_CONSUMPTION BIGINT, 
-            CONSTRAINT PK_Appliance PRIMARY KEY(APPLIANCE_ID, HOUSE_ID, NEIGHBORHOOD_ID, AGG_ID, REG_ID), 
-            FOREIGN KEY (TYPE_ID) REFERENCES ApplianceType(TYPE_ID), 
-            FOREIGN KEY (HOUSE_ID) REFERENCES House(HOUSE_ID), 
-            FOREIGN KEY (NEIGHBORHOOD_ID) REFERENCES Neighborhood(NEIGHBORHOOD_ID), 
+            APPLIANCE_ID CHAR(4),
+            HOUSE_ID CHAR(4),
+            NEIGHBORHOOD_ID CHAR(4),
+            AGG_ID CHAR(4),
+            REG_ID CHAR(4),
+            TYPE_ID CHAR(6),
+            APP_CONSUMPTION BIGINT,
+            CONSTRAINT PK_Appliance PRIMARY KEY(APPLIANCE_ID, HOUSE_ID, NEIGHBORHOOD_ID, AGG_ID, REG_ID),
+            FOREIGN KEY (TYPE_ID) REFERENCES ApplianceType(TYPE_ID),
+            FOREIGN KEY (HOUSE_ID) REFERENCES House(HOUSE_ID),
+            FOREIGN KEY (NEIGHBORHOOD_ID) REFERENCES Neighborhood(NEIGHBORHOOD_ID),
             FOREIGN KEY (AGG_ID) REFERENCES Aggregator(AGG_ID),
             FOREIGN KEY (REG_ID) REFERENCES Region(REG_ID))""")
     except:
@@ -68,12 +65,12 @@ def create_house_table(cursor):
     try:
         cursor.execute(
             """CREATE TABLE IF NOT EXISTS House(
-            HOUSE_ID CHAR(4), 
-            NEIGHBORHOOD_ID CHAR(4), 
-            AGG_ID CHAR(4), 
-            REG_ID CHAR(4), 
-            HOUSE_CONSUMPTION BIGINT, 
-            CONSTRAINT PK_House PRIMARY KEY(HOUSE_ID, NEIGHBORHOOD_ID, AGG_ID, REG_ID), 
+            HOUSE_ID CHAR(4),
+            NEIGHBORHOOD_ID CHAR(4),
+            AGG_ID CHAR(4),
+            REG_ID CHAR(4),
+            HOUSE_CONSUMPTION BIGINT,
+            CONSTRAINT PK_House PRIMARY KEY(HOUSE_ID, NEIGHBORHOOD_ID, AGG_ID, REG_ID),
             FOREIGN KEY(NEIGHBORHOOD_ID) REFERENCES Neighborhood(NEIGHBORHOOD_ID),
             FOREIGN KEY (AGG_ID) REFERENCES Aggregator(AGG_ID),
             FOREIGN KEY (REG_ID) REFERENCES Region(REG_ID))""")
@@ -88,17 +85,17 @@ def create_readings_table(cursor):
     try:
         cursor.execute(
             """CREATE TABLE IF NOT EXISTS Readings(
-            DATE_TIME CHAR(19), 
-            HOUSE_ID CHAR(4), 
-            NEIGHBORHOOD_ID CHAR(4), 
-            AGG_ID CHAR(4), 
-            REG_ID CHAR(4), 
-            kWh BIGINT, 
-            OUTDOOR_TEMP int(3), 
-            CONSTRAINT PK_Reading PRIMARY KEY (DATE_TIME, HOUSE_ID, NEIGHBORHOOD_ID, AGG_ID, REG_ID), 
-            FOREIGN KEY(HOUSE_ID) REFERENCES House(HOUSE_ID), 
-            FOREIGN KEY(NEIGHBORHOOD_ID) REFERENCES Neighborhood(NEIGHBORHOOD_ID), 
-            FOREIGN KEY(AGG_ID) REFERENCES Aggregator(AGG_ID), 
+            DATE_TIME CHAR(19),
+            HOUSE_ID CHAR(4),
+            NEIGHBORHOOD_ID CHAR(4),
+            AGG_ID CHAR(4),
+            REG_ID CHAR(4),
+            kWh BIGINT,
+            OUTDOOR_TEMP int(3),
+            CONSTRAINT PK_Reading PRIMARY KEY (DATE_TIME, HOUSE_ID, NEIGHBORHOOD_ID, AGG_ID, REG_ID),
+            FOREIGN KEY(HOUSE_ID) REFERENCES House(HOUSE_ID),
+            FOREIGN KEY(NEIGHBORHOOD_ID) REFERENCES Neighborhood(NEIGHBORHOOD_ID),
+            FOREIGN KEY(AGG_ID) REFERENCES Aggregator(AGG_ID),
             FOREIGN KEY(REG_ID) REFERENCES Region(REG_ID))""")
     except:
         print("############################################################")
@@ -111,12 +108,12 @@ def create_neighborhood_table(cursor):
     try:
         cursor.execute(
             """CREATE TABLE IF NOT EXISTS Neighborhood(
-            NEIGHBORHOOD_ID CHAR(4), 
-            AGG_ID CHAR(4), 
-            REG_ID CHAR(4), 
-            NEIGHBORHOOD_CONSUMPTION BIGINT, 
-            CONSTRAINT PK_Neighborhood PRIMARY KEY (NEIGHBORHOOD_ID, AGG_ID, REG_ID), 
-            FOREIGN KEY(AGG_ID) REFERENCES Aggregator(AGG_ID), 
+            NEIGHBORHOOD_ID CHAR(4),
+            AGG_ID CHAR(4),
+            REG_ID CHAR(4),
+            NEIGHBORHOOD_CONSUMPTION BIGINT,
+            CONSTRAINT PK_Neighborhood PRIMARY KEY (NEIGHBORHOOD_ID, AGG_ID, REG_ID),
+            FOREIGN KEY(AGG_ID) REFERENCES Aggregator(AGG_ID),
             FOREIGN KEY(REG_ID) REFERENCES Region(REG_ID))""")
     except:
         print("############################################################")
@@ -129,10 +126,10 @@ def create_aggregator_table(cursor):
     try:
         cursor.execute(
             """CREATE TABLE IF NOT EXISTS Aggregator(
-            AGG_ID CHAR(4), 
-            REG_ID CHAR(4), 
-            AGG_CONSUMPTION BIGINT, 
-            CONSTRAINT PK_Aggregator PRIMARY KEY (AGG_ID, REG_ID), 
+            AGG_ID CHAR(4),
+            REG_ID CHAR(4),
+            AGG_CONSUMPTION BIGINT,
+            CONSTRAINT PK_Aggregator PRIMARY KEY (AGG_ID, REG_ID),
             FOREIGN KEY(REG_ID) REFERENCES Region(REG_ID))""")
     except:
         print("############################################################")
@@ -146,7 +143,7 @@ def create_region_table(cursor):
         cursor.execute(
             """CREATE TABLE IF NOT EXISTS Region(
             REG_ID CHAR(4),
-            REG_CONSUMPTION BIGINT, 
+            REG_CONSUMPTION BIGINT,
             PRIMARY KEY(REG_ID))""")
     except:
         print("############################################################")
@@ -369,10 +366,10 @@ def remove_aggregator(db, cursor, agg_id, reg_id, agg_consumption):
         db.rollback()
 
 
-def insert_region(db, cursor, reg_id, reg_consumption):
+def insert_region(db, cursor, reg_id):
     try:
         cursor.execute(
-            f"INSERT INTO Region(REG_ID, REG_CONSUMPTION) VALUES({reg_id}, {reg_consumption})")
+            f"INSERT INTO dash_region(region_id) VALUES({reg_id})")
         db.commit()
     except:
         print("############################################################")
@@ -559,13 +556,13 @@ def auto_fill_db(db, cursor):
                                     kwh = kwh + house_consumption2
 
                                 insert_readings(db,
-                                                cursor, 
-                                                f"'{readings_hours}:00:00 {readings_days}-{readings_months}-2018'", 
-                                                f"'{house_index}'", 
+                                                cursor,
+                                                f"'{readings_hours}:00:00 {readings_days}-{readings_months}-2018'",
+                                                f"'{house_index}'",
                                                 f"'{neighborhood_index}'",
-                                                f"'{agg_index}'", 
+                                                f"'{agg_index}'",
                                                 f"'{reg_index}'",
-                                                f"'{kwh}'", 
+                                                f"'{kwh}'",
                                                 f"'{outdoor_temp}'")
 
 
@@ -574,7 +571,7 @@ def retrieve_appliance_types(cursor):
         cursor.execute("SELECT * FROM ApplianceType")
         results = cursor.fetchall()
         for row in results:
-            appliance_type = row[
+            appliance_type = row[0]
             description = row[1]
             print("Appliance Type: {appliance_type}".format(appliance_type=appliance_type))
             print("Description: {description}".format(description=description))
@@ -659,9 +656,10 @@ def retrieve_appliances(cursor):
         print("############################################################")
 
 
+start_time = time.time()
 ##### Connect to database #####
 
-db = connect_database("localhost", "root", "smartgridserver", "pythonbase")
+db = connect_database("localhost", "root", "smartgridserver", "readings_focused_model")
 cursor = db.cursor()
 
 ##### Create tables #####
@@ -678,6 +676,7 @@ cursor = db.cursor()
 # drop_all_tables(cursor)
 
 ##### Insert data #####
+insert_region(db, cursor, "'HOUSEHOLD-ELECTRIC-DATA'")
 # insert_appliance_type(db, cursor, "'01'", "'COFFEE-MAKER'")
 # insert_neighborhood(db, cursor, "'001'")
 # insert_house(db, cursor, "'0011'", "'001'")
@@ -701,7 +700,7 @@ cursor = db.cursor()
 # clear_tables(cursor)
 
 ##### auto_fill_db #####
-auto_fill_db(db, cursor)
+#auto_fill_db(db, cursor)
 
 db.close()
 

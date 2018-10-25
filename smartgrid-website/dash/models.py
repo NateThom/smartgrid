@@ -50,9 +50,9 @@ from django.db import models
 class Reading(models.Model):
     reading_id = models.AutoField(primary_key=True)
 
-    house_id = models.ForeignKey('House', on_delete=models.CASCADE,)
-    neighborhood_id = models.ForeignKey('Neighborhood', on_delete=models.CASCADE,)
-    aggregator_id = models.ForeignKey('Aggregator', on_delete=models.CASCADE,)
+    house_id = models.ForeignKey('House', on_delete=models.CASCADE, null=True,)
+    neighborhood_id = models.ForeignKey('Neighborhood', on_delete=models.CASCADE, null=True,)
+    aggregator_id = models.ForeignKey('Aggregator', on_delete=models.CASCADE, null=True,)
     region_id = models.ForeignKey('Region', on_delete=models.CASCADE,)
 
     year = models.CharField(max_length=4, default="2018", null=True)
