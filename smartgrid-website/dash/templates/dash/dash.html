@@ -13,6 +13,15 @@
   </head>
   <body>
     <h1>Smartgrid Dash</h1>
+
+    {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <p class="{{ message.tags }}"><strong>Message: </strong>{{ message }}</p>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
     <h2>Smartgrid Statistics</h2>
     <form action = "/dash/dash_statistics_mean_1/" method = "get">
       <input type = "submit" value = "Mean"  target="_self"/>
@@ -21,5 +30,12 @@
     {% endblock statistic %}
     {% block statistic_javascript %}
     {% endblock statistic_javascript %}
+
+    <h2>Smartgrid Data</h2>
+    <form action = "/dash/dash_load_data1/" method = "get">
+      <input type = "submit" value = "Upload Data"  target="_self"/>
+    </form>
+    {% block upload_data %}
+    {% endblock upload_data %}
   </body>
 </html>

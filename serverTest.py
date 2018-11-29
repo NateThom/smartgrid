@@ -366,10 +366,10 @@ def remove_aggregator(db, cursor, agg_id, reg_id, agg_consumption):
         db.rollback()
 
 
-def insert_region(db, cursor, reg_id):
+def insert_region(db, cursor, reg_id, full_name):
     try:
         cursor.execute(
-            f"INSERT INTO dash_region(region_id) VALUES({reg_id})")
+            f"INSERT INTO dash_region(region_id, full_name) VALUES({reg_id, {full_name}})")
         db.commit()
     except:
         print("############################################################")
@@ -676,7 +676,7 @@ cursor = db.cursor()
 # drop_all_tables(cursor)
 
 ##### Insert data #####
-insert_region(db, cursor, "'HOUSEHOLD-ELECTRIC-DATA'")
+insert_region(db, cursor, "'HOUSEHOLD-ELECTRIC-DATA'", '"full_name"')
 # insert_appliance_type(db, cursor, "'01'", "'COFFEE-MAKER'")
 # insert_neighborhood(db, cursor, "'001'")
 # insert_house(db, cursor, "'0011'", "'001'")

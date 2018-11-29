@@ -3,8 +3,11 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django import forms
 
-from .forms import MeanStatisticForm1, MeanStatisticForm2
-from .models import Reading, Region, Aggregator, Neighborhood, House, Year, Month, Day, Hour
+from .forms import LoadDataForm1, MeanStatisticForm1, MeanStatisticForm2
+from .models import Data, Reading, Region, Aggregator, Neighborhood, House, Year, Month, Day, Hour
+
+import scipy.io as spio
+import os
 
 #All views are function based views. For more information see Django documentation
 
@@ -15,6 +18,46 @@ def dash(request):
     #The view returns the request data, the html template that should be used to
     ##  render the page, and the context data that should be passed into the page
     return render(request, 'dash/dash.html', context)
+
+def dash_load_data1(request):
+    #This form is defined in forms.py
+    load_data_form1 = LoadDataForm1()
+    #The form's data is stored into a variable and then sent to the html template
+    ## as a context variable
+    context = {'load_data_form1': load_data_form1}
+    return render(request, 'dash/dash_load_data1.html', context)
+
+def dash_load_data2(request):
+    file_path = request.GET['file_path']
+
+    for file_number in range(1, 1153):
+        mat = spio.loadmat(f'{file_path}/data{file_number}.mat', squeeze_me=True)
+
+        data_array = mat['dataArray']
+        time_data = data_array[0]
+        voltage_a_data = data_array[1]
+        voltage_b_data = data_array[2]
+        voltage_c_data = data_array[3]
+
+        for sample in range(0,len(data_array[0])):
+                time = time_data[sample]
+                volt_a = voltage_a_data[sample]
+                volt_b = voltage_b_data[sample]
+                volt_c = voltage_c_data[sample]
+                data_instance = Data.objects.create(timestamp = time,
+                voltage_a = volt_a,
+                voltage_b = volt_b,
+                voltage_c = volt_c)
+
+    messages.success(request, "YESSSS!")
+    return redirect('/dash/')
+
+    # if(file_path):
+    #     messages.success(request, file_path)
+    #     return redirect('/dash/')
+    # else:
+    #     messages.warning(request, 'Unfortunately, there was an error while uploading the data.')
+    #     return redirect('/dash/dash_load_data1.html/')
 
 #This view is the first form for the Mean statistic selection. In this form the
 ## user defines in a broad sense what they are searching for. The user will define

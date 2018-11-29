@@ -2,6 +2,9 @@ from django import forms
 
 from .models import Reading, Region, Aggregator, Neighborhood, House
 
+class LoadDataForm1(forms.Form):
+    file_path = forms.CharField(max_length = 50)
+
 #This form is the first part of searching the database for mean values. In this form
 ## the user will select the data that they want information on, in a broad sense.
 ## Here the user can say that they want to know the "Mean Regional Consumption

@@ -1,5 +1,34 @@
 from django.db import models
 
+class Data(models.Model):
+    data_id = models.AutoField(primary_key=True)
+
+    timestamp = models.FloatField()
+
+    voltage_a = models.FloatField()
+    voltage_a_units = models.CharField(max_length=3, default='kWh')
+
+    voltage_b = models.FloatField()
+    voltage_b_units = models.CharField(max_length=3, default='kWh')
+
+    voltage_c = models.FloatField()
+    voltage_c_units = models.CharField(max_length=3, default='kWh')
+
+    class Meta:
+        unique_together = ((
+        "data_id",
+        "timestamp",
+        "voltage_a",
+        "voltage_a_units",
+        "voltage_b",
+        "voltage_b_units",
+        "voltage_c",
+        "voltage_c_units"),)
+
+    def __str__(self):
+        return str(self.data_id)
+
+
 #The reading model is the main model and is made up of some internal
 ## information and the other models as foreign keys. It represents a
 ## single reading from some sensor or smart meter.
@@ -173,7 +202,7 @@ class Hour(models.Model):
 ## made up of the fields in the return statement
 class Region(models.Model):
     region_id = models.CharField(max_length=25)
-    full_name = models.CharField(max_length=25, primary_key=True, default="full_name")
+    full_name = models.CharField(max_length=25, primary_key=True, default="full_name",)
 
     def __str__(self):
         return self.region_id

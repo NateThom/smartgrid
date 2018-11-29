@@ -1,0 +1,24 @@
+{% extends "dash/dash.html" %}
+
+{% block upload_data %}
+
+<h3>Upload Data</h3>
+
+{% if messages %}
+<ul class="messages">
+  {% for message in messages %}
+    <p class="{{ message.tags }}"><strong>Message: </strong>{{ message }}</p>
+  {% endfor %}
+</ul>
+{% endif %}
+
+<form id="load_data_form1" action = "dash_load_data2/" method="get">
+    {{load_data_form1|linebreaks}}
+  <input type = "submit" value = "Upload Data"  target="_self"/>
+</form>
+
+<form id="reset" action="/dash/dash_load_data1/">
+  <input type="submit" value="Reset" />
+</form>
+
+{% endblock upload_data %}
