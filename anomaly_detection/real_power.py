@@ -52,7 +52,7 @@ def hourly_demmand(feeder, weekly_lf, daily_lf, winter_weekday_hourly_lf,
         feed_count = feed_count+1
         week_count = 0
         output[feed_count] = {}
-        # print(f'Feeder: {feed_count}, {feed}')
+        #print(f'Feeder: {feed_count}, {feed}')
         for week in weekly_lf:
             week_count = week_count+1
             day_count = 0
@@ -75,7 +75,8 @@ def hourly_demmand(feeder, weekly_lf, daily_lf, winter_weekday_hourly_lf,
                             power_type_1 = week * day * hour * feeder[feed][0]
                             power_type_2 = week * day * hour * feeder[feed][1]
                             power_type_3 = week * day * hour * feeder[feed][2]
-                            output[feed_count][week_count][day_count][hour_count] = (power_type_1, power_type_2, power_type_3)
+                            output[feed_count][week_count][day_count][hour_count] = [power_type_1, power_type_2,
+                                                                                     power_type_3, feed, 0]
                             # print(f'output: {output}')
                             #input()
                     else:
@@ -88,7 +89,8 @@ def hourly_demmand(feeder, weekly_lf, daily_lf, winter_weekday_hourly_lf,
                             power_type_1 = week * day * hour * feeder[feed][0]
                             power_type_2 = week * day * hour * feeder[feed][1]
                             power_type_3 = week * day * hour * feeder[feed][2]
-                            output[feed_count][week_count][day_count][hour_count] = (power_type_1, power_type_2, power_type_3)
+                            output[feed_count][week_count][day_count][hour_count] = [power_type_1, power_type_2,
+                                                                                     power_type_3, feed, 0]
                             # print(f'output: {output}')
                             #input()
 
@@ -103,7 +105,8 @@ def hourly_demmand(feeder, weekly_lf, daily_lf, winter_weekday_hourly_lf,
                             power_type_1 = week * day * hour * feeder[feed][0]
                             power_type_2 = week * day * hour * feeder[feed][1]
                             power_type_3 = week * day * hour * feeder[feed][2]
-                            output[feed_count][week_count][day_count][hour_count] = (power_type_1, power_type_2, power_type_3)
+                            output[feed_count][week_count][day_count][hour_count] = [power_type_1, power_type_2,
+                                                                                     power_type_3, feed, 0]
                             # print(f'output: {output}')
                             #input()
                     else:
@@ -116,7 +119,8 @@ def hourly_demmand(feeder, weekly_lf, daily_lf, winter_weekday_hourly_lf,
                             power_type_1 = week * day * hour * feeder[feed][0]
                             power_type_2 = week * day * hour * feeder[feed][1]
                             power_type_3 = week * day * hour * feeder[feed][2]
-                            output[feed_count][week_count][day_count][hour_count] = (power_type_1, power_type_2, power_type_3)
+                            output[feed_count][week_count][day_count][hour_count] = [power_type_1, power_type_2,
+                                                                                     power_type_3, feed, 0]
                             # print(f'output: {output}')
                             #input()
                 elif (week_count >= 18 and week_count <= 30):
@@ -130,7 +134,8 @@ def hourly_demmand(feeder, weekly_lf, daily_lf, winter_weekday_hourly_lf,
                             power_type_1 = week * day * hour * feeder[feed][0]
                             power_type_2 = week * day * hour * feeder[feed][1]
                             power_type_3 = week * day * hour * feeder[feed][2]
-                            output[feed_count][week_count][day_count][hour_count] = (power_type_1, power_type_2, power_type_3)
+                            output[feed_count][week_count][day_count][hour_count] = [power_type_1, power_type_2,
+                                                                                     power_type_3, feed, 0]
                             # print(f'output: {output}')
                             #input()
                     else:
@@ -143,21 +148,23 @@ def hourly_demmand(feeder, weekly_lf, daily_lf, winter_weekday_hourly_lf,
                             power_type_1 = week * day * hour * feeder[feed][0]
                             power_type_2 = week * day * hour * feeder[feed][1]
                             power_type_3 = week * day * hour * feeder[feed][2]
-                            output[feed_count][week_count][day_count][hour_count] = (power_type_1, power_type_2, power_type_3)
+                            output[feed_count][week_count][day_count][hour_count] = [power_type_1, power_type_2,
+                                                                                     power_type_3, feed, 0]
                             # print(f'output: {output}')
                             #input()
+    #print(feed_count)
     return output
 
-output = {}
-output = hourly_demmand(annual_peak_demand_load_feeder, weekly_load_factors, daily_load_factors,
-                hourly_load_factors_weekday_1_8__44_52,
-                hourly_load_factors_weekend_1_8__44_52,
-                hourly_load_factors_weekday_18_30,
-                hourly_load_factors_weekend_18_30,
-                hourly_load_factors_weekday_9_17__31_43,
-                hourly_load_factors_weekend_9_17__31_43,
-                output
-                )
+# output = {}
+# output = hourly_demmand(annual_peak_demand_load_feeder, weekly_load_factors, daily_load_factors,
+#                 hourly_load_factors_weekday_1_8__44_52,
+#                 hourly_load_factors_weekend_1_8__44_52,
+#                 hourly_load_factors_weekday_18_30,
+#                 hourly_load_factors_weekend_18_30,
+#                 hourly_load_factors_weekday_9_17__31_43,
+#                 hourly_load_factors_weekend_9_17__31_43,
+#                 output
+#                 )
 
 # xs = []
 # ys = []
@@ -170,55 +177,55 @@ output = hourly_demmand(annual_peak_demand_load_feeder, weekly_load_factors, dai
 #                 ys.append(output[feed][week][day][hour][1])
 #                 zs.append(output[feed][week][day][hour][2])
 
-#fig = plt.figure(figsize=(20,20))
-#rp_3d = fig.add_subplot(111, projection='3d', elev=10, azim=0)
+# fig = plt.figure(figsize=(20,20))
+# rp_3d = fig.add_subplot(111, projection='3d', elev=10, azim=0)
 #ap_3d = fig.add_subplot(111, projection='3d', elev=10, azim=0)
 #app_3d = fig.add_subplot(111, projection='3d', elev=10, azim=0)
 
-for c, feed in [('r', 1), ('coral', 2), ('peru', 3), ('wheat', 4), ('goldenrod', 5),
-                ('darkkhaki', 6), ('yellow', 7), ('darkolivegreen', 8), ('lawngreen', 9),
-                ('springgreen', 10), ('lightseagreen', 11), ('aqua', 12), ('steelblue', 13),
-                ('rebeccapurple', 14), ('violet', 15), ('fuchsia', 16), ('deeppink', 17),
-                ('crimson', 18)]:
-
-    hourly_reactive_power = []
-    daily_reactive_power = []
-
-    hourly_active_power = []
-    daily_active_power = []
-
-    hourly_apparent_power = []
-    daily_apparent_power = []
-
-    hour_count = 0
-    duration_hours = []
-
-    day_count = 0
-    daily_sum = 0
-    duration_days = []
-
-    for week in range(1, len(output[feed])+1):
-        for day in range(1, len(output[feed][week])+1):
-            day_count = day_count+1
-            duration_days.append(day_count)
-            daily_sum = 0
-            for hour in range(1, len(output[feed][week][day])+1):
-                hour_count = hour_count+1
-                duration_hours.append(hour_count)
-
-                hourly_reactive_power.append(output[feed][week][day][hour][0])
-                hourly_active_power.append(output[feed][week][day][hour][1])
-                hourly_apparent_power.append(output[feed][week][day][hour][2])
-
-                daily_sum = daily_sum + output[feed][week][day][hour][2]
-            daily_reactive_power.append(daily_sum/24)
-            daily_active_power.append(daily_sum/24)
-            daily_apparent_power.append(daily_sum/24)
-
-    #rp_3d.scatter(feed, duration_days, daily_reactive_power, c=c)
-    #ap_3d.scatter(feed, duration_hours, hourly_active_power, c=c)
-    #app_3d.scatter(feed, duration_days, daily_apparent_power, c=c)
-
+# for c, feed in [('r', 1), ('coral', 2), ('peru', 3), ('wheat', 4), ('goldenrod', 5),
+#                 ('darkkhaki', 6), ('yellow', 7), ('darkolivegreen', 8), ('lawngreen', 9),
+#                 ('springgreen', 10), ('lightseagreen', 11), ('aqua', 12), ('steelblue', 13),
+#                 ('rebeccapurple', 14), ('violet', 15), ('fuchsia', 16), ('deeppink', 17),
+#                 ('crimson', 18)]:
+#
+#     hourly_reactive_power = []
+#     daily_reactive_power = []
+#
+#     hourly_active_power = []
+#     daily_active_power = []
+#
+#     hourly_apparent_power = []
+#     daily_apparent_power = []
+#
+#     hour_count = 0
+#     duration_hours = []
+#
+#     day_count = 0
+#     daily_sum = 0
+#     duration_days = []
+#
+#     for week in range(1, len(output[feed])+1):
+#         for day in range(1, len(output[feed][week])+1):
+#             day_count = day_count+1
+#             duration_days.append(day_count)
+#             daily_sum = 0
+#             for hour in range(1, len(output[feed][week][day])+1):
+#                 hour_count = hour_count+1
+#                 duration_hours.append(hour_count)
+#
+#                 hourly_reactive_power.append(output[feed][week][day][hour][0])
+#                 hourly_active_power.append(output[feed][week][day][hour][1])
+#                 hourly_apparent_power.append(output[feed][week][day][hour][2])
+#
+#                 daily_sum = daily_sum + output[feed][week][day][hour][0]
+#             daily_reactive_power.append(daily_sum/24)
+#             daily_active_power.append(daily_sum/24)
+#             daily_apparent_power.append(daily_sum/24)
+#
+#     rp_3d.scatter(feed, duration_days, daily_reactive_power, c=c)
+#     ap_3d.scatter(feed, duration_hours, hourly_active_power, c=c)
+#     app_3d.scatter(feed, duration_days, daily_apparent_power, c=c)
+#
 # rp_3d.set_xlabel('Feeder')
 # rp_3d.set_ylabel('Day')
 # rp_3d.set_zlabel('Reactive Power')
@@ -231,38 +238,38 @@ for c, feed in [('r', 1), ('coral', 2), ('peru', 3), ('wheat', 4), ('goldenrod',
 # app_3d.set_ylabel('Day')
 # app_3d.set_zlabel('Apparent Power')
 
-#plt.show()
+# plt.show()
 
-fig = plt.figure(figsize=(10,10))
-rp = fig.add_subplot(111)
-
-for color, feed in [('r', 1), ('coral', 2), ('peru', 3), ('wheat', 4), ('goldenrod', 5),
-                ('darkkhaki', 6), ('yellow', 7), ('darkolivegreen', 8), ('lawngreen', 9),
-                ('springgreen', 10), ('lightseagreen', 11), ('aqua', 12), ('steelblue', 13),
-                ('rebeccapurple', 14), ('violet', 15), ('fuchsia', 16), ('deeppink', 17),
-                ('crimson', 18)]:
-
-    weekly_power_values = []
-    week_timestamps = []
-    hourly_values = []
-
-
-    week_count = 0
-    for week in range(1, len(output[feed])+1):
-
-        week_count = week_count+1
-        week_timestamps.append(week_count)
-
-        hourly_power_values = []
-
-        for day in range(1, len(output[feed][week])+1):
-            for hour in range(1, len(output[feed][week][day])+1):
-                hourly_power_values.append(output[feed][week][day][hour][0])
-
-        weekly_power_values.append(max(hourly_power_values))
-    rp.plot(week_timestamps, weekly_power_values, c=color)
-
-rp.set_xlabel('Weeks')
-rp.set_ylabel('Reactice Power')
-
-plt.show()
+# fig = plt.figure(figsize=(10,10))
+# rp = fig.add_subplot(111)
+#
+# for color, feed in [('r', 1), ('coral', 2), ('peru', 3), ('wheat', 4), ('goldenrod', 5),
+#                 ('darkkhaki', 6), ('yellow', 7), ('darkolivegreen', 8), ('lawngreen', 9),
+#                 ('springgreen', 10), ('lightseagreen', 11), ('aqua', 12), ('steelblue', 13),
+#                 ('rebeccapurple', 14), ('violet', 15), ('fuchsia', 16), ('deeppink', 17),
+#                 ('crimson', 18)]:
+#
+#     weekly_power_values = []
+#     week_timestamps = []
+#     hourly_values = []
+#
+#
+#     week_count = 0
+#     for week in range(1, len(output[feed])+1):
+#
+#         week_count = week_count+1
+#         week_timestamps.append(week_count)
+#
+#         hourly_power_values = []
+#
+#         for day in range(1, len(output[feed][week])+1):
+#             for hour in range(1, len(output[feed][week][day])+1):
+#                 hourly_power_values.append(output[feed][week][day][hour][0])
+#
+#         weekly_power_values.append(max(hourly_power_values))
+#     rp.plot(week_timestamps, weekly_power_values, c=color)
+#
+# rp.set_xlabel('Weeks')
+# rp.set_ylabel('Reactice Power')
+#
+# plt.show()
