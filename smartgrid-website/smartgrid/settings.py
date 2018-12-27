@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'smartgrid.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'readings_focused_model',
+        'NAME': 'smartgrid',
         'USER': 'root',
         'PASSWORD': 'smartgridserver',
         'HOST': '127.0.0.1',
