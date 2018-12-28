@@ -2,7 +2,6 @@ from django.db import models
 
 
 class PowerSystemGenerationData(models.Model):
-    year = models.IntegerField(primary_key=True)
     power_system = models.IntegerField(primary_key=True)
 
     load_feeder_group = models.ForeignKey('AnnualPeakDemandAtLoadFeeder', on_delete=models.CASCADE)
@@ -14,19 +13,22 @@ class PowerSystemGenerationData(models.Model):
     hourly_load_peak_group = models.ForeignKey('HourlyLoadPercentOfDailyPeakTimeOfYear', on_delete=models.CASCADE)
 
     class Meta:
-        unique_together = ("year", "power_system", "load_feeder_group", "weekly_load_peak_group",
+        unique_together = ("power_system", "load_feeder_group", "weekly_load_peak_group",
                            "daily_load_peak_group", "hourly_load_peak_group")
 
     def __str__(self):
-        return 'PowerSystemGenerationData: ' + str(self.year) + '/' + str(self.power_system)
+        return 'PowerSystemGenerationData: ' + str(self.power_system)
 
 
 class HourlyLoadPercentOfDailyPeakTimeOfYear(models.Model):
     hourly_load_peak_time_of_year_group = models.AutoField(primary_key=True)
 
-    winter_weeks_group = models.ForeignKey('HourlyLoadPercentOfDailyPeakTimeOfWeek', on_delete=models.CASCADE)
-    summer_weeks_group = models.ForeignKey('HourlyLoadPercentOfDailyPeakTimeOfWeek', on_delete=models.CASCADE)
-    spring_fall_weeks_group = models.ForeignKey('HourlyLoadPercentOfDailyPeakTimeOfWeek', on_delete=models.CASCADE)
+    winter_weeks_group = models.ForeignKey('HourlyLoadPercentOfDailyPeakTimeOfWeek', on_delete=models.CASCADE,
+                                           related_name='hourly_peak_load_time_of_year_winter')
+    summer_weeks_group = models.ForeignKey('HourlyLoadPercentOfDailyPeakTimeOfWeek', on_delete=models.CASCADE,
+                                           related_name='hourly_peak_load_time_of_year_summer')
+    spring_fall_weeks_group = models.ForeignKey('HourlyLoadPercentOfDailyPeakTimeOfWeek', on_delete=models.CASCADE,
+                                                related_name='hourly_peak_load_time_of_year_spring_fall')
 
     class Meta:
         unique_together = (
@@ -39,8 +41,10 @@ class HourlyLoadPercentOfDailyPeakTimeOfYear(models.Model):
 class HourlyLoadPercentOfDailyPeakTimeOfWeek(models.Model):
     hourly_load_peak_time_of_week_group = models.AutoField(primary_key=True)
 
-    weekday_group = models.ForeignKey('HourlyLoadPercentOfDailyPeak', on_delete=models.CASCADE)
-    weekend_group = models.ForeignKey('HourlyLoadPercentOfDailyPeak', on_delete=models.CASCADE)
+    weekday_group = models.ForeignKey('HourlyLoadPercentOfDailyPeak', on_delete=models.CASCADE,
+                                      related_name='hourly_peak_load_time_of_week_day')
+    weekend_group = models.ForeignKey('HourlyLoadPercentOfDailyPeak', on_delete=models.CASCADE,
+                                      related_name='hourly_peak_load_time_of_week_end')
 
     class Meta:
         unique_together = ("hourly_load_peak_time_of_week_group", "weekday_group", "weekend_group")
@@ -52,36 +56,36 @@ class HourlyLoadPercentOfDailyPeakTimeOfWeek(models.Model):
 class HourlyLoadPercentOfDailyPeak(models.Model):
     hourly_load_peak_group = models.AutoField(primary_key=True)
 
-    hour_1 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE)
-    hour_2 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE)
-    hour_3 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE)
-    hour_4 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE)
-    hour_5 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE)
-    hour_6 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE)
-    hour_7 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE)
-    hour_8 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE)
-    hour_9 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE)
-    hour_10 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE)
-    hour_11 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE)
-    hour_12 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE)
-    hour_13 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE)
-    hour_14 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE)
-    hour_15 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE)
-    hour_16 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE)
-    hour_17 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE)
-    hour_18 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE)
-    hour_19 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE)
-    hour_20 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE)
-    hour_21 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE)
-    hour_22 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE)
-    hour_23 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE)
-    hour_24 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE)
+    hour_1 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE, related_name='hourly_peak_load_1')
+    hour_2 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE, related_name='hourly_peak_load_2')
+    hour_3 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE, related_name='hourly_peak_load_3')
+    hour_4 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE, related_name='hourly_peak_load_4')
+    hour_5 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE, related_name='hourly_peak_load_5')
+    hour_6 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE, related_name='hourly_peak_load_6')
+    hour_7 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE, related_name='hourly_peak_load_7')
+    hour_8 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE, related_name='hourly_peak_load_8')
+    hour_9 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE, related_name='hourly_peak_load_9')
+    hour_10 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE, related_name='hourly_peak_load_10')
+    hour_11 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE, related_name='hourly_peak_load_11')
+    hour_12 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE, related_name='hourly_peak_load_12')
+    hour_13 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE, related_name='hourly_peak_load_13')
+    hour_14 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE, related_name='hourly_peak_load_14')
+    hour_15 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE, related_name='hourly_peak_load_15')
+    hour_16 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE, related_name='hourly_peak_load_16')
+    hour_17 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE, related_name='hourly_peak_load_17')
+    hour_18 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE, related_name='hourly_peak_load_18')
+    hour_19 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE, related_name='hourly_peak_load_19')
+    hour_20 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE, related_name='hourly_peak_load_20')
+    hour_21 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE, related_name='hourly_peak_load_21')
+    hour_22 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE, related_name='hourly_peak_load_22')
+    hour_23 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE, related_name='hourly_peak_load_23')
+    hour_24 = models.ForeignKey('HourlyPeakLoad', on_delete=models.CASCADE, related_name='hourly_peak_load_24')
 
     class Meta:
         unique_together = (
-            "hourly_load_peak_group", "day_1", "day_2", "day_3", "day_4", "day_5", "day_6", "day_7", "day_8", "day_9",
-            "day_10", "day_11", "day_12", "day_13", "day_14", "day_15", "day_16", "day_17", "day_18", "day_19",
-            "day_20", "day_21", "day_22", "day_23", "day_24")
+            "hourly_load_peak_group", "hour_1", "hour_2", "hour_3", "hour_4", "hour_5", "hour_6", "hour_7", "hour_8",
+            "hour_9", "hour_10", "hour_11", "hour_12", "hour_13", "hour_14", "hour_15", "hour_16", "hour_17", "hour_18",
+            "hour_19", "hour_20", "hour_21", "hour_22", "hour_23", "hour_24")
 
     def __str__(self):
         return 'HourlyLoadPercentOfDailyPeak: ' + str(self.hourly_load_peak_group)
@@ -102,13 +106,13 @@ class HourlyPeakLoad(models.Model):
 class DailyLoadPercentOfWeeklyPeak(models.Model):
     daily_load_peak_group = models.AutoField(primary_key=True)
 
-    day_1 = models.ForeignKey('DailyPeakLoad', on_delete=models.CASCADE)
-    day_2 = models.ForeignKey('DailyPeakLoad', on_delete=models.CASCADE)
-    day_3 = models.ForeignKey('DailyPeakLoad', on_delete=models.CASCADE)
-    day_4 = models.ForeignKey('DailyPeakLoad', on_delete=models.CASCADE)
-    day_5 = models.ForeignKey('DailyPeakLoad', on_delete=models.CASCADE)
-    day_6 = models.ForeignKey('DailyPeakLoad', on_delete=models.CASCADE)
-    day_7 = models.ForeignKey('DailyPeakLoad', on_delete=models.CASCADE)
+    day_1 = models.ForeignKey('DailyPeakLoad', on_delete=models.CASCADE, related_name='daily_peak_load_1')
+    day_2 = models.ForeignKey('DailyPeakLoad', on_delete=models.CASCADE, related_name='daily_peak_load_2')
+    day_3 = models.ForeignKey('DailyPeakLoad', on_delete=models.CASCADE, related_name='daily_peak_load_3')
+    day_4 = models.ForeignKey('DailyPeakLoad', on_delete=models.CASCADE, related_name='daily_peak_load_4')
+    day_5 = models.ForeignKey('DailyPeakLoad', on_delete=models.CASCADE, related_name='daily_peak_load_5')
+    day_6 = models.ForeignKey('DailyPeakLoad', on_delete=models.CASCADE, related_name='daily_peak_load_6')
+    day_7 = models.ForeignKey('DailyPeakLoad', on_delete=models.CASCADE, related_name='daily_peak_load_7')
 
     class Meta:
         unique_together = (
@@ -133,58 +137,58 @@ class DailyPeakLoad(models.Model):
 class WeeklyLoadPercentOfAnnualPeak(models.Model):
     weekly_load_peak_group = models.AutoField(primary_key=True)
 
-    week_1 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_2 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_3 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_4 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_5 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_6 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_7 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_8 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_9 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_10 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_11 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_12 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_13 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_14 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_15 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_16 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_17 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_18 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_19 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_20 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_21 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_22 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_23 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_24 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_25 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_26 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_27 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_28 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_29 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_30 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_31 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_32 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_33 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_34 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_35 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_36 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_37 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_38 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_39 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_40 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_41 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_42 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_43 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_44 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_45 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_46 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_47 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_48 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_49 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_50 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_51 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
-    week_52 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE)
+    week_1 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_1')
+    week_2 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_2')
+    week_3 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_3')
+    week_4 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_4')
+    week_5 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_5')
+    week_6 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_6')
+    week_7 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_7')
+    week_8 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_8')
+    week_9 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_9')
+    week_10 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_10')
+    week_11 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_11')
+    week_12 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_12')
+    week_13 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_13')
+    week_14 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_14')
+    week_15 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_15')
+    week_16 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_16')
+    week_17 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_17')
+    week_18 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_18')
+    week_19 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_19')
+    week_20 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_20')
+    week_21 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_21')
+    week_22 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_22')
+    week_23 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_23')
+    week_24 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_24')
+    week_25 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_25')
+    week_26 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_26')
+    week_27 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_27')
+    week_28 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_28')
+    week_29 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_29')
+    week_30 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_30')
+    week_31 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_31')
+    week_32 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_32')
+    week_33 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_33')
+    week_34 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_34')
+    week_35 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_35')
+    week_36 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_36')
+    week_37 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_37')
+    week_38 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_38')
+    week_39 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_39')
+    week_40 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_40')
+    week_41 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_41')
+    week_42 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_42')
+    week_43 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_43')
+    week_44 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_44')
+    week_45 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_45')
+    week_46 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_46')
+    week_47 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_47')
+    week_48 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_48')
+    week_49 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_49')
+    week_50 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_50')
+    week_51 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_51')
+    week_52 = models.ForeignKey('WeeklyPeakLoad', on_delete=models.CASCADE, related_name='weekly_peak_load_52')
 
     class Meta:
         unique_together = (
@@ -214,25 +218,25 @@ class WeeklyPeakLoad(models.Model):
 class AnnualPeakDemandAtLoadFeeder(models.Model):
     load_feeder_group = models.AutoField(primary_key=True)
 
-    load_1 = models.ForeignKey('LoadFeeder', on_delete=models.CASCADE)
-    load_2 = models.ForeignKey('LoadFeeder', on_delete=models.CASCADE)
-    load_3 = models.ForeignKey('LoadFeeder', on_delete=models.CASCADE)
-    load_4 = models.ForeignKey('LoadFeeder', on_delete=models.CASCADE)
-    load_5 = models.ForeignKey('LoadFeeder', on_delete=models.CASCADE)
-    load_6 = models.ForeignKey('LoadFeeder', on_delete=models.CASCADE)
-    load_7 = models.ForeignKey('LoadFeeder', on_delete=models.CASCADE)
-    load_8 = models.ForeignKey('LoadFeeder', on_delete=models.CASCADE)
-    load_9 = models.ForeignKey('LoadFeeder', on_delete=models.CASCADE)
-    load_10 = models.ForeignKey('LoadFeeder', on_delete=models.CASCADE)
-    load_11 = models.ForeignKey('LoadFeeder', on_delete=models.CASCADE)
-    load_12 = models.ForeignKey('LoadFeeder', on_delete=models.CASCADE)
-    load_13 = models.ForeignKey('LoadFeeder', on_delete=models.CASCADE)
-    load_14 = models.ForeignKey('LoadFeeder', on_delete=models.CASCADE)
-    load_15 = models.ForeignKey('LoadFeeder', on_delete=models.CASCADE)
-    load_16 = models.ForeignKey('LoadFeeder', on_delete=models.CASCADE)
-    load_17 = models.ForeignKey('LoadFeeder', on_delete=models.CASCADE)
-    load_18 = models.ForeignKey('LoadFeeder', on_delete=models.CASCADE)
-    load_19_aggregate = models.ForeignKey('LoadFeeder', on_delete=models.CASCADE)
+    load_1 = models.ForeignKey('LoadFeeder', on_delete=models.CASCADE, related_name='load_feeder_1')
+    load_2 = models.ForeignKey('LoadFeeder', on_delete=models.CASCADE, related_name='load_feeder_2')
+    load_3 = models.ForeignKey('LoadFeeder', on_delete=models.CASCADE, related_name='load_feeder_3')
+    load_4 = models.ForeignKey('LoadFeeder', on_delete=models.CASCADE, related_name='load_feeder_4')
+    load_5 = models.ForeignKey('LoadFeeder', on_delete=models.CASCADE, related_name='load_feeder_5')
+    load_6 = models.ForeignKey('LoadFeeder', on_delete=models.CASCADE, related_name='load_feeder_6')
+    load_7 = models.ForeignKey('LoadFeeder', on_delete=models.CASCADE, related_name='load_feeder_7')
+    load_8 = models.ForeignKey('LoadFeeder', on_delete=models.CASCADE, related_name='load_feeder_8')
+    load_9 = models.ForeignKey('LoadFeeder', on_delete=models.CASCADE, related_name='load_feeder_9')
+    load_10 = models.ForeignKey('LoadFeeder', on_delete=models.CASCADE, related_name='load_feeder_10')
+    load_11 = models.ForeignKey('LoadFeeder', on_delete=models.CASCADE, related_name='load_feeder_11')
+    load_12 = models.ForeignKey('LoadFeeder', on_delete=models.CASCADE, related_name='load_feeder_12')
+    load_13 = models.ForeignKey('LoadFeeder', on_delete=models.CASCADE, related_name='load_feeder_13')
+    load_14 = models.ForeignKey('LoadFeeder', on_delete=models.CASCADE, related_name='load_feeder_14')
+    load_15 = models.ForeignKey('LoadFeeder', on_delete=models.CASCADE, related_name='load_feeder_15')
+    load_16 = models.ForeignKey('LoadFeeder', on_delete=models.CASCADE, related_name='load_feeder_16')
+    load_17 = models.ForeignKey('LoadFeeder', on_delete=models.CASCADE, related_name='load_feeder_17')
+    load_18 = models.ForeignKey('LoadFeeder', on_delete=models.CASCADE, related_name='load_feeder_18')
+    load_19_aggregate = models.ForeignKey('LoadFeeder', on_delete=models.CASCADE, related_name='load_feeder_19')
 
     class Meta:
         unique_together = (
