@@ -1,13 +1,10 @@
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django import forms
 
 from .forms import LoadDataForm1, MeanStatisticForm1, MeanStatisticForm2
-from .models import Data, Reading, Region, Aggregator, Neighborhood, House, Year, Month, Day, Hour
+from .models import Data, Reading, PowerSystemReading
 
 import scipy.io as spio
-import os
 
 #All views are function based views. For more information see Django documentation
 

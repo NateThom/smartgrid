@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/smartgrid-website/dash/models.py" line="184" />
+    <bookmark url="file://$PROJECT_DIR$/smartgrid-website/dash/models.py" line="0" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3736d0e7-bfd9-4459-ad8a-8b39315d3b48" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smartgrid-website/dash/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/smartgrid-website/dash/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smartgrid-website/dash/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/smartgrid-website/dash/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smartgrid-website/dash/migrations/0002_auto_20180926_0144.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/smartgrid-website/dash/migrations/0003_auto_20180926_0150.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/smartgrid-website/dash/migrations/0004_auto_20180926_0202.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/smartgrid-website/dash/migrations/0005_auto_20181005_1132.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/smartgrid-website/dash/migrations/0006_auto_20181025_2341.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/smartgrid-website/dash/migrations/0007_auto_20181108_0602.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/smartgrid-website/dash/migrations/0008_auto_20181108_0623.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/smartgrid-website/dash/migrations/0009_auto_20181108_0718.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/smartgrid-website/dash/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/smartgrid-website/dash/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smartgrid-website/dash/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/smartgrid-website/dash/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,52 +26,61 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.2505415">
-      <split-first>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/models.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-405">
-                  <caret line="30" column="34" selection-start-line="30" selection-start-column="34" selection-end-line="30" selection-end-column="34" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/anomaly_detection/anomaly_power.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state>
-                  <folding>
-                    <element signature="e#0#17#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf>
-          <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/anomaly_detection/real_power.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="165">
-                  <caret line="11" column="7" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
-                  <folding>
-                    <element signature="e#0#31#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1200">
+              <caret line="34" column="19" lean-forward="true" selection-start-line="34" selection-start-column="19" selection-end-line="34" selection-end-column="19" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/smartgrid-website/smartgrid/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="62">
+              <caret line="70" selection-start-line="70" selection-end-line="70" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1320">
+              <caret line="88" lean-forward="true" selection-start-line="88" selection-end-line="88" />
+              <folding>
+                <element signature="e#0#45#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/forms.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="567">
+              <caret line="102" column="24" selection-start-line="102" selection-start-column="24" selection-end-line="102" selection-end-column="24" />
+              <folding>
+                <element signature="e#0#24#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
       <find>HourlyLoadPercentOfDailyPeak</find>
+      <find>day</find>
+      <find>second</find>
+      <find>year</find>
+      <find>TUPLE_LIST</find>
+      <find>CHOICES</find>
+      <find>##</find>
+      <find>Reading</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -73,6 +93,8 @@
         <option value="$PROJECT_DIR$/anomaly_detection/real_power.py" />
         <option value="$PROJECT_DIR$/anomaly_detection/anomaly_power.py" />
         <option value="$PROJECT_DIR$/smartgrid-website/dash/models.py" />
+        <option value="$PROJECT_DIR$/smartgrid-website/dash/views.py" />
+        <option value="$PROJECT_DIR$/smartgrid-website/dash/forms.py" />
       </list>
     </option>
   </component>
@@ -93,11 +115,6 @@
             <path>
               <item name="smartgrid" type="b2602c69:ProjectViewProjectNode" />
               <item name="smartgrid" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="smartgrid" type="b2602c69:ProjectViewProjectNode" />
-              <item name="smartgrid" type="462c0819:PsiDirectoryNode" />
-              <item name="anomaly_detection" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="smartgrid" type="b2602c69:ProjectViewProjectNode" />
@@ -153,10 +170,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1680" y="-2" width="1680" height="1052" extended-state="6" />
+    <frame x="67" y="25" width="1299" height="743" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1646562" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1645768" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -176,23 +193,6 @@
     </layout>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="14" column="40" selection-start-line="14" selection-start-column="40" selection-end-line="14" selection-end-column="40" />
-          <folding>
-            <element signature="e#0#24#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/smartgrid-website/smartgrid/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1050">
-          <caret line="70" selection-start-line="70" selection-end-line="70" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/anomaly_detection/anomaly_power.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -212,10 +212,49 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/tests.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1320">
+          <caret line="88" lean-forward="true" selection-start-line="88" selection-end-line="88" />
+          <folding>
+            <element signature="e#0#45#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="567">
+          <caret line="102" column="24" selection-start-line="102" selection-start-column="24" selection-end-line="102" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/smartgrid-website/smartgrid/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="62">
+          <caret line="70" selection-start-line="70" selection-end-line="70" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-405">
-          <caret line="30" column="34" selection-start-line="30" selection-start-column="34" selection-end-line="30" selection-end-column="34" />
+        <state relative-caret-position="-1200">
+          <caret line="34" column="19" lean-forward="true" selection-start-line="34" selection-start-column="19" selection-end-line="34" selection-end-column="19" />
         </state>
       </provider>
     </entry>
