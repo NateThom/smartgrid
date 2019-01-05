@@ -41,10 +41,11 @@ def dash_load_data2(request):
                 volt_a = voltage_a_data[sample]
                 volt_b = voltage_b_data[sample]
                 volt_c = voltage_c_data[sample]
-                data_instance = Data.objects.create(timestamp = time,
-                voltage_a = volt_a,
-                voltage_b = volt_b,
-                voltage_c = volt_c)
+                data_instance = Data.objects.create(timestamp=time,
+                                                    voltage_a=volt_a,
+                                                    voltage_b=volt_b,
+                                                    voltage_c=volt_c
+                                                    )
 
     messages.success(request, "YESSSS!")
     return redirect('/dash/')

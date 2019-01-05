@@ -5,18 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3736d0e7-bfd9-4459-ad8a-8b39315d3b48" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/anomaly_detection/data_generation_script.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/smartgrid-website/dash/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/smartgrid-website/dash/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/smartgrid-website/dash/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/smartgrid-website/dash/migrations/0001_initial.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/smartgrid-website/dash/migrations/0002_auto_20180926_0144.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/smartgrid-website/dash/migrations/0003_auto_20180926_0150.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/smartgrid-website/dash/migrations/0004_auto_20180926_0202.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/smartgrid-website/dash/migrations/0005_auto_20181005_1132.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/smartgrid-website/dash/migrations/0006_auto_20181025_2341.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/smartgrid-website/dash/migrations/0007_auto_20181108_0602.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/smartgrid-website/dash/migrations/0008_auto_20181108_0623.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/smartgrid-website/dash/migrations/0009_auto_20181108_0718.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/smartgrid-website/dash/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/smartgrid-website/dash/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/smartgrid-website/dash/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/smartgrid-website/dash/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -27,29 +17,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/anomaly_detection/real_power.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2445">
+              <caret line="163" column="57" selection-start-line="163" selection-start-column="18" selection-end-line="163" selection-end-column="57" />
+              <folding>
+                <element signature="e#0#31#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/models.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1200">
-              <caret line="34" column="19" lean-forward="true" selection-start-line="34" selection-start-column="19" selection-end-line="34" selection-end-column="19" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/smartgrid-website/smartgrid/settings.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="62">
-              <caret line="70" selection-start-line="70" selection-end-line="70" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1320">
-              <caret line="88" lean-forward="true" selection-start-line="88" selection-end-line="88" />
+            <state relative-caret-position="315">
+              <caret line="39" column="40" lean-forward="true" selection-start-line="39" selection-start-column="40" selection-end-line="39" selection-end-column="40" />
               <folding>
                 <element signature="e#0#45#0" expanded="true" />
               </folding>
@@ -58,18 +42,22 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/forms.py">
+        <entry file="file://$PROJECT_DIR$/anomaly_detection/data_generation_script.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="567">
-              <caret line="102" column="24" selection-start-line="102" selection-start-column="24" selection-end-line="102" selection-end-column="24" />
-              <folding>
-                <element signature="e#0#24#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="487">
+              <caret line="124" lean-forward="true" selection-start-line="124" selection-end-line="124" />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -81,6 +69,21 @@
       <find>CHOICES</find>
       <find>##</find>
       <find>Reading</find>
+      <find>load</find>
+      <find>feeder</find>
+      <find>weekly_lf</find>
+      <find>daily_lf</find>
+      <find>winter_weekday_hourly_lf</find>
+      <find>winter_weekend_hourly_lf</find>
+      <find>summer_weekday_hourly_lf</find>
+      <find>summer_weekend_hourly_lf</find>
+      <find>spring_weekday_hourly_lf</find>
+      <find>spring_weekend_hourly_lf</find>
+      <find>feed_count</find>
+      <find>output</find>
+      <find>power_type_1</find>
+      <find>power_type_2</find>
+      <find>power_type_3</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -90,31 +93,38 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/smartgrid-website/smartgrid/settings.py" />
-        <option value="$PROJECT_DIR$/anomaly_detection/real_power.py" />
         <option value="$PROJECT_DIR$/anomaly_detection/anomaly_power.py" />
         <option value="$PROJECT_DIR$/smartgrid-website/dash/models.py" />
-        <option value="$PROJECT_DIR$/smartgrid-website/dash/views.py" />
         <option value="$PROJECT_DIR$/smartgrid-website/dash/forms.py" />
+        <option value="$PROJECT_DIR$/smartgrid-website/dash/views.py" />
+        <option value="$PROJECT_DIR$/anomaly_detection/real_power.py" />
+        <option value="$PROJECT_DIR$/anomaly_detection/data_generation_script.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1938" />
-    <option name="y" value="-4" />
-    <option name="width" value="806" />
-    <option name="height" value="1018" />
+    <option name="x" value="67" />
+    <option name="y" value="25" />
+    <option name="width" value="1299" />
+    <option name="height" value="743" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="smartgrid" type="b2602c69:ProjectViewProjectNode" />
               <item name="smartgrid" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="smartgrid" type="b2602c69:ProjectViewProjectNode" />
+              <item name="smartgrid" type="462c0819:PsiDirectoryNode" />
+              <item name="anomaly_detection" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="smartgrid" type="b2602c69:ProjectViewProjectNode" />
@@ -137,7 +147,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -193,25 +202,6 @@
     </layout>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/anomaly_detection/anomaly_power.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#17#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/anomaly_detection/real_power.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="7" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/tests.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -220,26 +210,6 @@
         <state>
           <folding>
             <element signature="e#0#37#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1320">
-          <caret line="88" lean-forward="true" selection-start-line="88" selection-end-line="88" />
-          <folding>
-            <element signature="e#0#45#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="567">
-          <caret line="102" column="24" selection-start-line="102" selection-start-column="24" selection-end-line="102" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#24#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -253,8 +223,52 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1200">
-          <caret line="34" column="19" lean-forward="true" selection-start-line="34" selection-start-column="19" selection-end-line="34" selection-end-column="19" />
+        <state relative-caret-position="510">
+          <caret line="34" column="19" selection-start-line="34" selection-start-column="19" selection-end-line="34" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="5" column="10" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="10" />
+          <folding>
+            <element signature="e#0#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/anomaly_detection/anomaly_power.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="10" lean-forward="true" selection-start-column="10" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/anomaly_detection/real_power.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2445">
+          <caret line="163" column="57" selection-start-line="163" selection-start-column="18" selection-end-line="163" selection-end-column="57" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/anomaly_detection/data_generation_script.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="487">
+          <caret line="124" lean-forward="true" selection-start-line="124" selection-end-line="124" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="39" column="40" lean-forward="true" selection-start-line="39" selection-start-column="40" selection-end-line="39" selection-end-column="40" />
+          <folding>
+            <element signature="e#0#45#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
