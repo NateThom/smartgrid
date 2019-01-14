@@ -1,7 +1,8 @@
 from django.db import models
 
+
 class Data(models.Model):
-    data_id = models.AutoField(primary_key=True)
+    data = models.AutoField(primary_key=True)
 
     timestamp = models.FloatField()
 
@@ -16,73 +17,73 @@ class Data(models.Model):
 
     class Meta:
         unique_together = ((
-        "data_id",
-        "timestamp",
-        "voltage_a",
-        "voltage_a_units",
-        "voltage_b",
-        "voltage_b_units",
-        "voltage_c",
-        "voltage_c_units"),)
+                               "data",
+                               "timestamp",
+                               "voltage_a",
+                               "voltage_a_units",
+                               "voltage_b",
+                               "voltage_b_units",
+                               "voltage_c",
+                               "voltage_c_units"),)
 
     def __str__(self):
-        return str(self.data_id)
+        return str(self.data)
 
 
-#The reading model is the main model and is made up of some internal
-## information and the other models as foreign keys. It represents a
-## single reading from some sensor or smart meter.
+# The reading model is the main model and is made up of some internal
+# information and the other models as foreign keys. It represents a
+# single reading from some sensor or smart meter.
 
-#reading_id is simply the primary key for Reading. It autoincrements
-## and is represented by an integer
+# reading is simply the primary key for Reading. It autoincrements
+# and is represented by an integer
 
-#the time that each reading was recorded is represented by a corresponding year,
-## month, day, and hour field. In the future I would like to change these fields
-## so that they inherit from one another much like the postion (Region, Aggregator, etc)
-## fields do now. All of the dates are foreign keys from individual tables
+# the time that each reading was recorded is represented by a corresponding year,
+# month, day, and hour field. In the future I would like to change these fields
+# so that they inherit from one another much like the postion (Region, Aggregator, etc)
+# fields do now. All of the dates are foreign keys from individual tables
 
-#house_id is a foreign key from the House object that tells us which
-## house the reading is from
+# house is a foreign key from the House object that tells us which
+# house the reading is from
 
-#neighborhood_id is a foreign key from the Neighborhood object that
-## tells us which neighborhood the reading is from
+# neighborhood is a foreign key from the Neighborhood object that
+# tells us which neighborhood the reading is from
 
-#aggregator_id is a foreign key from the Aggregator object that tells
-## us which aggregator the reading is from
+# aggregator is a foreign key from the Aggregator object that tells
+# us which aggregator the reading is from
 
-#region_id is a foreign key from the Region object that tells us
-## which region the reading is from
+# region is a foreign key from the Region object that tells us
+# which region the reading is from
 
-#consumption is an internal field that represents how much power was
-## measured as being consumed between this reading and the previous
-## one
+# consumption is an internal field that represents how much power was
+# measured as being consumed between this reading and the previous
+# one
 
-#temperature is an internal field that represents the outdoor temperature
-## that was recorded when the reading was taken
+# temperature is an internal field that represents the outdoor temperature
+# that was recorded when the reading was taken
 
-#humidity is an internal field that represents the outdoor humidity
-## that was recorded when the reading was taken
+# humidity is an internal field that represents the outdoor humidity
+# that was recorded when the reading was taken
 
-#wind_speed is an internal field that represents the outdoor wind speed
-## that was recorded when the reading was taken
+# wind_speed is an internal field that represents the outdoor wind speed
+# that was recorded when the reading was taken
 
-#wind_direction is an internal field that represents the outdoor wind direction
-## that was recorded when the reading was taken
+# wind_direction is an internal field that represents the outdoor wind direction
+# that was recorded when the reading was taken
 
-#cost is an internal field that represents an estimated price for the reading
+# cost is an internal field that represents an estimated price for the reading
 
-#unique_together means that in the database table the combination of the following
-## fields must be unique
+# unique_together means that in the database table the combination of the following
+# fields must be unique
 
-#__str__(self) gives the model a name in the django api. The name is a string
-## made up of the fields in the return statement
+# __str__(self) gives the model a name in the django api. The name is a string
+# made up of the fields in the return statement
 class Reading(models.Model):
-    reading_id = models.AutoField(primary_key=True)
+    reading = models.AutoField(primary_key=True)
 
-    house_id = models.ForeignKey('House', on_delete=models.CASCADE, null=True,)
-    neighborhood_id = models.ForeignKey('Neighborhood', on_delete=models.CASCADE, null=True,)
-    aggregator_id = models.ForeignKey('Aggregator', on_delete=models.CASCADE, null=True,)
-    region_id = models.ForeignKey('Region', on_delete=models.CASCADE,)
+    house = models.ForeignKey('House', on_delete=models.CASCADE, null=True, )
+    neighborhood = models.ForeignKey('Neighborhood', on_delete=models.CASCADE, null=True, )
+    aggregator = models.ForeignKey('Aggregator', on_delete=models.CASCADE, null=True, )
+    region = models.ForeignKey('Region', on_delete=models.CASCADE, )
 
     year = models.CharField(max_length=4, default="2018", null=True)
     month = models.CharField(max_length=2, default="01", null=True)
@@ -101,83 +102,82 @@ class Reading(models.Model):
     currency = models.CharField(max_length=3, default="USD", null=True)
 
     class Meta:
-        unique_together = ((
-        "reading_id",
-        "year",
-        "month",
-        "day",
-        "hour",
-        "minute",
-        "second",
-        "house_id",
-        "neighborhood_id",
-        "aggregator_id",
-        "region_id",
-        "consumption",
-        "temperature",
-        "cost"
-        ),(
-        "year",
-        "month",
-        "day",
-        "hour",
-        "minute",
-        "second"),)
+        unique_together = ("reading",
+                           "year",
+                           "month",
+                           "day",
+                           "hour",
+                           "minute",
+                           "second",
+                           "house",
+                           "neighborhood",
+                           "aggregator",
+                           "region",
+                           "consumption",
+                           "temperature",
+                           "cost")
 
     def __str__(self):
-        return str(self.region_id_id)+"/"+str(self.aggregator_id_id)+"//"+str(self.neighborhood_id_id)+"///"+str(self.house_id_id)+"////"+str(self.reading_id)
+        return str(self.region_id) + "/" + str(self.aggregator_id) + "/" + str(self.neighborhood_id) + "/" + str(
+            self.house_id) + "/" + str(self.reading)
 
-#Year represents the year that a reading was recorded in.
-## The primary key for the field is a char field of length 4. Years are expected
-## to be in the following format: 2018
-## The field uses char fields rather than ints because they are easier to work with.
 
-#__str__(self) gives the model a name in the django api. The name is a string
-## made up of the fields in the return statement
+# Year represents the year that a reading was recorded in.
+# The primary key for the field is a char field of length 4. Years are expected
+# to be in the following format: 2018
+# The field uses char fields rather than ints because they are easier to work with.
+
+# __str__(self) gives the model a name in the django api. The name is a string
+# made up of the fields in the return statement
 class Year(models.Model):
     year = models.CharField(primary_key=True, max_length=4)
 
     def __str__(self):
         return str(self.year)
 
-#Month represents the month that a reading was recorded in.
-## The primary key for the field is a char field of length 2. Months are expected
-## to be in the following format: 01 or 12
-## The field uses char fields rather than ints because they are easier to work with.
 
-#__str__(self) gives the model a name in the django api. The name is a string
-## made up of the fields in the return statement
+# Month represents the month that a reading was recorded in.
+# The primary key for the field is a char field of length 2. Months are expected
+# to be in the following format: 01 or 12
+# The field uses char fields rather than ints because they are easier to work with.
+
+# __str__(self) gives the model a name in the django api. The name is a string
+# made up of the fields in the return statement
 class Month(models.Model):
     month = models.CharField(primary_key=True, max_length=2)
 
     def __str__(self):
         return str(self.month)
 
-#Day represents the day that a reading was recorded in.
-## The primary key for the field is a char field of length 2. Years are expected
-## to be in the following format: 01 or 30
-## The field uses char fields rather than ints because they are easier to work with.
 
-#__str__(self) gives the model a name in the django api. The name is a string
-## made up of the fields in the return statement
+# Day represents the day that a reading was recorded in.
+# The primary key for the field is a char field of length 2. Years are expected
+# to be in the following format: 01 or 30
+# The field uses char fields rather than ints because they are easier to work with.
+
+# __str__(self) gives the model a name in the django api. The name is a string
+# made up of the fields in the return statement
 class Day(models.Model):
     day = models.CharField(primary_key=True, max_length=2)
 
     def __str__(self):
         return str(self.day)
 
-#Hour represents the hour that a reading was recorded in.
-## The primary key for the field is a char field of length 2. Years are expected
-## to be in the following format: 01 or 19
-## The field uses char fields rather than ints because they are easier to work with.
 
-#__str__(self) gives the model a name in the django api. The name is a string
-## made up of the fields in the return statement
+# Hour represents the hour that a reading was recorded in.
+# The primary key for the field is a char field of length 2. Years are expected
+# to be in the following format: 01 or 19
+# The field uses char fields rather than ints because they are easier to work with.
+
+# __str__(self) gives the model a name in the django api. The name is a string
+# made up of the fields in the return statement
 class Hour(models.Model):
     hour = models.CharField(primary_key=True, max_length=2)
 
     def __str__(self):
         return str(self.hour)
+
+
 #
 # class Minute(models.Model):
 #     Minute = models.CharField(primary_key=True, max_length=2)
@@ -191,149 +191,152 @@ class Hour(models.Model):
 #     def __str__(self):
 #         return str(self.second)
 
-#Region represents the region from which some reading was taken. Region is the
-## outermost object in a heirarchy of objects. The objects within a region are:
-## Aggregator, Neighborhood, and House
+# Region represents the region from which some reading was taken. Region is the
+# outermost object in a heirarchy of objects. The objects within a region are:
+# Aggregator, Neighborhood, and House
 
-#region_id is the primary key for the Region model and is simply an auto incementing
-## integer
+# region is the primary key for the Region model and is simply an auto incementing
+# integer
 
-#__str__(self) gives the model a name in the django api. The name is a string
-## made up of the fields in the return statement
+# __str__(self) gives the model a name in the django api. The name is a string
+# made up of the fields in the return statement
 class Region(models.Model):
-    region_id = models.CharField(max_length=25)
-    full_name = models.CharField(max_length=25, primary_key=True, default="full_name",)
+    region = models.CharField(max_length=25)
+    full_name = models.CharField(max_length=25, primary_key=True, default="full_name", )
 
     def __str__(self):
-        return self.region_id
+        return self.region
 
     def save(self):
-        self.full_name = self.region_id
+        self.full_name = self.region
         super(Region, self).save()
 
-#Aggregator represents the aggregator from which some reading was taken. Aggregator
-## is the second outermost object in a heirarchy of objects. The objects within a
-##aggregator are: Neighborhood, and House
 
-#aggregator_id is the primary key for the Aggregator model and is simply an
-##auto incementing integer
+# Aggregator represents the aggregator from which some reading was taken. Aggregator
+# is the second outermost object in a heirarchy of objects. The objects within a
+#aggregator are: Neighborhood, and House
 
-#region_id is a foreign key from the Region model and is simply an auto incementing
-## integer
+# aggregator is the primary key for the Aggregator model and is simply an
+#auto incementing integer
 
-#__str__(self) gives the model a name in the django api. The name is a string
-## made up of the fields in the return statement
+# region is a foreign key from the Region model and is simply an auto incementing
+# integer
+
+# __str__(self) gives the model a name in the django api. The name is a string
+# made up of the fields in the return statement
 class Aggregator(models.Model):
-    aggregator_id = models.CharField(max_length=25)
-    region_id = models.ForeignKey('Region', on_delete=models.CASCADE,)
+    aggregator = models.CharField(max_length=25)
+    region = models.ForeignKey('Region', on_delete=models.CASCADE, )
     full_name = models.CharField(max_length=51, primary_key=True, default="full_name")
 
     class Meta:
-        unique_together = (("aggregator_id", 'region_id'),)
+        unique_together = (("aggregator", 'region'),)
 
     def __str__(self):
-        return self.region_id_id+"/"+self.aggregator_id
+        return self.region_id + "/" + self.aggregator
 
     def save(self):
-        self.full_name = self.region_id_id+"/"+self.aggregator_id
+        self.full_name = self.region_id + "/" + self.aggregator
         super(Aggregator, self).save()
 
-#Neighborhood represents the neighborhood from which some reading was taken.
-## Aggregator is the third outermost object in a heirarchy of objects. The
-## object within a neighborhood is House
 
-#neighborhood_id is the primary key for the Neighborhood model and is simply an
-##auto incementing integer
+# Neighborhood represents the neighborhood from which some reading was taken.
+# Aggregator is the third outermost object in a heirarchy of objects. The
+# object within a neighborhood is House
 
-#aggregator_id is a foreign key from the Aggregator model and is simply an
-##auto incementing integer
+# neighborhood is the primary key for the Neighborhood model and is simply an
+# auto incementing integer
 
-#region_id is a foreign key from the Region model and is simply an auto incementing
-## integer
+# aggregator is a foreign key from the Aggregator model and is simply an
+# auto incementing integer
 
-#__str__(self) gives the model a name in the django api. The name is a string
-## made up of the fields in the return statement
+# region is a foreign key from the Region model and is simply an auto incementing
+# integer
+
+# __str__(self) gives the model a name in the django api. The name is a string
+# made up of the fields in the return statement
 class Neighborhood(models.Model):
-    neighborhood_id = models.CharField(max_length = 25)
-    aggregator_id = models.ForeignKey('Aggregator', on_delete=models.CASCADE,)
-    region_id = models.ForeignKey('Region', on_delete=models.CASCADE,)
-    full_name = models.CharField(max_length = 78, primary_key=True, default="full_name")
+    neighborhood = models.CharField(max_length=25)
+    aggregator = models.ForeignKey('Aggregator', on_delete=models.CASCADE, )
+    region = models.ForeignKey('Region', on_delete=models.CASCADE, )
+    full_name = models.CharField(max_length=78, primary_key=True, default="full_name")
 
     class Meta:
         unique_together = ((
-        "neighborhood_id",
-        "aggregator_id",
-        "region_id"
-        ),)
+                               "neighborhood",
+                               "aggregator",
+                               "region"
+                           ),)
 
     def __str__(self):
-        return self.aggregator_id_id+"//"+self.neighborhood_id
+        return self.aggregator_id + "/" + self.neighborhood
 
     def save(self):
-        self.full_name = self.aggregator_id_id+"//"+self.neighborhood_id
+        self.full_name = self.aggregator_id + "/" + self.neighborhood
         super(Neighborhood, self).save()
 
-#House represents the house from which some reading was taken.
-## House is the innermost object in a heirarchy of objects.
 
-#house_id is the primary key for the House model and is simply an
-##auto incementing integer
+# House represents the house from which some reading was taken.
+# House is the innermost object in a heirarchy of objects.
 
-#neighborhood_id is a foreign key from the Neighborhood model and is simply an
-##auto incementing integer
+# house is the primary key for the House model and is simply an
+# auto incementing integer
 
-#aggregator_id is a foreign key from the Aggregator model and is simply an
-##auto incementing integer
+# neighborhood is a foreign key from the Neighborhood model and is simply an
+# auto incementing integer
 
-#region_id is a foreign key from the Region model and is simply an auto incementing
-## integer
+# aggregator is a foreign key from the Aggregator model and is simply an
+# auto incementing integer
 
-#__str__(self) gives the model a name in the django api. The name is a string
-## made up of the fields in the return statement
+# region_id is a foreign key from the Region model and is simply an auto incementing
+# integer
+
+# __str__(self) gives the model a name in the django api. The name is a string
+# made up of the fields in the return statement
 class House(models.Model):
-    house_id = models.CharField(max_length = 25)
-    neighborhood_id = models.ForeignKey('Neighborhood', on_delete=models.CASCADE,)
-    aggregator_id = models.ForeignKey('Aggregator', on_delete=models.CASCADE,)
-    region_id = models.ForeignKey('Region', on_delete=models.CASCADE,)
-    full_name = models.CharField(max_length = 106, primary_key=True, default="full_name")
+    house = models.CharField(max_length=25)
+    neighborhood = models.ForeignKey('Neighborhood', on_delete=models.CASCADE, )
+    aggregator = models.ForeignKey('Aggregator', on_delete=models.CASCADE, )
+    region = models.ForeignKey('Region', on_delete=models.CASCADE, )
+    full_name = models.CharField(max_length=106, primary_key=True, default="full_name")
 
     class Meta:
         unique_together = ((
-        "house_id",
-        "neighborhood_id",
-        "aggregator_id",
-        "region_id"
-        ),)
+                               "house",
+                               "neighborhood",
+                               "aggregator",
+                               "region"
+                           ),)
 
     def __str__(self):
-        return self.neighborhood_id_id+"///"+self.house_id
+        return self.neighborhood_id + "/" + self.house
 
     def save(self):
-        self.full_name = self.neighborhood_id_id+"///"+self.house_id
+        self.full_name = self.neighborhood_id + "/" + self.house
         super(House, self).save()
 
 # class Appliance(models.Model):
-#     appliance_id = models.AutoField(primary_key=True)
-#     house_id = models.ForeignKey('House', on_delete=models.CASCADE,)
-#     neighborhood_id = models.ForeignKey('Neighborhood', on_delete=models.CASCADE,)
-#     aggregator_id = models.ForeignKey('Aggregator', on_delete=models.CASCADE,)
-#     region_id = models.ForeignKey('Region', on_delete=models.CASCADE,)
-#     type_id = models.ForeignKey('Appliance_Type', on_delete=models.CASCADE,)
+#     appliance = models.AutoField(primary_key=True)
+#     house = models.ForeignKey('House', on_delete=models.CASCADE,)
+#     neighborhood = models.ForeignKey('Neighborhood', on_delete=models.CASCADE,)
+#     aggregator = models.ForeignKey('Aggregator', on_delete=models.CASCADE,)
+#     region = models.ForeignKey('Region', on_delete=models.CASCADE,)
+#     type = models.ForeignKey('Appliance_Type', on_delete=models.CASCADE,)
 #     appliance_consumption = models.BigIntegerField()
 #
 #     class Meta:
 #         unique_together = ((
-#         "appliance_id",
-#         "house_id",
-#         "neighborhood_id",
-#         "aggregator_id",
-#         "region_id"
+#         "appliance",
+#         "house",
+#         "neighborhood",
+#         "aggregator",
+#         "region"
 #         ),)
 #     def __str__(self):
-#         return str(self.region_id_id)+"/"+str(self.aggregator_id_id)+"//"+str(self.neighborhood_id_id)+"///"+str(self.house_id_id)+"////"+str(self.appliance_id)
+#         return str(self.region_id)+"/"+str(self.aggregator_id)+"//"+str(self.neighborhood_id)+"///"+str(self.house_id)+"////"+str(self.appliance)
 
 # class Appliance_Type(models.Model):
-#     type_id = models.AutoField(primary_key=True)
+#     type = models.AutoField(primary_key=True)
 #     description = models.TextField()
 #     def __str__(self):
-#         return str(self.type_id)
+#         return str(self.type)
