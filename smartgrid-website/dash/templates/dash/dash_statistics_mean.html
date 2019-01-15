@@ -48,30 +48,4 @@
 {% endblock statistic %}
 
 {% block statistic_javascript %}
-<script>
-//Stop the submit button for normal function and call AJAX function
-  // calculate mean on submit of mean_statistic form
-  $('#mean_statistic_form').on('submit', function(event){
-    event.preventDefault();
-    console.log("form submitted!")  // sanity check
-    mean_statistic_function();
-  });
-  //AJAX function for finding mean statistic. Allows for data to change without page reloading
-  function mean_statistic_function(){
-    console.log("mean_statistic_function is working!") //sanity check
-    $.ajax({
-        url: "dash/mean_statistic/",
-        type: "GET",
-        data: { metric: $('input[name=metric]:checked', '#mean_statistic_form').val(), data: $('input[name=data]:checked', '#mean_statistic_form').val()},
-        success: function(json){
-          console.log(json);
-          console.log("success");
-        },
-        error: function(xhr,errmsg,err){
-          console.log(xhr.status + ": " + xhr.responseText);
-        }
-      }
-    });
-  };
-</script>
 {% endblock statistic_javascript %}

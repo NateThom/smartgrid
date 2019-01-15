@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 
 class Data(models.Model):
@@ -16,15 +17,16 @@ class Data(models.Model):
     voltage_c_units = models.CharField(max_length=3, default='kWh')
 
     class Meta:
-        unique_together = ((
-                               "data",
-                               "timestamp",
-                               "voltage_a",
-                               "voltage_a_units",
-                               "voltage_b",
-                               "voltage_b_units",
-                               "voltage_c",
-                               "voltage_c_units"),)
+        unique_together = (
+            "data",
+            "timestamp",
+            "voltage_a",
+            "voltage_a_units",
+            "voltage_b",
+            "voltage_b_units",
+            "voltage_c",
+            "voltage_c_units"
+        )
 
     def __str__(self):
         return str(self.data)
@@ -80,35 +82,38 @@ class Data(models.Model):
 class Reading(models.Model):
     reading = models.AutoField(primary_key=True)
 
-    house = models.ForeignKey('House', on_delete=models.CASCADE, null=True, )
-    neighborhood = models.ForeignKey('Neighborhood', on_delete=models.CASCADE, null=True, )
-    aggregator = models.ForeignKey('Aggregator', on_delete=models.CASCADE, null=True, )
-    region = models.ForeignKey('Region', on_delete=models.CASCADE, )
+    house = models.ForeignKey('House', on_delete=models.CASCADE)
+    neighborhood = models.ForeignKey('Neighborhood', on_delete=models.CASCADE)
+    aggregator = models.ForeignKey('Aggregator', on_delete=models.CASCADE)
+    region = models.ForeignKey('Region', on_delete=models.CASCADE)
 
-    year = models.CharField(max_length=4, default="2018", null=True)
-    month = models.CharField(max_length=2, default="01", null=True)
-    day = models.CharField(max_length=2, default="01", null=True)
-    hour = models.CharField(max_length=2, default="00", null=True)
-    minute = models.CharField(max_length=2, default="00", null=True)
-    second = models.CharField(max_length=2, default="00", null=True)
+    # year = models.CharField(max_length=4, default="2018", null=True)
+    # month = models.CharField(max_length=2, default="01", null=True)
+    # day = models.CharField(max_length=2, default="01", null=True)
+    # hour = models.CharField(max_length=2, default="00", null=True)
+    # minute = models.CharField(max_length=2, default="00", null=True)
+    # second = models.CharField(max_length=2, default="00", null=True)
 
-    consumption = models.BigIntegerField()
+    date = models.DateTimeField(default=timezone.now)
+
+    consumption = models.BigIntegerField(default=0)
     consumption_units = models.CharField(max_length=3, default='kWh')
 
-    temperature = models.IntegerField(null=True)
-    temperature_units = models.CharField(max_length=1, default='F', null=True)
+    temperature = models.IntegerField(default=0)
+    temperature_units = models.CharField(max_length=1, default='F')
 
-    cost = models.BigIntegerField(null=True)
-    currency = models.CharField(max_length=3, default="USD", null=True)
+    cost = models.BigIntegerField(default=0)
+    currency = models.CharField(max_length=3, default="USD")
 
     class Meta:
         unique_together = ("reading",
-                           "year",
-                           "month",
-                           "day",
-                           "hour",
-                           "minute",
-                           "second",
+                           # "year",
+                           # "month",
+                           # "day",
+                           # "hour",
+                           # "minute",
+                           # "second",
+                           "date",
                            "house",
                            "neighborhood",
                            "aggregator",

@@ -51,23 +51,12 @@ class MeanStatisticForm2(forms.Form):
     # fields: position, modifier, and time_period
     position_field = forms.ChoiceField()
     modifier_field = forms.CharField()
-    if (modifier_field.max_length == 0):
-        fields['modifier_field'].initial = "None"
-        fields['modifier_field'].disabled = True
     time_period_field = forms.ChoiceField()
     measurement_unit_field = forms.ChoiceField()
 
     # __init__ is a fucntion that runs before anything else in the class. In C
     # this is like a contructor. Checkout the python docs.
     def __init__(self, *args, **kwargs):
-        # First get the data out of the kwargs that were passed into the function
-        # when it was called from the views.py
-        position_selection = kwargs.pop('position_selection', None)
-        modifier_selection = kwargs.pop('modifier_selection', None)
-        time_period_selection = kwargs.pop('time_period_selection', None)
-        measurement_selection = kwargs.pop('measurement_selection', None)
-        super().__init__(*args, **kwargs)
-
         def get_region_choices(selection):
             TUPLE_LIST = list(eval(selection).objects.values_list())
             return TUPLE_LIST
@@ -120,18 +109,33 @@ class MeanStatisticForm2(forms.Form):
 
             return CHOICES
 
+        # First get the data out of the kwargs that were passed into the function
+        # when it was called from the views.py
+        position_selection = kwargs.pop('position_selection', None)
+        modifier_selection = kwargs.pop('modifier_selection', None)
+        time_period_selection = kwargs.pop('time_period_selection', None)
+        measurement_selection = kwargs.pop('measurement_selection', None)
+
+        super().__init__(*args, **kwargs)
+
         if position_selection:
-            if (position_selection == "Region"):
+            if position_selection == "Region":
                 self.fields['position_field'].choices = get_region_choices(position_selection)
-            elif (position_selection == "Aggregator"):
+            elif position_selection == "Aggregator":
                 self.fields['position_field'].choices = get_aggregator_choices(position_selection)
-            elif (position_selection == "Neighborhood"):
+            elif position_selection == "Neighborhood":
                 self.fields['position_field'].choices = get_neighborhood_choices(position_selection)
             else:
                 self.fields['position_field'].choices = get_house_choices(position_selection)
+
         if modifier_selection:
             self.fields['modifier_field'].max_length = get_modifier_length(modifier_selection)
+            if self.fields['modifier_field'].max_length == 0:
+                self.fields['modifier_field'].initial = "None"
+                self.fields['modifier_field'].disabled = True
+
         if time_period_selection:
             self.fields['time_period_field'].choices = get_time_period_choices(time_period_selection)
+
         if measurement_selection:
             self.fields['measurement_unit_field'].choices = get_measurement_unit_choices(measurement_selection)

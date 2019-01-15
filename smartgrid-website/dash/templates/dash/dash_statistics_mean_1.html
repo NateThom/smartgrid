@@ -6,14 +6,6 @@
 {% block statistic %}
   <h3>Mean: Form 1</h3>
 
-  {% if messages %}
-  <ul class="messages">
-    {% for message in messages %}
-      <p class="{{ message.tags }}"><strong>Message: </strong>{{ message }}</p>
-    {% endfor %}
-  </ul>
-  {% endif %}
-
   <form id="mean_statistic_form_1" action = "dash_statistics_mean_2/" method="get">
     {{mean_statistic_form_1|linebreaks}}
     <input type = "submit" value = "Submit"  target="_self"/>
