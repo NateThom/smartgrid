@@ -79,7 +79,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'smartgrid',
-        'USER': 'root',
+        'USER': 'nate',
         'PASSWORD': 'smartgridserver',
         'HOST': '127.0.0.1',
         'PORT': '3306',

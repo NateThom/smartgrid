@@ -21,13 +21,11 @@ class MeanStatisticForm1(forms.Form):
     # the "choices" variable requires. One of the values is the value that will
     # be displayed for the user and the other is the value that will be submitted
     # with the form. See the docs for more information.
-    time_frame_choices = [('year', 'Year'), ('month', 'Month'), ('day', 'Day'), ('hour', 'Hour'), ('minute', 'Minute'),
-                          ('second', 'Second')]
+    time_frame_choices = [('year', 'Year'), ('month', 'Month'), ('week', 'Week'), ('day', 'Day'), ('hour', 'Hour')]
+    # Maybe include later ('day_of_week', 'Day Of Week'), ('season', 'Season'),
     position_choices = [('Region', 'Region'), ('Aggregator', 'Aggregator'), ('Neighborhood', 'Neighborhood'),
                         ('House', 'House')]
     measurement_choices = [('Consumption', 'Consumption'), ('Temperature', 'Temperature')]
-    modifier_choices = [('Exact Consumption', 'Exact Consumption'), ('Exact Temperature', 'Exact Temperature'),
-                        ('None', 'None')]
 
     # The django library makes it super easy to render these fields with built-in functions.
     # There are many different "widget" options available and they could be cusotmized too.
@@ -37,7 +35,6 @@ class MeanStatisticForm1(forms.Form):
     # to be submitted with the query and the ChoiceField allows for only one
     position_field = forms.MultipleChoiceField(choices=position_choices)
     measurement_field = forms.ChoiceField(choices=measurement_choices)
-    modifier_field = forms.MultipleChoiceField(choices=modifier_choices)
     time_period_field = forms.ChoiceField(choices=time_frame_choices)
 
 
@@ -50,8 +47,7 @@ class MeanStatisticForm2(forms.Form):
     # First define the fields that will be in the form. The form will have three
     # fields: position, modifier, and time_period
     position_field = forms.ChoiceField()
-    modifier_field = forms.CharField()
-    time_period_field = forms.ChoiceField()
+    time_period_field = forms.MultipleChoiceField()
     measurement_unit_field = forms.ChoiceField()
 
     # __init__ is a fucntion that runs before anything else in the class. In C
@@ -86,20 +82,49 @@ class MeanStatisticForm2(forms.Form):
             return CHOICES
 
         def get_time_period_choices(selection):
-            TUPLE_LIST = list(Reading.objects.values_list(str(selection)).distinct())
-            CHOICES = []
-            for entry in TUPLE_LIST:
-                CHOICES.append(entry + entry)
-            return CHOICES
+            if selection == 'year':
+                year_list = list(Reading.objects.datetimes('date', 'year', 'ASC'))
+                choices = []
+                for year in range(len(year_list)):
+                    choices.append((year_list[year].strftime('%Y'), year_list[year].strftime('%Y')))
 
-        def get_modifier_length(selection):
-            if (selection[0:5] == "Exact"):
-                if (selection[6:] == "Consumption"):
-                    return 16
-                elif (selection[6:] == "Temperature"):
-                    return 3
-            else:
-                return 0
+                return choices
+
+            # elif selection == 'season':
+
+            elif selection == 'month':
+                month_list = list(Reading.objects.datetimes('date', 'month', 'ASC'))
+                choices = []
+                for month in range(len(month_list)):
+                    choices.append((month_list[month].strftime('%m/%Y'), month_list[month].strftime('%m/%Y')))
+
+                return choices
+
+            elif selection == 'week':
+                week_list = list(Reading.objects.datetimes('date', 'week', 'ASC'))
+                choices = []
+                for week in range(len(week_list)):
+                    choices.append((week_list[week].strftime('%W/%Y'), week_list[week].strftime('%W/%Y')))
+
+                return choices
+
+            elif selection == 'day':
+                day_list = list(Reading.objects.datetimes('date', 'day', 'ASC'))
+                choices = []
+                for day in range(len(day_list)):
+                    choices.append((day_list[day].strftime('%x'), day_list[day].strftime('%x')))
+
+                return choices
+
+            # elif selection == 'day_of_week':
+
+            elif selection == 'hour':
+                hour_list = list(Reading.objects.datetimes('date', 'hour', 'ASC'))
+                choices = []
+                for hour in range(len(hour_list)):
+                    choices.append((hour_list[hour], hour_list[hour]))
+
+                return choices
 
         def get_measurement_unit_choices(selection):
             if selection == "Consumption":
@@ -112,7 +137,6 @@ class MeanStatisticForm2(forms.Form):
         # First get the data out of the kwargs that were passed into the function
         # when it was called from the views.py
         position_selection = kwargs.pop('position_selection', None)
-        modifier_selection = kwargs.pop('modifier_selection', None)
         time_period_selection = kwargs.pop('time_period_selection', None)
         measurement_selection = kwargs.pop('measurement_selection', None)
 
@@ -127,12 +151,6 @@ class MeanStatisticForm2(forms.Form):
                 self.fields['position_field'].choices = get_neighborhood_choices(position_selection)
             else:
                 self.fields['position_field'].choices = get_house_choices(position_selection)
-
-        if modifier_selection:
-            self.fields['modifier_field'].max_length = get_modifier_length(modifier_selection)
-            if self.fields['modifier_field'].max_length == 0:
-                self.fields['modifier_field'].initial = "None"
-                self.fields['modifier_field'].disabled = True
 
         if time_period_selection:
             self.fields['time_period_field'].choices = get_time_period_choices(time_period_selection)
