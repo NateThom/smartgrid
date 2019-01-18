@@ -8,11 +8,17 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>{% block title %}Smartgrid Dash{% endblock title %}</title>
+    <title>{% block title %}Smartgrid Command and Control Center{% endblock title %}</title>
     {% block library %}{% endblock library %}
   </head>
   <body>
-    <h1>Smartgrid Dash</h1>
+    <h1>SmartGrid Command and Control Center</h1>
+    <form action = "/dash/dash_statistics_1/" method = "get">
+      <input type = "submit" value = "Statistics"  target="_self"/>
+    </form>
+    <form action = "/dash/dash_load_data1/" method = "get">
+      <input type = "submit" value = "Upload Data"  target="_self"/>
+    </form>
 
     {% if messages %}
     <ul class="messages">
@@ -22,20 +28,24 @@
     </ul>
     {% endif %}
 
-    <h2>Smartgrid Statistics</h2>
-    <form action = "/dash/dash_statistics_mean_1/" method = "get">
-      <input type = "submit" value = "Mean"  target="_self"/>
-    </form>
     {% block statistic %}
+      <p>
+        The SmartGrid Command and Control Center can compute a handful of statistics from it's database of power
+        consumption readings. The current computable statistics are mean, standard deviation, minimum, maximum, and range.
+        In addition, you can compute these statistics on either past consumption or temperature readings. The command
+        and Control Center also has the capability of uploading data. To use either of these features just click on the
+        corresponding button!
+      </p>
     {% endblock statistic %}
     {% block statistic_javascript %}
     {% endblock statistic_javascript %}
 
-    <h2>Smartgrid Data Upload</h2>
-    <form action = "/dash/dash_load_data1/" method = "get">
-      <input type = "submit" value = "Upload Data"  target="_self"/>
-    </form>
     {% block upload_data %}
     {% endblock upload_data %}
+
+    <form action = "/dash/" method = "get">
+      <input type = "submit" value = "SmartGrid Reset"  target="_self"/>
+    </form>
+
   </body>
 </html>

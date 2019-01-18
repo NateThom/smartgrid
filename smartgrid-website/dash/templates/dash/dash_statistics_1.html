@@ -4,15 +4,16 @@
 {% block library %} <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> {% endblock library %}
 
 {% block statistic %}
-  <h3>Mean: Form 1</h3>
+  <h2>Smartgrid Statistics</h2>
+  <h3>Statistics: Form 1</h3>
 
-  <form id="mean_statistic_form_1" action = "dash_statistics_mean_2/" method="get">
-    {{mean_statistic_form_1|linebreaks}}
+  <form id="statistic_form_1" action = "dash_statistics_2/" method="get">
+    {{statistic_form_1|linebreaks}}
     <input type = "submit" value = "Submit"  target="_self"/>
   </form>
 
-  <form id="reset" action="/dash/dash_statistics_mean_1/">
-    <input type="submit" value="Reset" />
+  <form id="reset" action="/dash/dash_statistics_1/">
+    <input type="submit" value="Statistics Reset" />
   </form>
 {% endblock statistic %}
 

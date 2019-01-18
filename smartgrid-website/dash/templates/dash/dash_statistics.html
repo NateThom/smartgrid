@@ -5,7 +5,7 @@
 
 {% block statistic %}
   <h3>Mean</h3>
-  <form id="mean_statistic_form" action = "/dash/mean_statistic/" method = "get">
+  <form id="statistic_form" action = "/dash/statistic/" method = "get">
     <strong>Time Frame:</strong>
       <input type = "radio" name="time" value = "Year"> Year</input>
       <input type = "radio" name="time" value = "Month"> Month</input>
@@ -29,20 +29,20 @@
       <input type = "radio" name="data" value = "Readings"> Reading</input>
     <br>
 
-    <input type = "submit" value = "Find Mean"/>
+    <input type = "submit" value = "Find Statistic"/>
   </form>
 
   <p>{{time}} {{metric}} {{data}}</p>
   <p><strong>Message: </strong> {{message}}</p>
 
-  {% if mean_items >= 1 %}
-    <p>Mean {{metric}} per {{data}} = {{mean_items}}</p>
+  {% if items >= 1 %}
+    <p>Statistic {{metric}} per {{data}} = {{items}}</p>
   {% endif %}
-  {% if mean_items == -1 %}
+  {% if items == -1 %}
   <p>{{data}} does not have a {{metric}} field. Please try again.</p>
   {% endif %}
 
-  <form id="reset" action="/dash/dash_statistics_mean/">
+  <form id="reset" action="/dash/dash_statistics/">
     <input type="submit" value="Reset" />
   </form>
 {% endblock statistic %}

@@ -1,7 +1,7 @@
 {% extends "dash/dash.html" %}
 
 {% block upload_data %}
-
+<h2>Smartgrid Data Upload</h2>
 <h3>Upload Data</h3>
 
 <form id="load_data_form1" action = "dash_load_data2/" method="get">
@@ -10,7 +10,7 @@
 </form>
 
 <form id="reset" action="/dash/dash_load_data1/">
-  <input type="submit" value="Reset" />
+  <input type="submit" value="Upload Reset" />
 </form>
 
 {% endblock upload_data %}

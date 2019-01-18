@@ -11,7 +11,7 @@ class LoadDataForm1(forms.Form):
 # the user will select the data that they want information on, in a broad sense.
 # Here the user can say that they want to know the "Mean Regional Consumption
 # with no Modifiers over the course of some Time Period"
-class MeanStatisticForm1(forms.Form):
+class StatisticForm1(forms.Form):
     # These lists of two-tuples are hard coded because I could not find a way to
     # automate the process of finding out what tables or models were defined for
     # the database. The cool thing is that it is super easy to change the models
@@ -21,7 +21,9 @@ class MeanStatisticForm1(forms.Form):
     # the "choices" variable requires. One of the values is the value that will
     # be displayed for the user and the other is the value that will be submitted
     # with the form. See the docs for more information.
-    time_frame_choices = [('year', 'Year'), ('month', 'Month'), ('week', 'Week'), ('day', 'Day'), ('hour', 'Hour')]
+    statistics_choices = [('Mean', 'Mean'), ('Standard Deviation', 'Standard Deviation'), ('Minimum', 'Minimum'),
+                          ('Maximum', 'Maximum'), ('Range', 'Range'), ('All Statistics', 'All Statistics')]
+    time_frame_choices = [('Year', 'Year'), ('Month', 'Month'), ('Week', 'Week'), ('Day', 'Day'), ('Hour', 'Hour')]
     # Maybe include later ('day_of_week', 'Day Of Week'), ('season', 'Season'),
     position_choices = [('Region', 'Region'), ('Aggregator', 'Aggregator'), ('Neighborhood', 'Neighborhood'),
                         ('House', 'House')]
@@ -33,6 +35,7 @@ class MeanStatisticForm1(forms.Form):
 
     # This may be obvious, but the MultipleChoiceField allows for multiple selections
     # to be submitted with the query and the ChoiceField allows for only one
+    statistic_field = forms.ChoiceField(choices=statistics_choices)
     position_field = forms.MultipleChoiceField(choices=position_choices)
     measurement_field = forms.ChoiceField(choices=measurement_choices)
     time_period_field = forms.ChoiceField(choices=time_frame_choices)
@@ -43,7 +46,7 @@ class MeanStatisticForm1(forms.Form):
 # form. Here's an example. In form 1 the user selected Region, Consumption,
 # Exact Temperature, and Year. Then in form 2 the user will specify which region,
 # the value of the modifier, and which year that the mean should be calculated for.
-class MeanStatisticForm2(forms.Form):
+class StatisticForm2(forms.Form):
     # First define the fields that will be in the form. The form will have three
     # fields: position, modifier, and time_period
     position_field = forms.ChoiceField()
@@ -82,7 +85,7 @@ class MeanStatisticForm2(forms.Form):
             return CHOICES
 
         def get_time_period_choices(selection):
-            if selection == 'year':
+            if selection == 'Year':
                 year_list = list(Reading.objects.datetimes('date', 'year', 'ASC'))
                 choices = []
                 for year in range(len(year_list)):
@@ -92,7 +95,7 @@ class MeanStatisticForm2(forms.Form):
 
             # elif selection == 'season':
 
-            elif selection == 'month':
+            elif selection == 'Month':
                 month_list = list(Reading.objects.datetimes('date', 'month', 'ASC'))
                 choices = []
                 for month in range(len(month_list)):
@@ -100,7 +103,7 @@ class MeanStatisticForm2(forms.Form):
 
                 return choices
 
-            elif selection == 'week':
+            elif selection == 'Week':
                 week_list = list(Reading.objects.datetimes('date', 'week', 'ASC'))
                 choices = []
                 for week in range(len(week_list)):
@@ -108,7 +111,7 @@ class MeanStatisticForm2(forms.Form):
 
                 return choices
 
-            elif selection == 'day':
+            elif selection == 'Day':
                 day_list = list(Reading.objects.datetimes('date', 'day', 'ASC'))
                 choices = []
                 for day in range(len(day_list)):
@@ -118,7 +121,7 @@ class MeanStatisticForm2(forms.Form):
 
             # elif selection == 'day_of_week':
 
-            elif selection == 'hour':
+            elif selection == 'Hour':
                 hour_list = list(Reading.objects.datetimes('date', 'hour', 'ASC'))
                 choices = []
                 for hour in range(len(hour_list)):
