@@ -104,7 +104,7 @@ class MeanStatisticForm2(forms.Form):
                 week_list = list(Reading.objects.datetimes('date', 'week', 'ASC'))
                 choices = []
                 for week in range(len(week_list)):
-                    choices.append((week_list[week].strftime('%W/%Y'), week_list[week].strftime('%W/%Y')))
+                    choices.append((week_list[week].strftime('%V/%Y'), week_list[week].strftime('%V/%Y')))
 
                 return choices
 
@@ -112,7 +112,7 @@ class MeanStatisticForm2(forms.Form):
                 day_list = list(Reading.objects.datetimes('date', 'day', 'ASC'))
                 choices = []
                 for day in range(len(day_list)):
-                    choices.append((day_list[day].strftime('%x'), day_list[day].strftime('%x')))
+                    choices.append((day_list[day].strftime('%m/%d/%Y'), day_list[day].strftime('%m/%d/%Y')))
 
                 return choices
 
@@ -122,7 +122,7 @@ class MeanStatisticForm2(forms.Form):
                 hour_list = list(Reading.objects.datetimes('date', 'hour', 'ASC'))
                 choices = []
                 for hour in range(len(hour_list)):
-                    choices.append((hour_list[hour], hour_list[hour]))
+                    choices.append((hour_list[hour].strftime('%R %m/%d/%Y'), hour_list[hour].strftime('%R %m/%d/%Y')))
 
                 return choices
 
