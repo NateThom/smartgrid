@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django import forms
 
-from .forms import LoadDataForm1, StatisticForm1, StatisticForm2
+from .forms import CreateDataForm1, CreateDataForm2, LoadDataForm1, StatisticForm1, StatisticForm2
 from .models import Data, Reading, Region, Aggregator, Neighborhood, House
 
 import scipy.io as spio
@@ -20,16 +20,75 @@ def dash(request):
     return render(request, 'dash/dash.html', context)
 
 
-def dash_load_data1(request):
+def dash_create_data_1(request):
     # This form is defined in forms.py
-    load_data_form1 = LoadDataForm1()
+    create_data_form_1 = CreateDataForm1()
     # The form's data is stored into a variable and then sent to the html template
     # as a context variable
-    context = {'load_data_form1': load_data_form1}
-    return render(request, 'dash/dash_load_data1.html', context)
+    context = {'create_data_form_1': create_data_form_1}
+    return render(request, 'dash/dash_create_data_1.html', context)
 
 
-def dash_load_data2(request):
+def dash_create_data_2(request):
+    # These variables store the data that is found in the url/request from the first form
+    data_selection = request.GET.getlist('data_option_field')
+
+    for user_selection in data_selection:
+        if user_selection == 'Aggregator':
+            if len(Region.objects.all()) == 0:
+                messages.warning(request, f'There are no regions in the database.')
+                return redirect('/dash/dash_create_data_1/')
+        elif user_selection == 'Neighborhood':
+            if len(Region.objects.all()) == 0:
+                messages.warning(request, f'There are no regions in the database.')
+                return redirect('/dash/dash_create_data_1/')
+            elif len(Aggregator.objects.all()) == 0:
+                messages.warning(request, f'There are no aggregators in the database.')
+                return redirect('/dash/dash_create_data_1/')
+        elif user_selection == 'House':
+            if len(Region.objects.all()) == 0:
+                messages.warning(request, f'There are no regions in the database.')
+                return redirect('/dash/dash_create_data_1/')
+            elif len(Aggregator.objects.all()) == 0:
+                messages.warning(request, f'There are no aggregators in the database.')
+                return redirect('/dash/dash_create_data_1/')
+            elif len(Neighborhood.objects.all()) == 0:
+                messages.warning(request, f'There are no neighborhoods in the database.')
+                return redirect('/dash/dash_create_data_1/')
+        elif user_selection == 'Reading':
+            if len(Region.objects.all()) == 0:
+                messages.warning(request, f'There are no regions in the database.')
+                return redirect('/dash/dash_create_data_1/')
+            elif len(Aggregator.objects.all()) == 0:
+                messages.warning(request, f'There are no aggregators in the database.')
+                return redirect('/dash/dash_create_data_1/')
+            elif len(Neighborhood.objects.all()) == 0:
+                messages.warning(request, f'There are no neighborhoods in the database.')
+                return redirect('/dash/dash_create_data_1/')
+            elif len(House.objects.all()) == 0:
+                messages.warning(request, f'There are no houses in the database.')
+                return redirect('/dash/dash_create_data_1/')
+
+    # This form is defined in forms.py
+    # We pass the data into the form's function, however we also pass the data
+    # to the web page by way of the context. The second part is to be used for
+    # anything that uses the data on the page except for forms.
+    create_data_form_2 = CreateDataForm2(data_selection=data_selection)
+
+    context = {'data_selection': data_selection, 'create_data_form_2': create_data_form_2}
+
+    return render(request, 'dash/dash_create_data_2.html', context)
+
+def dash_load_data_1(request):
+    # This form is defined in forms.py
+    load_data_form_1 = LoadDataForm1()
+    # The form's data is stored into a variable and then sent to the html template
+    # as a context variable
+    context = {'load_data_form_1': load_data_form_1}
+    return render(request, 'dash/dash_load_data_1.html', context)
+
+
+def dash_load_data_2(request):
     file_path = request.GET['file_path']
 
     for file_number in range(1, 1153):

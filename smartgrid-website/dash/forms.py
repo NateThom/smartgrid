@@ -3,6 +3,97 @@ from django import forms
 from .models import Reading, Region, Aggregator, Neighborhood, House
 
 
+class CreateDataForm2(forms.Form):
+    data_selection = kwargs.pop('data_selection', None)
+
+    # First define the fields that will be in the form. The form will have three
+    # fields: position, modifier, and time_period
+    number_of_regions_field = forms.IntegerField(min_value=1)
+    number_of_aggregators_field = forms.IntegerField(min_value=1)
+    number_of_neighborhoods_field = forms.IntegerField(min_value=1)
+    number_of_houses_field = forms.IntegerField(min_value=1)
+
+    number_of_readings_field = forms.IntegerField(min_value=1)
+    start_year = forms.IntegerField(min_value=1)
+    end_year = forms.IntegerField(min_value=1)
+    max_consumption = forms.IntegerField(min_value=1)
+    consumption_units = forms.CharField = 'kWh'
+    min_temperature = forms.IntegerField()
+    max_temperature = forms.IntegerField()
+    temperature_units = forms.ChoiceField(choices=[('F','F'),('C','C')])
+    currency_of_cost = forms.CharField()
+
+    # __init__ is a fucntion that runs before anything else in the class. In C
+    # this is like a contructor. Checkout the python docs.
+    def __init__(self, *args, **kwargs):
+        # First get the data out of the kwargs that were passed into the function
+        # when it was called from the views.py
+        data_selection = kwargs.pop('data_selection', None)
+
+        self.fields['number_of_regions_field'].initial = 0
+        self.fields['number_of_regions_field'].disabled = True
+        self.fields['number_of_aggregators_field'].initial = 0
+        self.fields['number_of_aggregators_field'].disabled = True
+        self.fields['number_of_neighborhoods_field'].initial = 0
+        self.fields['number_of_neighborhoods_field'].disabled = True
+        self.fields['number_of_houses_field'].initial = 0
+        self.fields['number_of_houses_field'].disabled = True
+
+        self.fields['number_of_readings_field'].initial = 0
+        self.fields['number_of_readings_field'].disabled = True
+        self.fields['start_year'].initial = 0
+        self.fields['start_year'].disabled = True
+        self.fields['end_year'].initial = 0
+        self.fields['end_year'].disabled = True
+        self.fields['max_consumption'].initial = 0
+        self.fields['max_consumption'].disabled = True
+        self.fields['consumption_units'].initial = 'None'
+        self.fields['consumption_units'].disabled = True
+        self.fields['min_temperature'].initial = 0
+        self.fields['min_temperature'].disabled = True
+        self.fields['max_temperature'].initial = 0
+        self.fields['max_temperature'].disabled = True
+        self.fields['temperature_units'].disabled = True
+        self.fields['currency_of_cost'].initial = 'None'
+        self.fields['currency_of_cost'].disabled = True
+
+
+        super().__init__(*args, **kwargs)
+
+        if data_selection:
+            for user_selection in data_selection:
+                if user_selection == 'Region':
+                    self.fields['number_of_regions_field'].initial = 1
+                    self.fields['number_of_regions_field'].disabled = False
+                elif user_selection == 'Aggregator':
+                    self.fields['number_of_aggregators_field'].initial = 1
+                    self.fields['number_of_aggregators_field'].disabled = False
+                elif user_selection == 'Neighborhood':
+                    self.fields['number_of_neighborhoods_field'].initial = 1
+                    self.fields['number_of_neighborhoods_field'].disabled = False
+                elif user_selection == 'House':
+                    self.fields['number_of_houses_field'].initial = 1
+                    self.fields['number_of_houses_field'].disabled = False
+                elif user_selection == 'Reading':
+                    self.fields['number_of_readings_field'].initial = 1
+                    self.fields['number_of_readings_field'].disabled = False
+                    self.fields['start_year'].disabled = False
+                    self.fields['end_year'].disabled = False
+                    self.fields['max_consumption'].disabled = False
+                    self.fields['consumption_units'].disabled = False
+                    self.fields['min_temperature'].disabled = False
+                    self.fields['max_temperature'].disabled = False
+                    self.fields['temperature_units'].disabled = False
+                    self.fields['currency_of_cost'].disabled = False
+
+
+class CreateDataForm1(forms.Form):
+    object_choices = [('Region', 'Region'), ('Aggregator', 'Aggregator'), ('Neighborhood', 'Neighborhood'),
+                        ('House', 'House'), ('Reading', 'Reading')]
+
+    data_options_field = forms.MultipleChoiceField(choices=object_choices)
+
+
 class LoadDataForm1(forms.Form):
     file_path = forms.CharField(max_length=50)
 

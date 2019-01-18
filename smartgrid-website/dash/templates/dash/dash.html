@@ -16,9 +16,20 @@
     <form action = "/dash/dash_statistics_1/" method = "get">
       <input type = "submit" value = "Statistics"  target="_self"/>
     </form>
-    <form action = "/dash/dash_load_data1/" method = "get">
+    <form action = "/dash/dash_load_data_1/" method = "get">
       <input type = "submit" value = "Upload Data"  target="_self"/>
     </form>
+    <form action = "/dash/dash_create_data_1/" method = "get">
+      <input type = "submit" value = "Create Random Data"  target="_self"/>
+    </form>
+
+    <p>
+      The SmartGrid Command and Control Center can compute a handful of statistics from it's database of power
+      consumption readings. The current computable statistics are mean, standard deviation, minimum, maximum, and range.
+      In addition, you can compute these statistics on either past consumption or temperature readings. The command
+      and Control Center also has the capability of uploading data. To use either of these features just click on the
+      corresponding button!
+    </p>
 
     {% if messages %}
     <ul class="messages">
@@ -29,19 +40,13 @@
     {% endif %}
 
     {% block statistic %}
-      <p>
-        The SmartGrid Command and Control Center can compute a handful of statistics from it's database of power
-        consumption readings. The current computable statistics are mean, standard deviation, minimum, maximum, and range.
-        In addition, you can compute these statistics on either past consumption or temperature readings. The command
-        and Control Center also has the capability of uploading data. To use either of these features just click on the
-        corresponding button!
-      </p>
     {% endblock statistic %}
-    {% block statistic_javascript %}
-    {% endblock statistic_javascript %}
 
     {% block upload_data %}
     {% endblock upload_data %}
+
+    {% block create_data %}
+    {% endblock create_data %}
 
     <form action = "/dash/" method = "get">
       <input type = "submit" value = "SmartGrid Reset"  target="_self"/>
