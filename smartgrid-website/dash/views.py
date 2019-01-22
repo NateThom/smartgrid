@@ -5,8 +5,11 @@ from django import forms
 
 from .forms import CreateDataForm1, CreateDataForm2, LoadDataForm1, StatisticForm1, StatisticForm2
 from .models import Data, Reading, Region, Aggregator, Neighborhood, House
+from autofixture import AutoFixture
 
 import scipy.io as spio
+import random
+import datetime
 
 
 # All views are function based views. For more information see Django documentation
@@ -31,7 +34,7 @@ def dash_create_data_1(request):
 
 def dash_create_data_2(request):
     # These variables store the data that is found in the url/request from the first form
-    data_selection = request.GET.getlist('data_option_field')
+    data_selection = request.GET.getlist('data_options_field')
 
     for user_selection in data_selection:
         if user_selection == 'Aggregator':
@@ -78,6 +81,70 @@ def dash_create_data_2(request):
     context = {'data_selection': data_selection, 'create_data_form_2': create_data_form_2}
 
     return render(request, 'dash/dash_create_data_2.html', context)
+
+
+def dash_create_data_3(request):
+    def gen_datetime(min_year, max_year):
+        # generate a datetime in format yyyy-mm-dd hh:mm:ss.000000
+        start = datetime.datetime(min_year, 1, 1, 00, 00, 00)
+        years = max_year - min_year + 1
+        end = start + datetime.timedelta(days=365 * years)
+        return start + (end - start) * random.random()
+
+    if 'number_of_regions' in request.GET:
+        number_of_regions = int(request.GET['number_of_regions'])
+        for region in range(0, number_of_regions):
+            fixture = AutoFixture(Region)
+            entries = fixture.create(1)
+
+    if 'number_of_aggregators' in request.GET:
+        number_of_aggregators = int(request.GET['number_of_aggregators'])
+        for aggregator in range(0, number_of_aggregators):
+            fixture = AutoFixture(Aggregator)
+            entries = fixture.create(1)
+
+    if 'number_of_neighborhoods' in request.GET:
+        number_of_neighborhoods = int(request.GET['number_of_neighborhoods'])
+        for neighborhood in range(0, number_of_neighborhoods):
+            fixture = AutoFixture(Neighborhood)
+            entries = fixture.create(1)
+
+    if 'number_of_houses' in request.GET:
+        number_of_houses = int(request.GET['number_of_houses'])
+        for house in range(0, number_of_houses):
+            fixture = AutoFixture(House)
+            entries = fixture.create(1)
+
+    if 'number_of_readings' in request.GET:
+        number_of_readings = int(request.GET['number_of_readings'])
+        start_year = int(request.GET['start_year'])
+        end_year = int(request.GET['end_year'])
+        max_consumption = int(request.GET['max_consumption'])
+        consumption_units = request.GET['consumption_units']
+        min_temperature = int(request.GET['min_temperature'])
+        max_temperature = int(request.GET['max_temperature'])
+        temperature_units = request.GET['temperature_units']
+        currency_of_cost = request.GET['currency_of_cost']
+        for reading in range(0, number_of_readings):
+            fixture = AutoFixture(Reading,
+                                  field_values={
+                                      'region': random.choice(Region.objects.all()),
+                                      'aggregator': random.choice(Aggregator.objects.all()),
+                                      'neighborhood': random.choice(Neighborhood.objects.all()),
+                                      'house': random.choice(House.objects.all()),
+                                      'date': gen_datetime(start_year, end_year),
+                                      'consumption': random.randint(0, max_consumption),
+                                      'consumption_units': consumption_units,
+                                      'temperature': random.randint(min_temperature, max_temperature),
+                                      'temperature_units': temperature_units,
+                                      'cost': max_consumption,
+                                      'currency': currency_of_cost
+                                  })
+            entries = fixture.create(1)
+
+    messages.success(request, 'Reading generation complete.')
+    return redirect('/dash/dash_create_data_1/')
+
 
 def dash_load_data_1(request):
     # This form is defined in forms.py

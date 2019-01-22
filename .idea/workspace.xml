@@ -4,11 +4,7 @@
     <list default="true" id="3736d0e7-bfd9-4459-ad8a-8b39315d3b48" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/smartgrid-website/dash/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/smartgrid-website/dash/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/smartgrid-website/dash/templates/dash/dash.html" beforeDir="false" afterPath="$PROJECT_DIR$/smartgrid-website/dash/templates/dash/dash.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/smartgrid-website/dash/templates/dash/dash_load_data1.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/smartgrid-website/dash/templates/dash/dash_statistics.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/smartgrid-website/dash/templates/dash/dash_statistics_1.html" beforeDir="false" afterPath="$PROJECT_DIR$/smartgrid-website/dash/templates/dash/dash_statistics_1.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/smartgrid-website/dash/templates/dash/dash_statistics_2.html" beforeDir="false" afterPath="$PROJECT_DIR$/smartgrid-website/dash/templates/dash/dash_statistics_2.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smartgrid-website/dash/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/smartgrid-website/dash/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/smartgrid-website/dash/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/smartgrid-website/dash/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/smartgrid-website/dash/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/smartgrid-website/dash/views.py" afterDir="false" />
     </list>
@@ -23,11 +19,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="75" lean-forward="true" selection-start-line="75" selection-end-line="75" />
+            <state relative-caret-position="540">
+              <caret line="126" column="52" selection-start-line="126" selection-start-column="52" selection-end-line="126" selection-end-column="52" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -38,8 +34,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="12" column="1" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
+            <state relative-caret-position="225">
+              <caret line="15" column="4" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="4" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -48,19 +44,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/templates/dash/dash_load_data_1.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="11" column="43" selection-start-line="11" selection-start-column="43" selection-end-line="11" selection-end-column="43" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="675">
-              <caret line="69" column="60" lean-forward="true" selection-start-line="35" selection-start-column="4" selection-end-line="69" selection-end-column="60" />
+            <state relative-caret-position="796">
+              <caret line="145" column="43" selection-start-line="145" selection-start-column="43" selection-end-line="145" selection-end-column="43" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
               </folding>
@@ -68,11 +55,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/forms.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="694">
-              <caret line="86" column="68" selection-start-line="86" selection-start-column="68" selection-end-line="86" selection-end-column="68" />
+            <state relative-caret-position="150">
+              <caret line="10" column="54" lean-forward="true" selection-start-line="7" selection-start-column="4" selection-end-line="10" selection-end-column="54" />
               <folding>
                 <element signature="e#0#24#0" expanded="true" />
               </folding>
@@ -91,7 +78,29 @@
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/templates/dash/dash_create_data_1.html">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="13" column="9" lean-forward="true" selection-start-line="13" selection-start-column="9" selection-end-line="13" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/templates/dash/dash_create_data_2.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="10" selection-start-line="10" selection-end-line="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/templates/dash/dash_load_data_1.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="165">
+              <caret line="11" column="43" selection-start-line="11" selection-start-column="43" selection-end-line="11" selection-end-column="43" />
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -106,8 +115,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/templates/dash/dash_statistics_2.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="30" selection-start-column="30" selection-end-column="30" />
+            <state relative-caret-position="330">
+              <caret line="22" column="8" lean-forward="true" selection-start-line="8" selection-start-column="4" selection-end-line="22" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -118,6 +127,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -127,6 +137,7 @@
       <find>some_var</find>
       <find>mean_</find>
       <find>mean</find>
+      <find>kwargs</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -135,7 +146,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/smartgrid-website/dash/models.py" />
         <option value="$PROJECT_DIR$/smartgrid-website/smartgrid/urls.py" />
         <option value="$PROJECT_DIR$/smartgrid-website/dash/templates/dash/dash_statistics_mean_2.html" />
         <option value="$PROJECT_DIR$/smartgrid-website/smartgrid/settings.py" />
@@ -147,17 +157,18 @@
         <option value="$PROJECT_DIR$/smartgrid-website/dash/templates/dash/dash_create_data1.html.py" />
         <option value="$PROJECT_DIR$/smartgrid-website/dash/templates/dash/dash_load_data_1.html" />
         <option value="$PROJECT_DIR$/smartgrid-website/dash/templates/dash/dash.html" />
-        <option value="$PROJECT_DIR$/smartgrid-website/dash/urls.py" />
-        <option value="$PROJECT_DIR$/smartgrid-website/dash/views.py" />
         <option value="$PROJECT_DIR$/smartgrid-website/dash/forms.py" />
+        <option value="$PROJECT_DIR$/smartgrid-website/dash/urls.py" />
+        <option value="$PROJECT_DIR$/smartgrid-website/dash/templates/dash/dash_create_data_2.html" />
+        <option value="$PROJECT_DIR$/smartgrid-website/dash/views.py" />
+        <option value="$PROJECT_DIR$/smartgrid-website/dash/models.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1433" />
-    <option name="y" value="25" />
-    <option name="width" value="1853" />
-    <option name="height" value="1055" />
+    <option name="x" value="1502" />
+    <option name="width" value="1024" />
+    <option name="height" value="576" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -210,6 +221,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
@@ -266,18 +278,20 @@
       <option name="presentableId" value="Default" />
       <updated>1545948732919</updated>
       <workItem from="1547499725351" duration="3292000" />
-      <workItem from="1547668947112" duration="50680000" />
+      <workItem from="1547668947112" duration="51261000" />
+      <workItem from="1548032857507" duration="2000" />
+      <workItem from="1548145403495" duration="4719000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="53972000" />
+    <option name="totallyTimeSpent" value="59274000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1433" y="25" width="1853" height="1055" extended-state="6" />
+    <frame x="1366" y="-2" width="1920" height="1082" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17542888" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18409818" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -314,13 +328,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/templates/dash/dash_statistics_mean_2.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="8" selection-start-line="16" selection-start-column="8" selection-end-line="16" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/templates/dash/dash_statistics_mean_2.html" />
     <entry file="file://$PROJECT_DIR$/smartgrid-website/smartgrid/settings.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
@@ -328,20 +336,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data_generation_script.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/templates/dash/dash_statistics.html">
+    <entry file="file://$PROJECT_DIR$/data_generation_script.py" />
+    <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/templates/dash/dash_statistics.html" />
+    <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/templates/dash/dash_load_data1.html" />
+    <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/templates/dash/dash_create_data1.html.py" />
+    <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/templates/dash/dash.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="705">
-          <caret line="47" column="24" selection-start-line="47" selection-start-column="24" selection-end-line="47" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/templates/dash/dash_statistics_2.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="30" selection-start-column="30" selection-end-column="30" />
+        <state relative-caret-position="315">
+          <caret line="21" column="43" selection-start-line="21" selection-start-column="43" selection-end-line="21" selection-end-column="43" />
         </state>
       </provider>
     </entry>
@@ -349,30 +351,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret column="30" selection-start-column="30" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/templates/dash/dash_load_data1.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="37" selection-start-line="12" selection-start-column="37" selection-end-line="12" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/templates/dash/dash_create_data1.html.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/templates/dash/dash_create_data_1.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/templates/dash/dash.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="43" selection-start-line="21" selection-start-column="43" selection-end-line="21" selection-end-column="43" />
         </state>
       </provider>
     </entry>
@@ -385,40 +363,61 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="1" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
+        <state relative-caret-position="225">
+          <caret line="15" column="4" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="4" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/models.py">
+    <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/templates/dash/dash_create_data_1.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="75" lean-forward="true" selection-start-line="75" selection-end-line="75" />
+        <state relative-caret-position="195">
+          <caret line="13" column="9" lean-forward="true" selection-start-line="13" selection-start-column="9" selection-end-line="13" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/templates/dash/dash_statistics_2.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" column="8" lean-forward="true" selection-start-line="8" selection-start-column="4" selection-end-line="22" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/templates/dash/dash_create_data_2.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="54" lean-forward="true" selection-start-line="7" selection-start-column="4" selection-end-line="10" selection-end-column="54" />
           <folding>
-            <element signature="e#0#28#0" expanded="true" />
+            <element signature="e#0#24#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
-          <caret line="69" column="60" lean-forward="true" selection-start-line="35" selection-start-column="4" selection-end-line="69" selection-end-column="60" />
+        <state relative-caret-position="796">
+          <caret line="145" column="43" selection-start-line="145" selection-start-column="43" selection-end-line="145" selection-end-column="43" />
           <folding>
             <element signature="e#0#36#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/forms.py">
+    <entry file="file://$PROJECT_DIR$/smartgrid-website/dash/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="694">
-          <caret line="86" column="68" selection-start-line="86" selection-start-column="68" selection-end-line="86" selection-end-column="68" />
+        <state relative-caret-position="540">
+          <caret line="126" column="52" selection-start-line="126" selection-start-column="52" selection-end-line="126" selection-end-column="52" />
           <folding>
-            <element signature="e#0#24#0" expanded="true" />
+            <element signature="e#0#28#0" expanded="true" />
           </folding>
         </state>
       </provider>

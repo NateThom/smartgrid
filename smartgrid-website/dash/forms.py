@@ -4,23 +4,20 @@ from .models import Reading, Region, Aggregator, Neighborhood, House
 
 
 class CreateDataForm2(forms.Form):
-    data_selection = kwargs.pop('data_selection', None)
-
     # First define the fields that will be in the form. The form will have three
-    # fields: position, modifier, and time_period
-    number_of_regions_field = forms.IntegerField(min_value=1)
-    number_of_aggregators_field = forms.IntegerField(min_value=1)
-    number_of_neighborhoods_field = forms.IntegerField(min_value=1)
-    number_of_houses_field = forms.IntegerField(min_value=1)
+    number_of_regions = forms.IntegerField(min_value=1)
+    number_of_aggregators = forms.IntegerField(min_value=1)
+    number_of_neighborhoods = forms.IntegerField(min_value=1)
+    number_of_houses = forms.IntegerField(min_value=1)
 
-    number_of_readings_field = forms.IntegerField(min_value=1)
+    number_of_readings = forms.IntegerField(min_value=1)
     start_year = forms.IntegerField(min_value=1)
     end_year = forms.IntegerField(min_value=1)
     max_consumption = forms.IntegerField(min_value=1)
-    consumption_units = forms.CharField = 'kWh'
+    consumption_units = forms.CharField()
     min_temperature = forms.IntegerField()
     max_temperature = forms.IntegerField()
-    temperature_units = forms.ChoiceField(choices=[('F','F'),('C','C')])
+    temperature_units = forms.ChoiceField(choices=[('F', 'F'), ('C', 'C')])
     currency_of_cost = forms.CharField()
 
     # __init__ is a fucntion that runs before anything else in the class. In C
@@ -30,17 +27,19 @@ class CreateDataForm2(forms.Form):
         # when it was called from the views.py
         data_selection = kwargs.pop('data_selection', None)
 
-        self.fields['number_of_regions_field'].initial = 0
-        self.fields['number_of_regions_field'].disabled = True
-        self.fields['number_of_aggregators_field'].initial = 0
-        self.fields['number_of_aggregators_field'].disabled = True
-        self.fields['number_of_neighborhoods_field'].initial = 0
-        self.fields['number_of_neighborhoods_field'].disabled = True
-        self.fields['number_of_houses_field'].initial = 0
-        self.fields['number_of_houses_field'].disabled = True
+        super().__init__(*args, **kwargs)
 
-        self.fields['number_of_readings_field'].initial = 0
-        self.fields['number_of_readings_field'].disabled = True
+        self.fields['number_of_regions'].initial = 0
+        self.fields['number_of_regions'].disabled = True
+        self.fields['number_of_aggregators'].initial = 0
+        self.fields['number_of_aggregators'].disabled = True
+        self.fields['number_of_neighborhoods'].initial = 0
+        self.fields['number_of_neighborhoods'].disabled = True
+        self.fields['number_of_houses'].initial = 0
+        self.fields['number_of_houses'].disabled = True
+
+        self.fields['number_of_readings'].initial = 0
+        self.fields['number_of_readings'].disabled = True
         self.fields['start_year'].initial = 0
         self.fields['start_year'].disabled = True
         self.fields['end_year'].initial = 0
@@ -57,34 +56,33 @@ class CreateDataForm2(forms.Form):
         self.fields['currency_of_cost'].initial = 'None'
         self.fields['currency_of_cost'].disabled = True
 
-
-        super().__init__(*args, **kwargs)
-
         if data_selection:
             for user_selection in data_selection:
                 if user_selection == 'Region':
-                    self.fields['number_of_regions_field'].initial = 1
-                    self.fields['number_of_regions_field'].disabled = False
+                    self.fields['number_of_regions'].initial = 1
+                    self.fields['number_of_regions'].disabled = False
                 elif user_selection == 'Aggregator':
-                    self.fields['number_of_aggregators_field'].initial = 1
-                    self.fields['number_of_aggregators_field'].disabled = False
+                    self.fields['number_of_aggregators'].initial = 1
+                    self.fields['number_of_aggregators'].disabled = False
                 elif user_selection == 'Neighborhood':
-                    self.fields['number_of_neighborhoods_field'].initial = 1
-                    self.fields['number_of_neighborhoods_field'].disabled = False
+                    self.fields['number_of_neighborhoods'].initial = 1
+                    self.fields['number_of_neighborhoods'].disabled = False
                 elif user_selection == 'House':
-                    self.fields['number_of_houses_field'].initial = 1
-                    self.fields['number_of_houses_field'].disabled = False
+                    self.fields['number_of_houses'].initial = 1
+                    self.fields['number_of_houses'].disabled = False
                 elif user_selection == 'Reading':
-                    self.fields['number_of_readings_field'].initial = 1
-                    self.fields['number_of_readings_field'].disabled = False
+                    self.fields['number_of_readings'].initial = 1
+                    self.fields['number_of_readings'].disabled = False
                     self.fields['start_year'].disabled = False
                     self.fields['end_year'].disabled = False
                     self.fields['max_consumption'].disabled = False
                     self.fields['consumption_units'].disabled = False
+                    self.fields['consumption_units'].initial = 'kWh'
                     self.fields['min_temperature'].disabled = False
                     self.fields['max_temperature'].disabled = False
                     self.fields['temperature_units'].disabled = False
                     self.fields['currency_of_cost'].disabled = False
+                    self.fields['currency_of_cost'].initial = 'USD'
 
 
 class CreateDataForm1(forms.Form):

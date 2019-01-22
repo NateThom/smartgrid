@@ -1,0 +1,17 @@
+{% extends "dash/dash.html" %}
+
+{% block create_data %}
+  <h2>Smartgrid Create Data</h2>
+  <h3>Create Data: Form 2</h3>
+
+  <form id="create_data_form_2" action = "dash_create_data_3/" method="get">
+
+    {{create_data_form_2|linebreaks}}
+    <input type = "submit" value = "Submit"  target="_self"/>
+
+  </form>
+
+  <form id="reset" action="/dash/dash_create_data_1/">
+    <input type="submit" value="Create Data Reset" />
+  </form>
+{% endblock create_data %}
