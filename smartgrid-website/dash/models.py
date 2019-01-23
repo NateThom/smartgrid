@@ -87,13 +87,6 @@ class Reading(models.Model):
     aggregator = models.ForeignKey('Aggregator', on_delete=models.CASCADE)
     region = models.ForeignKey('Region', on_delete=models.CASCADE)
 
-    # year = models.CharField(max_length=4, default="2018", null=True)
-    # month = models.CharField(max_length=2, default="01", null=True)
-    # day = models.CharField(max_length=2, default="01", null=True)
-    # hour = models.CharField(max_length=2, default="00", null=True)
-    # minute = models.CharField(max_length=2, default="00", null=True)
-    # second = models.CharField(max_length=2, default="00", null=True)
-
     date = models.DateTimeField(default=timezone.now)
 
     consumption = models.BigIntegerField(default=0)
@@ -106,13 +99,7 @@ class Reading(models.Model):
     currency = models.CharField(max_length=3, default="USD")
 
     class Meta:
-        unique_together = ("reading",
-                           # "year",
-                           # "month",
-                           # "day",
-                           # "hour",
-                           # "minute",
-                           # "second",
+        unique_together = (
                            "date",
                            "house",
                            "neighborhood",
@@ -120,7 +107,8 @@ class Reading(models.Model):
                            "region",
                            "consumption",
                            "temperature",
-                           "cost")
+                           "cost"
+                            )
 
     def __str__(self):
         return str(self.region_id) + "/" + str(self.aggregator_id) + "/" + str(self.neighborhood_id) + "/" + str(
@@ -136,13 +124,13 @@ class Reading(models.Model):
 # __str__(self) gives the model a name in the django api. The name is a string
 # made up of the fields in the return statement
 class Region(models.Model):
-    region = models.CharField(max_length=25)
-    full_name = models.CharField(max_length=25, primary_key=True, default="full_name", )
+    region = models.CharField(max_length=25, unique=True)
+    full_name = models.CharField(max_length=25, primary_key=True, default="full_name")
 
     def __str__(self):
         return self.region
 
-    def save(self):
+    def save(self, **kwargs):
         self.full_name = self.region
         super(Region, self).save()
 
@@ -165,12 +153,12 @@ class Aggregator(models.Model):
     full_name = models.CharField(max_length=51, primary_key=True, default="full_name")
 
     class Meta:
-        unique_together = (("aggregator", 'region'),)
+        unique_together = (('aggregator', 'region'),)
 
     def __str__(self):
         return self.region_id + "/" + self.aggregator
 
-    def save(self):
+    def save(self, **kwargs):
         self.full_name = self.region_id + "/" + self.aggregator
         super(Aggregator, self).save()
 
@@ -197,16 +185,16 @@ class Neighborhood(models.Model):
     full_name = models.CharField(max_length=78, primary_key=True, default="full_name")
 
     class Meta:
-        unique_together = ((
-                               "neighborhood",
-                               "aggregator",
-                               "region"
-                           ),)
+        unique_together = (
+                            "neighborhood",
+                            "aggregator",
+                            "region"
+                           )
 
     def __str__(self):
         return self.aggregator_id + "/" + self.neighborhood
 
-    def save(self):
+    def save(self, **kwargs):
         self.full_name = self.aggregator_id + "/" + self.neighborhood
         super(Neighborhood, self).save()
 
@@ -236,17 +224,17 @@ class House(models.Model):
     full_name = models.CharField(max_length=106, primary_key=True, default="full_name")
 
     class Meta:
-        unique_together = ((
-                               "house",
-                               "neighborhood",
-                               "aggregator",
-                               "region"
-                           ),)
+        unique_together = (
+                            "house",
+                            "neighborhood",
+                            "aggregator",
+                            "region"
+                           )
 
     def __str__(self):
         return self.neighborhood_id + "/" + self.house
 
-    def save(self):
+    def save(self, **kwargs):
         self.full_name = self.neighborhood_id + "/" + self.house
         super(House, self).save()
 

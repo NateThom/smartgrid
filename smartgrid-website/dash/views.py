@@ -7,9 +7,10 @@ from .forms import CreateDataForm1, CreateDataForm2, LoadDataForm1, StatisticFor
 from .models import Data, Reading, Region, Aggregator, Neighborhood, House
 from autofixture import AutoFixture
 
-import scipy.io as spio
 import random
 import datetime
+import json
+import os.path
 
 
 # All views are function based views. For more information see Django documentation
@@ -158,34 +159,68 @@ def dash_load_data_1(request):
 def dash_load_data_2(request):
     file_path = request.GET['file_path']
 
-    for file_number in range(1, 1153):
-        mat = spio.loadmat(f'{file_path}/data{file_number}.mat', squeeze_me=True)
+    if os.path.isfile(file_path):
+        with open(file_path) as file:
+            data = json.load(file)
 
-        data_array = mat['dataArray']
-        time_data = data_array[0]
-        voltage_a_data = data_array[1]
-        voltage_b_data = data_array[2]
-        voltage_c_data = data_array[3]
+        for region_data in data['region']:
+            region_instance = Region.objects.create(region=region_data['region'])
 
-        for sample in range(0, len(data_array[0])):
-            time = time_data[sample]
-            volt_a = voltage_a_data[sample]
-            volt_b = voltage_b_data[sample]
-            volt_c = voltage_c_data[sample]
-            data_instance = Data.objects.create(timestamp=time,
-                                                voltage_a=volt_a,
-                                                voltage_b=volt_b,
-                                                voltage_c=volt_c)
+        for aggregator_data in data['aggregator']:
+            if len(Region.objects.filter(region=aggregator_data['region'])) > 0:
+                aggregator_instance = Aggregator.objects.create(
+                                                                region=Region.objects.filter(region=aggregator_data['region'])[0],
+                                                                aggregator=aggregator_data['aggregator']
+                                                                )
+        for neighborhood_data in data['neighborhood']:
+            if len(Region.objects.filter(region=neighborhood_data['region'])) > 0 and len(
+                    Aggregator.objects.filter(aggregator=neighborhood_data['aggregator'])) > 0:
+                neighborhood_instance = Neighborhood.objects.create(
+                                                                    region=Region.objects.filter(region=neighborhood_data['region'])[0],
+                                                                    aggregator=Aggregator.objects.filter(aggregator=neighborhood_data['aggregator'])[0],
+                                                                    neighborhood=neighborhood_data['neighborhood']
+                                                                    )
 
-    messages.success(request, "YESSSS!")
-    return redirect('/dash/')
+        for house_data in data['house']:
+            if len(Region.objects.filter(region=house_data['region'])) > 0 and len(
+                    Aggregator.objects.filter(aggregator=house_data['aggregator'])) > 0 and len(
+                    Neighborhood.objects.filter(neighborhood=house_data['neighborhood'])):
+                house_instance = House.objects.create(region=Region.objects.filter(region=house_data['region']),
+                                                      aggregator=house_data['aggregator'],
+                                                      neighborhood=house_data['neighborhood'],
+                                                      house=house_data['house']
+                                                      )
 
-    # if(file_path):
-    #     messages.success(request, file_path)
-    #     return redirect('/dash/')
-    # else:
-    #     messages.warning(request, 'Unfortunately, there was an error while uploading the data.')
-    #     return redirect('/dash/dash_load_data1.html/')
+        for reading_data in data['reading']:
+            if len(Region.objects.filter(region=reading_data['region'])) > 0 and len(
+                    Aggregator.objects.filter(aggregator=reading_data['aggregator'])) > 0 and len(
+                    Neighborhood.objects.filter(neighborhood=reading_data['neighborhood'])) and len(
+                    House.objects.filter(house=reading_data['house'])):
+                reading_instance = Reading.objects.create(date=eval(reading_data['date']),
+                                                          consumption=reading_data['consumption'],
+                                                          consumption_units=reading_data['consumption_units'],
+                                                          temperature=reading_data['temperature'],
+                                                          temperature_units=reading_data['temperature_units'],
+                                                          cost=reading_data['cost'],
+                                                          currency=reading_data['currency'],
+                                                          region=Region.objects.filter(region=reading_data['region']),
+                                                          aggregator=Aggregator.objects.filter(region=reading_data['region'],
+                                                                                               aggregator=reading_data['aggregator']),
+                                                          neighborhood=Neighborhood.objects.filter(region=reading_data['region'],
+                                                                                                   aggregator=reading_data['aggregator'],
+                                                                                                   neighborhood=reading_data['neighborhood']),
+                                                          house=House.objects.filter(region=reading_data['region'],
+                                                                                     aggregator=reading_data['aggregator'],
+                                                                                     neighborhood=reading_data['neighborhood'],
+                                                                                     house=reading_data['house'])
+                                                          )
+
+        messages.success(request, "Successfully processed the file.")
+        return redirect('/dash/dash_load_data_1')
+
+    else:
+        messages.warning(request, f"Cannot find file at: {file_path}")
+        return redirect('/dash/dash_load_data_1/')
 
 
 # This view is the first form for the Mean statistic selection. In this form the
@@ -272,7 +307,7 @@ def dash_statistics_solution(request):
     # is "year"
 
     # time_period_parameter = form_1_time_period_selection
-    #loop through these for as many items are in the form2_time_period_selection list
+    # loop through these for as many items are in the form2_time_period_selection list
     for user_selection in form_2_time_period_selection:
 
         if form_1_time_period_selection == 'Year':
@@ -316,7 +351,7 @@ def dash_statistics_solution(request):
             kwargs['date__year'] = user_selection[6:]
 
         elif form_1_time_period_selection == 'Hour':
-            #hour
+            # hour
             if user_selection[0] == '0':
                 kwargs['date__hour'] = user_selection[1]
             else:
@@ -346,7 +381,8 @@ def dash_statistics_solution(request):
             final_query_set.append(query)
 
     if len(final_query_set) == 0:
-        messages.warning(request, f"There are no objects that match your search criteria. Please change the search parameters and try again.")
+        messages.warning(request,
+                         f"There are no objects that match your search criteria. Please change the search parameters and try again.")
         return redirect('/dash/dash_statistics_1/')
 
     mean = 0
@@ -405,9 +441,9 @@ def dash_statistics_solution(request):
 
         for item in st_dev_normalized_set:
             st_dev_normalized_set_mean = st_dev_normalized_set_mean + item
-        st_dev_normalized_set_mean = st_dev_normalized_set_mean/len(st_dev_normalized_set)
+        st_dev_normalized_set_mean = st_dev_normalized_set_mean / len(st_dev_normalized_set)
 
-        st_dev = st_dev_normalized_set_mean**(.5)
+        st_dev = st_dev_normalized_set_mean ** (.5)
 
     # Send a message to Django's messages framework. For more information on how that
     # works checkout the documentation or take a look at this tutorial:

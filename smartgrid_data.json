@@ -1,0 +1,29 @@
+{
+    "aggregator": [
+        "Aspe"
+    ],
+    "house": [
+        "Aliquam magnam nam, mol"
+    ],
+    "neighborhood": [
+        "Expl"
+    ],
+    "reading": [
+        {
+            "aggregator": "Reading.objects.filter(aggregator = \"Molestiae sapient/Aspe\")",
+            "consumption": 8139,
+            "consumption_units": "kWh",
+            "cost": 10,
+            "currency": "USD",
+            "date": "datetime.datetime(2019, 11, 30, 05, 37, 41.239789)",
+            "house": "Reading.objects.filter(aggregator = \"Molestiae sapient/Aspe/Expl/Aliquam magnam nam, mol\")",
+            "neighborhood": "Reading.objects.filter(aggregator = \"Molestiae sapient/Aspe/Expl\")",
+            "region": "Reading.objects.filter(region = \"Molestiae sapient\")",
+            "temperature": 66,
+            "temperature_units": "F"
+        }
+    ],
+    "region": [
+        "Molestiae sapient"
+    ]
+}
